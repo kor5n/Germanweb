@@ -61,8 +61,56 @@ header{
 }
 main{
     padding-top: 5%;
-    padding-left: 8%;
+    padding-left: 20%;
+}
+.input-div{
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: left;
     padding-right: 8%;
+}
+
+.term-div{
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.add-term-btn{
+    margin-top: 1.5%;
+    height: 40px;
+    width: 40px;
+    color: white;
+    background-color: #FFC107;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+    font-weight: 600;
+}
+.submit-btn{
+    margin-left: 1.5%;
+    height: 40px;
+    width: 120px;
+    color: white;
+    background-color: #4255FF;
+    border: 1px solid #00BCD4;
+    border-radius: 6px;
+    font-weight: 600;
+}
+.rm-term-btn{
+    height: 40px;
+    width: 40px;
+    color: white;
+    font-weight: 600;
+    background-color: red;
+    border: 1px solid #00BCD4;
+    border-radius: 6px;
+    margin-left: 1.5%;
+}
+.sign-in:hover{
+    background-color: #198895;
+}
+.log-in:hover{
+    background-color: #8cbec4;
 }
 .test-name{
     margin-bottom: 3%;
@@ -140,9 +188,78 @@ main{
     border: 1px solid #0097A7;
     border-radius: 6px;
 }
-.sign-in:hover{
-    background-color: #198895;
+.sign-up-div, .log-in-div{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: white;
+    width: 29%;
+    margin: auto;
+    border: 1px solid #00BCD4;
+    border-radius: 6px;
+    height: 250px;
+    justify-content: center;
+    justify-items: center;
+    padding: 1%;
+    right: 128px;
 }
-.log-in:hover{
-    background-color: #8cbec4;
+.sign-up-div{
+    display: none;
+}
+.term-input,.title-input,.desc-input, .def-input  {
+    border: none;
+    padding: 12px;
+    width: 250px;
+    background: #f2f2f2;
+    border-radius: 3px;
+    outline: none;
+    width: fit-content;
+}
+
+.desc-input{
+    margin-top: 2%;
+}
+.singup-btn, .login-btn{
+    width: 100px;
+    margin: 0 auto
+}
+.eye-icon{
+    position: absolute;
+    height: 14px;
+    width: 19px;
+    border: none;
+    border-radius: 30px;
+    background-color: #fff;
+    background-image: url("img/eyeIconBetter.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    right: 40.2%;
+    top: 34.25%;
+    z-index: 1;
+}
+.eye-icon:hover{
+    background-color: rgb(246, 241, 241);
+}
+input{
+    margin-left: 13%;
+    margin-bottom: 10%;
+    width: 65%;
+    padding-left: 3%;
+    padding-right: 6%;
+    resize: none;
+}
+.add-btn{
+    background-color: #FFC107;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+    height: 120px;
+    color: white;
+    width: 160px;
+    font-size: 250%;
+    padding: 0.5%;
+}
+.add-btn:hover{
+    background-color: #cfa72f;
 }

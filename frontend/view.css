@@ -1,0 +1,148 @@
+body{
+    background: #00BCD4;
+}
+header{
+    background-color: #0097A7;
+    padding-top: 1%;
+    border-bottom: 1px solid #BDBDBD;
+    height: 60px;
+}
+.comp-name{
+    margin-left: 2%;
+    font-size: 250%;
+    height: 100%;
+    width: fit-content;
+    font-weight: 700;
+}
+.link-div{
+    margin-left: 5%;
+    margin-bottom: 1.25%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 50%;
+    vertical-align: middle;
+}
+.page-link{
+    text-decoration: none;
+    color: #FFFFFF;
+    margin-right: 8%;
+}
+.profile-pic{
+    display: none;
+    vertical-align: middle;
+    float: right;
+    margin-right: 2.5%;
+    border: 0.5px double grey;
+    border-radius: 100%;
+    height: 70%;
+    width: 42px;
+}
+.log-in{
+    height: 60%;
+    background-color: #B2EBF2;
+    color: #757575;
+    border: 1px solid white;
+    border-radius: 5px;
+    float: right;
+    margin-right: 1%;
+    margin-top: .25%;
+    width: 90px;
+}
+.sign-in{
+    margin-top: .25%;
+    margin-right: 0.5%;
+    float: right;
+    height: 60%;
+    background-color: #0097A7;
+    border: 1px solid white;
+    border-radius:5px;
+    width: 90px;
+}
+main{
+    padding-top: 5%;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+.test-name{
+    margin-bottom: 3%;
+    font-weight: 600;
+    font-size: 330%;
+}
+.show-def{
+    margin-bottom: 3%;
+    background: #B2EBF2;
+    width: 70%;
+    height: 50px;
+    font-size: xx-large;
+    padding-top: 12px;
+    padding-left: 1%;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+}
+.def-text{
+    margin-left: 3%;
+}
+.play-btn-div{
+    display: flex;
+    margin-bottom: 2.5%;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.flash-btn{
+    color: white;
+    background: #4255FF;
+    height: 60px;
+    width: 85px;
+    text-align: center;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+    font-weight: 550;
+}
+.mult-btn{
+    color: white;
+    font-weight: 550;
+    margin-left: 3%;
+    background: #e2ab05;
+    height: 60px;
+    width: 85px;
+    text-align: center;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+}
+.write-btn{
+    color: white;
+    font-weight: 550;
+    margin-left: 3%;
+    background: #046f19;
+    height: 60px;
+    width: 85px;
+    text-align: center;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+}
+.edit-btn{
+    display: inline-block;
+    background-color: rgb(64, 208, 64);
+    height: 60px;
+    width: 60px;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+    color: white;
+}
+.delete-btn{
+    color: white;
+    display: inline-block;
+    background-color: red;
+    margin-left: 3%;
+    height: 60px;
+    width: 60px;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+}
+.sign-in:hover{
+    background-color: #198895;
+}
+.log-in:hover{
+    background-color: #8cbec4;
+}

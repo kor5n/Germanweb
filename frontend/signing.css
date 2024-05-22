@@ -1,0 +1,118 @@
+body{
+    background: #00BCD4;
+}
+header{
+    background-color: #0097A7;
+    padding-top: 1%;
+    border-bottom: 1px solid #BDBDBD;
+    height: 60px;
+}
+.comp-name{
+    margin-left: 2%;
+    font-size: 250%;
+    height: 100%;
+    width: fit-content;
+    font-weight: 700;
+}
+.link-div{
+    margin-left: 5%;
+    margin-bottom: 1.25%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 50%;
+    vertical-align: middle;
+}
+.page-link{
+    text-decoration: none;
+    color: #FFFFFF;
+    margin-right: 8%;
+}
+.profile-pic{
+    display: none;
+    vertical-align: middle;
+    float: right;
+    margin-right: 2.5%;
+    border: 0.5px double grey;
+    border-radius: 100%;
+    height: 70%;
+    width: 42px;
+}
+.log-in{
+    height: 60%;
+    background-color: #B2EBF2;
+    color: #757575;
+    border: 1px solid white;
+    border-radius: 5px;
+    float: right;
+    margin-right: 1%;
+    margin-top: .25%;
+    width: 90px;
+}
+.sign-in{
+    margin-top: .25%;
+    margin-right: 0.5%;
+    float: right;
+    height: 60%;
+    background-color: #0097A7;
+    border: 1px solid white;
+    border-radius:5px;
+    width: 90px;
+}
+.sign-in:hover{
+    background-color: #198895;
+}
+.log-in:hover{
+    background-color: #8cbec4;
+}
+main{
+    padding-top: 5%;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+.sign-up-div, .log-in-div{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: white;
+    width: 29%;
+    margin: auto;
+    border: 1px solid #00BCD4;
+    border-radius: 6px;
+    height: 250px;
+    justify-content: center;
+    justify-items: center;
+    padding: 1%;
+}
+.sign-up-div{
+    display: none;
+}
+textarea, input{
+    margin-left: 13%;
+    margin-bottom: 10%;
+    width: 65%;
+    padding-left: 6%;
+    padding-right: 6%;
+    resize: none;
+}
+.singup-btn, .login-btn{
+    width: 100px;
+    margin: 0 auto
+}
+.eye-icon{
+    position: absolute;
+    height: 14px;
+    width: 19px;
+    border: none;
+    border-radius: 30px;
+    background-color: #fff;
+    background-image: url("img/eyeIconBetter.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    right: 40.2%;
+    top: 34.25%;
+}
+.eye-icon:hover{
+    background-color: rgb(246, 241, 241);
+}

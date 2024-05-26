@@ -220,7 +220,7 @@ main{
 .desc-input{
     margin-top: 2%;
 }
-.singup-btn, .login-btn{
+.signup-btn, .login-btn{
     width: 100px;
     margin: 0 auto
 }

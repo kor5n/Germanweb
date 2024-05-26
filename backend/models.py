@@ -16,8 +16,7 @@ class Test(db.Model):
             "description": self.description,
             "terms": self.terms,
             "defenition": self.defenition,
-            #"term": self.term,
-           # "defenition": self.defenition
+            "user_id": self.user_id
         }
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

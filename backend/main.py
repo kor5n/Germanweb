@@ -3,13 +3,18 @@ from config import app, db
 from models import Test, User
 import hashlib
 
-@app.route("/main", methods = ["GET"])
+@app.route("/tests", methods = ["GET"])
 def get_terms():
+    print(session["id"])
+    if not session["id"]:
+        return jsonify({"message": "You are not logged in"}), 401
     tests = Test.query.all()
-    users = User.query.all()
     json_tests = list(map(lambda x: x.to_json(), tests))
-    json_users = list(map(lambda x: x.to_json(), users))
-    return jsonify({"tests":  json_tests}, {"users": json_users})
+    user_tests = []
+    for test in json_tests:
+        if test["user_id"] == session["id"]:
+            user_tests.append(test)
+    return jsonify({"tests":  user_tests}), 200
 
 @app.route("/create", methods = ["POST", "PATCH"])
 def create_test():
@@ -69,6 +74,13 @@ def create_user():
     if not username or not email or not password:
         return (jsonify({"message": "You must include a username, email and password"}), 400)
     
+    users = User.query.all()
+    json_users = list(map(lambda x: x.to_json(), users))    
+
+    for user in json_users:
+        if email in user["email"]:
+            return jsonify({"message": "This email is already in use"})
+
     h = hashlib.new("SHA256")
     h.update(password.encode())
 

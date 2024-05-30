@@ -3,22 +3,25 @@ from config import app, db
 from models import Test, User
 import hashlib
 
-@app.route("/tests", methods = ["GET"])
+@app.route("/tests", methods = ["GET", "POST"])
 def get_terms():
-    print(session["id"])
-    if not session["id"]:
+    user = User.query.get(request.json.get("session_id"))
+    if user==None:
         return jsonify({"message": "You are not logged in"}), 401
     tests = Test.query.all()
     json_tests = list(map(lambda x: x.to_json(), tests))
     user_tests = []
     for test in json_tests:
-        if test["user_id"] == session["id"]:
+        if test["user_id"] == user.id:
             user_tests.append(test)
-    return jsonify({"tests":  user_tests}), 200
+    print(user_tests)
+    if len(user_tests)==0:
+        return jsonify({"message": "You don't have any tests"}), 200
+    return jsonify({"message":  user_tests}), 200
 
 @app.route("/create", methods = ["POST", "PATCH"])
 def create_test():
-    user_id = session["id"]
+    user_id = request.json.get("session_id")
     if not user_id:
         return jsonify({"message": "You are not logged in"}, 401)
     title = request.json.get("title")
@@ -91,10 +94,11 @@ def create_user():
         db.session.add(new_user)
         db.session.commit()
         session["id"] = new_user.id
+        print(session["id"])
     except Exception as e:
         return jsonify({"message": str(e)}), 400
         
-    return jsonify({"message": "New user created"}), 201
+    return jsonify({"message": "New user created", "cookie":session["id"]}), 201
 @app.route("/sign-in", methods=["GET" ,"POST"])
 def log_in():
     email = request.json.get("email")
@@ -114,7 +118,6 @@ def log_in():
         for user in json_users:
             if user["email"]==email and user["password"]==h.hexdigest():
                 session["id"] = user["id"]
-                print(session["id"])
                 break
     except Exception as e:
         print(e)

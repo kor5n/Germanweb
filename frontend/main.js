@@ -1,37 +1,49 @@
 
-//let cookies = document.cookie.split(";")
-//let isCookieSaved = false
-//let isLoggedIn = false
+let cookies = document.cookie.split(";")
+console.log(cookies)
+let isCookieSaved = false
+let isLoggedIn = false
+let session = "" 
 
 let logInBtn = document.querySelector(".log-in")
 let signInBtn = document.querySelector(".sign-in")
 let profilePic = document.querySelector(".profile-pic")
-/*for (let i = 0; i< cookies.length; i++){
-    if(cookies[i].split("=")[0] == "isLoggedIn"){
-        console.log(cookies[i].split("=")[0])
+for (let i = 0; i< cookies.length; i++){
+    if(cookies[i].split("=")[0] == "user"){
+        //console.log(cookies[i].split("=")[0])
         isCookieSaved = true
-        isLoggedIn = cookies[i].split("=")[1]
-        console.log(cookies[i].split("=")[1])
+        session = cookies[i].split("=")[1]
+        isLoggedIn = true
+        //console.log(cookies[i].split("=")[1])
         break
     }
-}*/
+}
 
 async function getData(){
-    const response = await fetch("http://127.0.0.1:5000/tests")
+    const sess = {
+        "session_id":session
+    }
+    const options = {
+        method: "POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(sess)
+    }
+    const response = await fetch("http://127.0.0.1:5000/tests", options)
     const data = await response.json()
-    
-    if(data.message != 200 && data.message != 201){
+    console.log(data.message)
+    if(response.status != 200 && response.status != 201){
         alert(data.message)
-        /*if(data.message == "you are not logged in"){
-            window.location.assign("singup.html")
-        }*/
+        document.cookie = `user=${session}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
     }
     else{
         logInBtn.style.display = "none"
         signInBtn.style.display = "none"
         profilePic.style.display = "inline"
-        console.log(data.tests)
-        data.tests.forEach(element => {
+        console.log(data.message)
+        console.log(typeof(data.message))
+        data.message.forEach(element => {
             console.log(element["title"])
             document.querySelector("main").innerHTML += `<div class="test-profile" onclick="location.href='view.html'">
                                                     <h3 class="test-name">${element["title"]}</h3>
@@ -39,29 +51,29 @@ async function getData(){
                                                     <p class="author-name">author name</p>
                                                 </div>`
         })
+        
+        
+        
     }
         
 
     
 }
-getData()
-/*if (isCookieSaved){
+if (isCookieSaved){
     if (isLoggedIn){
-        logInBtn.style.display = "none"
-        signInBtn.style.display = "none"
-        profilePic.style.display = "inline"
         getData()
+        
     } else{
         logInBtn.style.display = "inline-block"
         signInBtn.style.display = "inline-block"
         profilePic.style.display = "none"
     }
 }else{
-    document.cookie = `isLoggedIn=${isLoggedIn};max-age=9999999999999`
+    //window.location.assign("signup.html")
     logInBtn.style.display = "inline-block"
     signInBtn.style.display = "inline-block"
     profilePic.style.display = "none"
-}*/
+}
 
 
 

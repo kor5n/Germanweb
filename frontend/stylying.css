@@ -263,3 +263,11 @@ input{
 .add-btn:hover{
     background-color: #cfa72f;
 }
+.login-indicator{
+    color: white;
+    font-weight: 550;
+    display: none;
+    position: relative;
+    scale: 2;
+    left: 30%
+}

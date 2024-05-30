@@ -8,6 +8,10 @@ let signUpBtn = document.querySelector(".signup-btn")
 let emailSignUp = document.querySelector(".signup-email")
 let nameSignUp = document.querySelector(".name-input")
 let passwordSignUp = document.querySelector(".signup-password")
+let logInSwitch = document.querySelector(".log-in")
+let signUpSwitch = document.querySelector(".sign-in")
+let profilePic = document.querySelector(".profile-pic")
+let login_indicator = document.querySelector(".login-indicator")
 
 switchSignUp.addEventListener("click", function(){
     signUpDiv.style.display = "flex"
@@ -46,11 +50,21 @@ signUpBtn.addEventListener("click", async function(){
             body: JSON.stringify(data)
         }
         const response = await fetch("http://127.0.0.1:5000/sign-up", options)
+        const resp = await response.json()
         if (response.status != 201 && response.status != 200){
-            const resp = await response.json()
+            
             alert(resp.message)
         }else{
-            window.location.assign("main.html")
+            logInSwitch.style.display = "none"
+            signUpSwitch.style.display = "none"
+            profilePic.style.display = "inline"
+            signUpDiv.style.display = "none"
+            eyeIcon.style.display = "none"
+            login_indicator.style.display = "inline-block"
+
+            console.log(resp.cookie)
+            document.cookie = `user=${resp.cookie}; max-age=${20*60*24*60}; path=/`
+            console.log(document.cookie)
         }
     }else{
         alert("You must include a valid name, email and password")

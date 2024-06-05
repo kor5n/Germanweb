@@ -39,6 +39,7 @@ def create_test():
     except Exception as e:
         return jsonify({"message": str(e)}), 400
     
+    user = User.query.get(user_id)
     return jsonify({"message": "Test created"}), 201
 
 @app.route("/edit-test/<int:test_id>", methods=["PATCH"])
@@ -127,8 +128,7 @@ def log_in():
         usr = User.query.get(session["id"])
     except:
         return jsonify({"message": "Email or password is incorrect"}), 400
-
-    return jsonify({"message": "You are logged in as " + usr.user_name}), 200
+    return jsonify({"message": "You are logged in as " + usr.user_name}), 200 
 
 if __name__ == "__main__":
     with app.app_context():

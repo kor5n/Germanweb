@@ -5,7 +5,9 @@ let cookies = document.cookie.split(";")
 let isCookieSaved = false
 let session = ""
 let isLoggedIn = false
-
+let logInBtn = document.querySelector(".log-in")
+let signInBtn = document.querySelector(".sign-in")
+let profilePic = document.querySelector(".profile-pic")
 
 console.log(cookies)
 for (let i = 0; i< cookies.length; i++){
@@ -13,7 +15,6 @@ for (let i = 0; i< cookies.length; i++){
         //console.log(cookies[i].split("=")[0])
         isCookieSaved = true
         session = cookies[i].split("=")[1]
-        isLoggedIn = true
         index = i
         //console.log(cookies[i].split("=")[1])
         break
@@ -23,12 +24,9 @@ console.log(session)
 console.log(isCookieSaved, isLoggedIn)
 
 if (isCookieSaved){
-
-    if(isLoggedIn != true){
-        logInBtn.style.display = "inline-block"
-        signInBtn.style.display = "inline-block"
-        profilePic.style.display = "none"
-    }
+    logInBtn.style.display = "none"
+    signInBtn.style.display = "none"
+    profilePic.style.display = "inline-block"
 }else{
     window.alert("You are not logged in")
     window.location.assign("signup.html")

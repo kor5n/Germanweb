@@ -1,4 +1,4 @@
-from flask import request, jsonify, session
+from flask import request, jsonify, session, render_template
 from config import app, db
 from models import Test, User
 import hashlib
@@ -18,7 +18,14 @@ def get_terms():
     if len(user_tests)==0:
         return jsonify({"message": "You don't have any tests"}), 200
     return jsonify({"message":  user_tests}), 200
-
+@app.route("/view/<int:test_id>", methods = ["GET"])
+def view_test(test_id):
+    test = Test.query.get(test_id)
+    if not test:
+        return jsonify({"message": "Test not found"}), 404
+    
+    test_list = [test.title, test.description, test.terms, test.defenition]
+    return jsonify({"message": test_list}), 200
 @app.route("/create", methods = ["POST", "PATCH"])
 def create_test():
     user_id = request.json.get("session_id")

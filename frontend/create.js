@@ -11,7 +11,7 @@ let profilePic = document.querySelector(".profile-pic")
 
 console.log(cookies)
 for (let i = 0; i< cookies.length; i++){
-    if(cookies[i].split("=")[0] == "user"){
+    if(cookies[i].split("=")[0].replace(" ", "") == "user"){
         //console.log(cookies[i].split("=")[0])
         isCookieSaved = true
         session = cookies[i].split("=")[1]

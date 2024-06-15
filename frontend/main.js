@@ -1,15 +1,15 @@
-
+console.log(document.cookie)
 let cookies = document.cookie.split(";")
 let isCookieSaved = false
 let isLoggedIn = false
 let session = ""
 let testDivsId = []
-let testDiv = []
+let testDiv = [] 
 let logInBtn = document.querySelector(".log-in")
 let signInBtn = document.querySelector(".sign-in")
 let profilePic = document.querySelector(".profile-pic")
 for (let i = 0; i< cookies.length; i++){
-    if(cookies[i].split("=")[0] == "user"){
+    if(cookies[i].split("=")[0].replace(" ", "") == "user"){
         isCookieSaved = true
         session = cookies[i].split("=")[1]
         isLoggedIn = true

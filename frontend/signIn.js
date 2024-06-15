@@ -12,6 +12,8 @@ let logInSwitch = document.querySelector(".log-in")
 let signUpSwitch = document.querySelector(".sign-in")
 let profilePic = document.querySelector(".profile-pic")
 let login_indicator = document.querySelector(".login-indicator")
+let emailLogIn = document.querySelector(".login-email")
+let passwordLogIn = document.querySelector(".login-password")
 
 switchSignUp.addEventListener("click", function(){
     signUpDiv.style.display = "flex"
@@ -67,7 +69,42 @@ signUpBtn.addEventListener("click", async function(){
             console.log(document.cookie)
         }
     }else{
-        alert("You must include a valid name, email and password")
+        alert("Yosu must include a valid name, email and password")
+    }
+})
+logInBtn.addEventListener("click", async function(){
+    console.log("clicked")
+    if (emailLogIn.value != "" && passwordLogIn.value != ""){
+        const data = {
+            "email":emailLogIn.value,
+            "password":passwordLogIn.value
+        }
+        const options = {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }
+        const response = await fetch("http://127.0.0.1:5000/sign-in", options)
+        const resp = await response.json()
+        if (response.status != 201 && response.status != 200){
+            
+            alert(resp.message)
+        }else{
+            logInSwitch.style.display = "none"
+            signUpSwitch.style.display = "none"
+            profilePic.style.display = "inline"
+            logInDiv.style.display = "none"
+            eyeIcon.style.display = "none"
+            login_indicator.style.display = "inline-block"
+
+            console.log(resp.cookie)
+            document.cookie = `user=${resp.cookie}; max-age=${20*60*24*60}; path=/`
+            console.log(document.cookie)
+        }
+    }else{
+        alert("You must include a valid email and password")
     }
 })
 

@@ -5,7 +5,7 @@ let logInBtn = document.querySelector(".log-in")
 let signInBtn = document.querySelector(".sign-in")
 let profilePic = document.querySelector(".profile-pic")
 for (let i = 0; i< cookies.length; i++){
-    if(cookies[i].split("=")[0] == "user"){
+    if(cookies[i].split("=")[0].replace(" ", "") == "user"){
         isCookieSaved = true
     }
     if(cookies[i].split("=")[0].replace(" ", "") == "view_test"){

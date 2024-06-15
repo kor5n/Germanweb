@@ -107,7 +107,7 @@ def create_user():
         return jsonify({"message": str(e)}), 400
         
     return jsonify({"message": "New user created", "cookie":session["id"]}), 201
-@app.route("/sign-in", methods=["GET" ,"POST"])
+@app.route("/sign-in", methods=["GET", "POST"])
 def log_in():
     email = request.json.get("email")
     password = request.json.get("password")
@@ -135,7 +135,7 @@ def log_in():
         usr = User.query.get(session["id"])
     except:
         return jsonify({"message": "Email or password is incorrect"}), 400
-    return jsonify({"message": "You are logged in as " + usr.user_name}), 200 
+    return jsonify({"message": "You are logged in as " + usr.user_name, "cookie":session["id"]}), 200 
 
 if __name__ == "__main__":
     with app.app_context():

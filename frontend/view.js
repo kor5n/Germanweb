@@ -1,10 +1,11 @@
-let cookies = document.cookie.split(";")
+const cookies = document.cookie.split(";")
 let isViewing = false
 let viewing_test = ""
-let logInBtn = document.querySelector(".log-in")
-let signInBtn = document.querySelector(".sign-in")
-let profilePic = document.querySelector(".profile-pic")
-let testLabel = document.querySelector(".test-name")
+const logInBtn = document.querySelector(".log-in")
+const signInBtn = document.querySelector(".sign-in")
+const profilePic = document.querySelector(".profile-pic")
+const testLabel = document.querySelector(".test-name")
+
 for (let i = 0; i< cookies.length; i++){
     if(cookies[i].split("=")[0].replace(" ", "") == "user"){
         isCookieSaved = true
@@ -36,7 +37,12 @@ async function getTest(){
         }
     }
     document.querySelector("main").innerHTML += `<button class="edit-btn">Edit</button><button class="delete-btn">Remove</button>`
+    document.querySelector(".edit-btn").addEventListener("click", function(){
+        document.cookie = `mode=edit; max-age=${60*60}; path=/`
+        window.location.assign("create.html")
+    })
 }
+
 
 if(isCookieSaved){
     logInBtn.style.display = "none"
@@ -52,7 +58,6 @@ if (isViewing){
     getTest()
 }else{
     window.alert("No test was loaded")
-    
     window.location.assign("main.html")
 }
 

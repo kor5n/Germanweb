@@ -178,6 +178,9 @@ main{
     border-radius: 6px;
     color: white;
 }
+.edit-btn:hover{
+    background-color: rgb(16, 157, 16);
+}
 .delete-btn{
     color: white;
     display: inline-block;

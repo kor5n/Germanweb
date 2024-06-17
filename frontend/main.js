@@ -39,7 +39,7 @@ async function getData(){
         signInBtn.style.display = "none"
         profilePic.style.display = "inline"
         data.message.forEach(element => {
-            document.querySelector("main").innerHTML += `<div class="test-profile" onclick="document.cookie = 'view_test=${element["id"]}; max-age=${20*60*24*60}; path=/'; window.location.assign('view.html')">
+            document.querySelector("main").innerHTML += `<div class="test-profile" onclick="document.cookie = 'view_test=${element["id"]}; max-age=${60*60}; path=/'; window.location.assign('view.html')">
                                                     <h3 class="test-name">${element["title"]}</h3>
                                                     <p class="quest-count">${element["terms"].split(";").length} questions</p>
                                                     <p class="author-name">author name</p>

@@ -20,7 +20,7 @@
             <button class="sign-in" onclick="location.href = 'signup.html'">Sign up</button>
         </header>
         <main>
-            <button class="add-btn" onclick="location.href='create.html'">+</button>
+            <button class="add-btn" onclick="location.href='create.html'; document.cookie = `mode=create; max-age=${60*60}; path=/`">+</button>
             <!--<div class="test-profile" onclick="location.href='view.html'">
                 <h3 class="test-name">test name</h3>
                 <p class="quest-count">x questions</p>

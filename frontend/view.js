@@ -41,6 +41,26 @@ async function getTest(){
         document.cookie = `mode=edit; max-age=${60*60}; path=/`
         window.location.assign("create.html")
     })
+    document.querySelector(".delete-btn").addEventListener("click", async function(){
+        if(this.innerHTML != "Sure?"){
+            this.innerHTML = "Sure?"
+        } else{
+            const options = {
+                method: "DELETE",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+            }
+            const response = await fetch("http://127.0.0.1:5000/delete/"+ viewing_test, options)
+            const data = await response.json()
+            alert(data.message)
+
+            if(response.status == 200 || response.status == 201){
+                window.location.assign("main.html")
+            }
+        }
+        
+    })
 }
 
 

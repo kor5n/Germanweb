@@ -191,6 +191,9 @@ main{
     border: 1px solid #0097A7;
     border-radius: 6px;
 }
+.delete-btn:hover{
+    background-color: rgb(217, 6, 6);
+}
 .sign-up-div, .log-in-div{
     position: relative;
     display: flex;

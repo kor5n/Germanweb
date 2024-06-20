@@ -95,7 +95,7 @@ submit_btn.addEventListener("click", async function(){
                 }
                 if(isEditing == false){
                     const options = {
-                        method: "POST",
+                        method: "PATCH",
                         headers:{
                             "Content-Type": "application/json"
                         },

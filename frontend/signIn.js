@@ -11,7 +11,6 @@ let passwordSignUp = document.querySelector(".signup-password")
 let logInSwitch = document.querySelector(".log-in")
 let signUpSwitch = document.querySelector(".sign-in")
 let profilePic = document.querySelector(".profile-pic")
-let login_indicator = document.querySelector(".login-indicator")
 let emailLogIn = document.querySelector(".login-email")
 let passwordLogIn = document.querySelector(".login-password")
 
@@ -62,11 +61,10 @@ signUpBtn.addEventListener("click", async function(){
             profilePic.style.display = "inline"
             signUpDiv.style.display = "none"
             eyeIcon.style.display = "none"
-            login_indicator.style.display = "inline-block"
 
             console.log(resp.cookie)
             document.cookie = `user=${resp.cookie}; max-age=${20*60*24*60}; path=/`
-            console.log(document.cookie)
+            window.location.assign("main.html")
         }
     }else{
         alert("Yosu must include a valid name, email and password")
@@ -97,11 +95,10 @@ logInBtn.addEventListener("click", async function(){
             profilePic.style.display = "inline"
             logInDiv.style.display = "none"
             eyeIcon.style.display = "none"
-            login_indicator.style.display = "inline-block"
 
             console.log(resp.cookie)
             document.cookie = `user=${resp.cookie}; max-age=${20*60*24*60}; path=/`
-            console.log(document.cookie)
+            window.location.assign("main.html")
         }
     }else{
         alert("You must include a valid email and password")

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Flashcards</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
+        <link rel="stylesheet" href="stylying.css">
+    </head>
+    
+    <body>
+        <header>
+            <span class="comp-name">Gtest</span>
+            <div class="link-div">
+                <a class="page-link" href="main.html">Profile</a>
+                <a class="page-link">Browse</a>
+                <a class="page-link">About us</a>
+            </div>
+            <a style="position: absolute; left: 650px; top: 20px; font-size: 2em; text-decoration: none; color: black;" href="view.html">Test name</a>
+            <button class="profile-pic"><img src="" alt=""></button>
+            <button class="log-in" onclick="location.href = 'signup.html'">Log in</button>
+            <button class="sign-in" onclick="location.href = 'signup.html'">Sign up</button>
+        </header>
+        <main>
+            
+            <div class="flash-div">
+                <div class="flashcard">
+                    <h1 class="flash-term">Term</h1>
+                    <h1 class="flash-def">Defenition</h1>
+                </div>
+            </div>
+            
+            <div class="arrow-div">
+                <button class="left-trans trans"><img src="img/righArrow.png" style="transform: scaleX(-1); height: 80%; width: 80%;" alt="<-"></button>
+                <button class="right-trans trans"><img src="img/righArrow.png" style="height: 80%; width: 80%;" alt=""></button>
+            </div>
+            
+        </main>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <script src="flashcards.js"></script>
+</html>

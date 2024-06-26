@@ -5,6 +5,12 @@ const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
 const profilePic = document.querySelector(".profile-pic")
 const testLabel = document.querySelector(".test-name")
+const FlashcardsBtn = document.querySelector(".flash-btn")
+
+FlashcardsBtn.addEventListener("click", function(){
+    window.location.assign("flashcards.html")
+    //Add functionality with backend
+})
 
 for (let i = 0; i< cookies.length; i++){
     if(cookies[i].split("=")[0].replace(" ", "") == "user"){

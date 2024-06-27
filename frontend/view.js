@@ -7,11 +7,6 @@ const profilePic = document.querySelector(".profile-pic")
 const testLabel = document.querySelector(".test-name")
 const FlashcardsBtn = document.querySelector(".flash-btn")
 
-FlashcardsBtn.addEventListener("click", function(){
-    window.location.assign("flashcards.html")
-    //Add functionality with backend
-})
-
 for (let i = 0; i< cookies.length; i++){
     if(cookies[i].split("=")[0].replace(" ", "") == "user"){
         isCookieSaved = true
@@ -19,11 +14,7 @@ for (let i = 0; i< cookies.length; i++){
     if(cookies[i].split("=")[0].replace(" ", "") == "view_test"){
         isViewing = true
         viewing_test = cookies[i].split("=")[1]
-        break
     }
-    console.log(cookies[i].split("=")[0].replace(" ",""))
-    console.log(cookies[i].split("=")[0] == "view_test")
-    console.log(cookies)
 }
 
 async function getTest(){
@@ -68,7 +59,6 @@ async function getTest(){
         
     })
 }
-
 
 if(isCookieSaved){
     logInBtn.style.display = "none"

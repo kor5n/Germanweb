@@ -14,6 +14,10 @@ header{
     width: fit-content;
     font-weight: 700;
 }
+.gtest{
+    width: 91px;
+    height: 30px;
+}
 .link-div{
     margin-left: 5%;
     margin-bottom: 1.25%;

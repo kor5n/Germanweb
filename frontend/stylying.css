@@ -148,6 +148,9 @@ main{
     border-radius: 6px;
     font-weight: 550;
 }
+.flash-btn:hover{
+    background-color: #3240c1;
+}
 .mult-btn{
     color: white;
     font-weight: 550;
@@ -318,4 +321,12 @@ h1 { font-size: 2em; }
 }
 .trans:hover{
     background-color: #3546de;
+}
+.flash-title{
+    position: absolute;
+    left: 650px;
+    top: 20px;
+    font-size: 2em;
+    text-decoration: none;
+    color: black;
 }

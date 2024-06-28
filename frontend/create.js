@@ -119,7 +119,7 @@ submit_btn.addEventListener("click", async function(){
                         "defenition": def_value
                     }
                     const options = {
-                        method: "POST",
+                        method: "PATCH",
                         headers:{
                             "Content-Type": "application/json"
                         },

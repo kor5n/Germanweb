@@ -32,7 +32,6 @@ for (let i = 0; i< cookies.length; i++){
         } else{
             isEditing = false
         }
-        break
     }
     
 }

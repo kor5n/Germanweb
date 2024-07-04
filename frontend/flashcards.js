@@ -107,7 +107,7 @@ async function getTest(){
     }else{
         termList = data.message[2].split(";")
         defList = data.message[3].split(";")
-        flashTitle.innerHTML = data.message[1]
+        flashTitle.innerHTML = data.message[0]
         count = 0
         writeTerm()
     }

@@ -14,48 +14,48 @@ let profilePic = document.querySelector(".profile-pic")
 let emailLogIn = document.querySelector(".login-email")
 let passwordLogIn = document.querySelector(".login-password")
 
-switchSignUp.addEventListener("click", function(){
+switchSignUp.addEventListener("click", function () {
     signUpDiv.style.display = "flex"
     logInDiv.style.display = "none"
-    eyeIcon.style.top = "37.7%"
+    eyeIcon.style.top = "37.25%"
 })
-switchLogIn.addEventListener("click", function(){
+switchLogIn.addEventListener("click", function () {
     signUpDiv.style.display = "none"
     logInDiv.style.display = "flex"
-    eyeIcon.style.top = "34.25%"
+    eyeIcon.style.top = "34.35%"
 })
-eyeIcon.addEventListener("click", function(){
+eyeIcon.addEventListener("click", function () {
     let passwordInput = document.querySelectorAll(".passwd-input")
-    for (let i =0;i<passwordInput.length;i++){
-        if(passwordInput[i].style.display != "none"){
-            if(passwordInput[i].type == "text"){
+    for (let i = 0; i < passwordInput.length; i++) {
+        if (passwordInput[i].style.display != "none") {
+            if (passwordInput[i].type == "text") {
                 passwordInput[i].type = "password"
-            }else{
+            } else {
                 passwordInput[i].type = "text"
             }
         }
     }
 })
-signUpBtn.addEventListener("click", async function(){
-    if (emailSignUp.value != "" && nameSignUp.value != "" && passwordSignUp.value != ""){
+signUpBtn.addEventListener("click", async function () {
+    if (emailSignUp.value != "" && nameSignUp.value != "" && passwordSignUp.value != "") {
         const data = {
-            "username":nameSignUp.value,
-            "email":emailSignUp.value,
-            "password":passwordSignUp.value
+            "username": nameSignUp.value,
+            "email": emailSignUp.value,
+            "password": passwordSignUp.value
         }
         const options = {
             method: "POST",
-            headers:{
+            headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
         }
         const response = await fetch("http://127.0.0.1:5000/sign-up", options)
         const resp = await response.json()
-        if (response.status != 201 && response.status != 200){
-            
+        if (response.status != 201 && response.status != 200) {
+
             alert(resp.message)
-        }else{
+        } else {
             logInSwitch.style.display = "none"
             signUpSwitch.style.display = "none"
             profilePic.style.display = "inline"
@@ -63,33 +63,33 @@ signUpBtn.addEventListener("click", async function(){
             eyeIcon.style.display = "none"
 
             console.log(resp.cookie)
-            document.cookie = `user=${resp.cookie}; max-age=${20*60*24*60}; path=/`
+            document.cookie = `user=${resp.cookie}; max-age=${20 * 60 * 24 * 60}; path=/`
             window.location.assign("main.html")
         }
-    }else{
+    } else {
         alert("Yosu must include a valid name, email and password")
     }
 })
-logInBtn.addEventListener("click", async function(){
+logInBtn.addEventListener("click", async function () {
     console.log("clicked")
-    if (emailLogIn.value != "" && passwordLogIn.value != ""){
+    if (emailLogIn.value != "" && passwordLogIn.value != "") {
         const data = {
-            "email":emailLogIn.value,
-            "password":passwordLogIn.value
+            "email": emailLogIn.value,
+            "password": passwordLogIn.value
         }
         const options = {
             method: "POST",
-            headers:{
+            headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
         }
         const response = await fetch("http://127.0.0.1:5000/sign-in", options)
         const resp = await response.json()
-        if (response.status != 201 && response.status != 200){
-            
+        if (response.status != 201 && response.status != 200) {
+
             alert(resp.message)
-        }else{
+        } else {
             logInSwitch.style.display = "none"
             signUpSwitch.style.display = "none"
             profilePic.style.display = "inline"
@@ -97,10 +97,10 @@ logInBtn.addEventListener("click", async function(){
             eyeIcon.style.display = "none"
 
             console.log(resp.cookie)
-            document.cookie = `user=${resp.cookie}; max-age=${20*60*24*60}; path=/`
+            document.cookie = `user=${resp.cookie}; max-age=${20 * 60 * 24 * 60}; path=/`
             window.location.assign("main.html")
         }
-    }else{
+    } else {
         alert("You must include a valid email and password")
     }
 })

@@ -1,7 +1,6 @@
 console.log(document.cookie)
 let cookies = document.cookie.split(";")
 let isCookieSaved = false
-let isLoggedIn = false
 let session = ""
 let testDivsId = []
 let testDiv = [] 
@@ -12,7 +11,6 @@ for (let i = 0; i< cookies.length; i++){
     if(cookies[i].split("=")[0].replace(" ", "") == "user"){
         isCookieSaved = true
         session = cookies[i].split("=")[1]
-        isLoggedIn = true
         break
     }
 }

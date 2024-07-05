@@ -4,8 +4,6 @@ let isCookieSaved = false
 let isViewing = false
 let termList = []
 let defList = []
-let wrongTerms = []
-let randomInt = 0
 let ansTerms = []
 let rightAnswers = []
 let randomElement = ""
@@ -13,7 +11,7 @@ let duplicates = []
 let indexList = []
 let attempts = 0
 let rightAttempts = 0
-let eventListeners = 0
+
 
 for (let i = 0; i < cookies.length; i++) {
     if (cookies[i].split("=")[0].replace(" ", "") == "user") {
@@ -87,30 +85,32 @@ const genTest = () => {
             </div>
         </div>`
     }
-    console.log(document.querySelectorAll(".wrong-btn").length)
-    for (let i = 0; i < document.querySelectorAll(".wrong-btn").length; i++) {
-        console.log(document.querySelectorAll(".wrong-btn")[i])
-        document.querySelectorAll(".wrong-btn")[i].addEventListener("click", function () {
+    document.querySelector("main").innerHTML += `<h2 class="acc-score" style="display: inline-block; margin-right: 10%;">Your accuracy: </h2><button class="retry-btn">Retry</button>`
+    let WrongBtnList = document.querySelectorAll(".wrong-btn")
+    console.log(WrongBtnList.length)
+    for (let i = 0; i < WrongBtnList.length; i++) {
+        console.log(WrongBtnList[i])
+        WrongBtnList[i].addEventListener("click", function () {
             console.log("WRONG")
             this.style.background = "red"
             attempts += 1
         })
     }
-    console.log(document.querySelectorAll(".right-btn").length)
-    for (let i = 0; i < document.querySelectorAll(".right-btn").length; i++) {
-        console.log(document.querySelectorAll(".right-btn")[i])
-        document.querySelectorAll(".right-btn")[i].addEventListener("click", function () {
+    let RightBtnList = document.querySelectorAll(".right-btn")
+    console.log(RightBtnList.length)
+    for (let i = 0; i < RightBtnList.length; i++) {
+        console.log(RightBtnList[i])
+        RightBtnList[i].addEventListener("click", function () {
             console.log("RIGHT")
             this.style.background = "green"
             attempts += 1
             rightAttempts += 1
-            /*if (rightAttempts == document.querySelectorAll(".question-text").length) {
-                document.querySelector(".acc-score").innerHTML = "Your accuracy score: " + toString(rightAttempts / attempts)
-            }*/
+            if (rightAttempts == document.querySelectorAll(".question-text").length) {
+                document.querySelector(".acc-score").innerHTML = "Your accuracy score: " + rightAttempts / attempts * 100 + "%"
+            }
         })
     }
 
-    document.querySelector("main").innerHTML += `<h2 class="acc-score" style="display: inline-block; margin-right: 10%;">Your accuracy: </h2><button class="retry-btn">Retry</button>`
     document.querySelector(".retry-btn").addEventListener("click", function () {
         attempts = 0
         rightAttempts = 0

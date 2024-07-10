@@ -388,7 +388,8 @@ h1 {
     color: black;
 }
 
-.answer-container {
+.answer-container,
+.answer-card {
     background-color: white;
     border: 1px solid #0097A7;
     border-radius: 14px;
@@ -396,12 +397,21 @@ h1 {
     margin-bottom: 100px;
 }
 
-.def-question {
+.def-question,
+.question-half {
     height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 4%;
+}
+
+.input-half {
+    height: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-bottom: 4%;
 }
 
 .term-answers {
@@ -439,4 +449,29 @@ h2 {
     color: #FCFCFC;
     font-weight: 600;
     margin-left: 450px;
+}
+
+.answer-input {
+    background: #f2f2f2;
+    border-radius: 13px;
+    padding: 1%;
+    margin-bottom: 30%;
+    height: 20px;
+    width: 100px;
+    margin: auto;
+    scale: 1.2;
+
+}
+
+.ans-btn {
+    margin: auto;
+    height: 50px;
+    width: 110px;
+    border: 1px solid #757575;
+    border-radius: 6px;
+    margin-bottom: 7%;
+}
+
+textarea {
+    resize: none;
 }

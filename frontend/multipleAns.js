@@ -91,9 +91,10 @@ const genTest = () => {
     for (let i = 0; i < WrongBtnList.length; i++) {
         console.log(WrongBtnList[i])
         WrongBtnList[i].addEventListener("click", function () {
-            console.log("WRONG")
-            this.style.background = "red"
-            attempts += 1
+            if(this.style.background !== "red"){
+                this.style.background = "red"
+                attempts += 1
+            }
         })
     }
     let RightBtnList = document.querySelectorAll(".right-btn")
@@ -101,12 +102,13 @@ const genTest = () => {
     for (let i = 0; i < RightBtnList.length; i++) {
         console.log(RightBtnList[i])
         RightBtnList[i].addEventListener("click", function () {
-            console.log("RIGHT")
-            this.style.background = "green"
-            attempts += 1
-            rightAttempts += 1
-            if (rightAttempts == document.querySelectorAll(".question-text").length) {
-                document.querySelector(".acc-score").innerHTML = "Your accuracy score: " + rightAttempts / attempts * 100 + "%"
+            if(this.style.background !== "green"){
+                this.style.background = "green"
+                attempts += 1
+                rightAttempts += 1
+                if (rightAttempts == document.querySelectorAll(".question-text").length) {
+                    document.querySelector(".acc-score").innerHTML = "Your accuracy score: " + rightAttempts / attempts * 100 + "%"
+                }
             }
         })
     }

@@ -3,6 +3,9 @@ let session = ""
 let isCookieSaved = false
 let isViewing = false
 let realDefList = []
+let rightAnswers = 0
+let attempts = 0
+let fetchedDefs
 
 for (let i = 0; i < cookies.length; i++) {
     if (cookies[i].split("=")[0].replace(" ", "") == "user") {
@@ -34,9 +37,6 @@ function shuffle(array) {
 
 const genTest = () => {
     shuffle(defList)
-    console.log(defList)
-    console.log(realDefList)
-
     for (let i = 0; i < defList.length; i++) {
         document.querySelector("main").innerHTML += `<div class="answer-card">
         <div class="question-half">
@@ -47,9 +47,42 @@ const genTest = () => {
             <button class="ans-btn">Submit answer</button>
         </div>
     </div>`
-        console.log(defList[i])
-        console.log(realDefList.indexOf(defList[i]))
+
     }
+    document.querySelector("main").innerHTML += `<h2 class="acc-score" style="display: inline-block;">Your accuracy: </h2><button class="retry-btn">Retry</button>`
+    for (let i = 0; i < document.querySelectorAll(".ans-btn").length; i++) {
+
+        document.querySelectorAll(".ans-btn")[i].addEventListener("click", function () {
+            const myQuestion = this.parentNode.parentNode.querySelector(".question-label").innerHTML
+            const myAnswer = this.parentNode.querySelector("textarea").value
+
+            if (this.style.background !== "red" || this.style.background !== "green") {
+                if (termList.includes(myAnswer)) {
+                    if (termList.indexOf(myAnswer) === realDefList.indexOf(myQuestion)) {
+                        this.style.background = "green"
+                        rightAnswers += 1
+                    } else {
+                        this.style.background = "red"
+                    }
+                } else {
+                    this.style.background = "red"
+                }
+                attempts += 1
+
+                document.querySelector(".acc-score").innerHTML = "Your accuracy score: " + rightAnswers / attempts * 100 + "%"
+
+            }
+
+
+        })
+    }
+    document.querySelector(".retry-btn").addEventListener("click", () => {
+        document.querySelector("main").innerHTML = ""
+        defList = fetchedDefs
+        attempts = 0
+        rightAnswers = 0
+        genTest()
+    })
 
 }
 
@@ -63,8 +96,8 @@ const getTest = async () => {
     } else {
         termList = data.message[2].split(";")
         defList = data.message[3].split(";")
-        realDefList = defList
-        console.log(realDefList)
+        fetchedDefs=data.message[3].split(";")
+        realDefList = data.message[3].split(";")
         document.querySelector(".flash-title").innerHTML = data.message[0]
         genTest()
     }

@@ -14,10 +14,9 @@ def get_terms():
     for test in json_tests:
         if test["user_id"] == user.id:
             user_tests.append(test)
-    print(user_tests)
     if len(user_tests)==0:
         return jsonify({"message": "You don't have any tests"}), 200
-    return jsonify({"message":  user_tests}), 200
+    return jsonify({"message":  user_tests, "username": user.user_name}), 200
 @app.route("/view/<int:test_id>", methods = ["GET"])
 def view_test(test_id):
     test = Test.query.get(test_id)

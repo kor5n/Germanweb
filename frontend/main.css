@@ -10,6 +10,15 @@ header {
     width: 100%;
 }
 
+button {
+    transition: transform .2s;
+    /* Animation */
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
 .comp-name {
     margin-left: 2%;
     font-size: 250%;
@@ -110,7 +119,12 @@ main {
     top: -52px;
     box-sizing: border-box;
     margin-bottom: 3%;
+    transition: transform .2s;
 
+}
+
+.test-profile:hover {
+    transform: scale(1.05);
 }
 
 .test-name {
@@ -125,7 +139,7 @@ main {
     border-radius: 12.5rem;
     font-size: 60%;
     text-align: center;
-    padding: 1% 0;
+    padding: 1%;
     margin-top: 5%;
 }
 

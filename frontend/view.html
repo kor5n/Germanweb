@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>View Germantest</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
-        <link rel="stylesheet" href="stylying.css">
-    </head>
-    
-    <body>
-        <header>
-            <span class="comp-name"><img src="img/GTESTLOGO.png" class="gtest" alt="Gtest"></span>
-            <div class="link-div">
-                <a class="page-link" href="main.html">Profile</a>
-                <a class="page-link">Browse</a>
-                <a class="page-link">About us</a>
-            </div>
-            <button class="profile-pic"><img src="" alt=""></button>
-            <button class="log-in" onclick="window.location.href = 'signup.html'">Log in</button>
-            <button class="sign-in" onclick="window.location.href = 'signup.html'"> Sign up</button>
-        </header>
-        <main>
-            <h1 class="test-name">Test Name</h1>
-            <div class="play-btn-div">
-                <button class="flash-btn" onclick="window.location.assign('flashcards.html')">Flashcards</button>
-                <button class="mult-btn" onclick="window.location.assign('multipleAnswer.html')">Multiple choice</button>
-                <button class="write-btn" onclick="window.location.assign('WriteAns.html')">Write defenition</button>
-            </div>
-            <!---<div class="show-def">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Germantest</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
+    <link rel="stylesheet" href="stylying.css">
+</head>
+
+<body>
+    <header>
+        <span class="comp-name"><img src="img/GTESTLOGO.png" class="gtest" alt="Gtest"></span>
+        <div class="link-div">
+            <a class="page-link" href="main.html">Profile</a>
+            <a class="page-link">Browse</a>
+            <a class="page-link">About us</a>
+        </div>
+        <button class="profile-pic"><img src="" alt=""></button>
+        <button class="log-in" onclick="window.location.href = 'signup.html'">Log in</button>
+        <button class="sign-in" onclick="window.location.href = 'signup.html'"> Sign up</button>
+    </header>
+    <main>
+        <h1 class="test-name">Test Name</h1>
+        <h2 class="test-desc"> Description</h2>
+        <div class="play-btn-div">
+            <button class="flash-btn" onclick="window.location.assign('flashcards.html')">Flashcards</button>
+            <button class="mult-btn" onclick="window.location.assign('multipleAnswer.html')">Multiple</button>
+            <button class="write-btn" onclick="window.location.assign('WriteAns.html')">Write test</button>
+        </div>
+        <!---<div class="show-def">
                 <span class="term-text">term</span><span style="margin-left: 3%;">|</span><span class="def-text">defenition</span>
             </div>
             <button class="edit-btn">Edit</button><button class="delete-btn">Remove</button>--->
 
-        </main>
-        <script src="view.js"></script>
+    </main>
+    <script src="view.js"></script>
+
 </html>

@@ -139,6 +139,11 @@ main {
     font-size: 330%;
 }
 
+.test-desc {
+    margin-bottom: 3%;
+    font-weight: 550;
+}
+
 .show-def {
     margin-bottom: 3%;
     background: #B2EBF2;
@@ -445,6 +450,7 @@ h2 {
 }
 
 .retry-btn {
+    display: block;
     background-color: #FFC107;
     height: 50px;
     width: 150px;
@@ -452,7 +458,16 @@ h2 {
     border-radius: 12px;
     color: #FCFCFC;
     font-weight: 600;
-    margin-left: 550px;
+    margin-top: 5%;
+}
+
+button {
+    transition: transform .2s;
+    /* Animation */
+}
+
+button:hover {
+    transform: scale(1.05);
 }
 
 .retry-btn:hover {

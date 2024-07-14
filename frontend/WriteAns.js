@@ -55,25 +55,24 @@ const genTest = () => {
         document.querySelectorAll(".ans-btn")[i].addEventListener("click", function () {
             const myQuestion = this.parentNode.parentNode.querySelector(".question-label").innerHTML
             const myAnswer = this.parentNode.querySelector("textarea").value
-
             if (this.style.background !== "red" || this.style.background !== "green") {
-                if (termList.includes(myAnswer)) {
-                    if (termList.indexOf(myAnswer) === realDefList.indexOf(myQuestion)) {
-                        this.style.background = "green"
-                        rightAnswers += 1
+                if (myAnswer !== "") {
+                    if (termList.includes(myAnswer)) {
+                        if (termList.indexOf(myAnswer) === realDefList.indexOf(myQuestion)) {
+                            this.style.background = "green"
+                            rightAnswers += 1
+                        } else {
+                            this.style.background = "red"
+                        }
                     } else {
                         this.style.background = "red"
                     }
-                } else {
-                    this.style.background = "red"
+                    attempts += 1
+
+                    document.querySelector(".acc-score").innerHTML = "Your accuracy score: " + rightAnswers / attempts * 100 + "%"
+
                 }
-                attempts += 1
-
-                document.querySelector(".acc-score").innerHTML = "Your accuracy score: " + rightAnswers / attempts * 100 + "%"
-
             }
-
-
         })
     }
     document.querySelector(".retry-btn").addEventListener("click", () => {
@@ -96,7 +95,7 @@ const getTest = async () => {
     } else {
         termList = data.message[2].split(";")
         defList = data.message[3].split(";")
-        fetchedDefs=data.message[3].split(";")
+        fetchedDefs = data.message[3].split(";")
         realDefList = data.message[3].split(";")
         document.querySelector(".flash-title").innerHTML = data.message[0]
         genTest()

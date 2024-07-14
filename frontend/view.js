@@ -4,8 +4,6 @@ let viewing_test = ""
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
 const profilePic = document.querySelector(".profile-pic")
-const testLabel = document.querySelector(".test-name")
-const FlashcardsBtn = document.querySelector(".flash-btn")
 
 for (let i = 0; i< cookies.length; i++){
     if(cookies[i].split("=")[0].replace(" ", "") == "user"){
@@ -26,7 +24,8 @@ async function getTest(){
         document.cookie = `viewing_test=${viewing_test}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
         window.location.assign("main.html")
     }else{
-        testLabel.innerHTML = data.message[0]
+        document.querySelector(".test-name").innerHTML = data.message[0]
+        document.querySelector(".test-desc").innerHTML = data.message[1]
         for(let i=0;i<data.message[2].split(";").length; i++){
             document.querySelector("main").innerHTML += `<div class="show-def">
             <span class="term-text">${data.message[2].split(";")[i]}</span><span style="margin-left: 3%;">|</span><span class="def-text">${data.message[3].split(";")[i]}</span>

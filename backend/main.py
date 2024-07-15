@@ -3,7 +3,30 @@ from config import app, db
 from models import Test, User
 import hashlib
 
-@app.route("/tests", methods = ["GET", "POST"])
+
+@app.route("/")
+def profile_page():
+    return render_template("main.html")
+@app.route("/create")
+def create_page():
+    return render_template("create.html")
+@app.route("/sign")
+def signup_page():
+    return render_template("signup.html")
+@app.route("/view")
+def view_page():
+    return render_template("view.html")
+@app.route("/flash")
+def flash_page():
+    return render_template("flashcards.html")
+@app.route("/multi")
+def multi_page():
+    return render_template("multipleAns.html")
+@app.route("/write")
+def write_page():
+    return render_template("writeAns.html")
+
+@app.route("/b/tests", methods = ["GET", "POST"])
 def get_terms():
     user = User.query.get(request.json.get("session_id"))
     if user==None:
@@ -17,7 +40,7 @@ def get_terms():
     if len(user_tests)==0:
         return jsonify({"message": "You don't have any tests"}), 200
     return jsonify({"message":  user_tests, "username": user.user_name}), 200
-@app.route("/view/<int:test_id>", methods = ["GET"])
+@app.route("/b/view/<int:test_id>", methods = ["GET"])
 def view_test(test_id):
     test = Test.query.get(test_id)
     if not test:
@@ -25,7 +48,7 @@ def view_test(test_id):
     
     test_list = [test.title, test.description, test.terms, test.defenition]
     return jsonify({"message": test_list}), 200
-@app.route("/create", methods = ["POST", "PATCH"])
+@app.route("/b/create", methods = ["POST", "PATCH"])
 def create_test():
     user_id = request.json.get("session_id")
     if not user_id:
@@ -48,7 +71,7 @@ def create_test():
     user = User.query.get(user_id)
     return jsonify({"message": "Test created"}), 201
 
-@app.route("/edit-test/<int:test_id>", methods=["PATCH"])
+@app.route("/b/edit-test/<int:test_id>", methods=["PATCH"])
 def update_test(test_id):
     test = Test.query.get(test_id)
 
@@ -64,7 +87,7 @@ def update_test(test_id):
     db.session.commit()
 
     return jsonify({"message": "Test updated"}), 200
-@app.route("/delete/<int:test_id>", methods=["DELETE"])
+@app.route("/b/delete/<int:test_id>", methods=["DELETE"])
 def delete_test(test_id):
     test = Test.query.get(test_id)
     print(type(test))
@@ -75,7 +98,7 @@ def delete_test(test_id):
     db.session.delete(test)
     db.session.commit()
     return jsonify({"message": "Test deleted"}), 200
-@app.route("/sign-up", methods=["GET", "POST"])
+@app.route("/b/sign-up", methods=["GET", "POST"])
 def create_user():
     username = request.json.get("username")
     email = request.json.get("email")
@@ -107,7 +130,7 @@ def create_user():
         return jsonify({"message": str(e)}), 400
         
     return jsonify({"message": "New user created", "cookie":session["id"]}), 201
-@app.route("/sign-in", methods=["GET", "POST"])
+@app.route("/b/sign-in", methods=["GET", "POST"])
 def log_in():
     email = request.json.get("email")
     password = request.json.get("password")

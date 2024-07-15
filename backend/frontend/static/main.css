@@ -1,0 +1,160 @@
+body {
+    background: #00BCD4;
+}
+
+header {
+    background-color: #0097A7;
+    padding-top: 1%;
+    border-bottom: 1px solid #BDBDBD;
+    height: 60px;
+    width: 100%;
+}
+
+button {
+    transition: transform .2s;
+    /* Animation */
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+.comp-name {
+    margin-left: 2%;
+    font-size: 250%;
+    height: 100%;
+    width: fit-content;
+    font-weight: 700;
+}
+
+.gtest {
+    width: 91px;
+    height: 30px;
+}
+
+.link-div {
+    margin-left: 5%;
+    margin-bottom: 1.25%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 50%;
+    vertical-align: middle;
+}
+
+.page-link {
+    text-decoration: none;
+    color: #FFFFFF;
+    margin-right: 8%;
+}
+
+.profile-pic {
+    display: none;
+    vertical-align: middle;
+    float: right;
+    margin-right: 2.5%;
+    border: 0.5px double grey;
+    border-radius: 100%;
+    height: 70%;
+    width: 42px;
+}
+
+.log-in {
+    height: 60%;
+    background-color: #B2EBF2;
+    color: #757575;
+    border: 1px solid white;
+    border-radius: 5px;
+    float: right;
+    margin-right: 1%;
+    margin-top: .25%;
+    width: 90px;
+}
+
+.sign-in {
+    margin-top: .25%;
+    margin-right: 0.5%;
+    float: right;
+    height: 60%;
+    background-color: #0097A7;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 90px;
+}
+
+main {
+    padding-top: 5%;
+    padding-left: 20%;
+    padding-right: 20%
+}
+
+.add-btn {
+    background-color: #FFC107;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+    height: 120px;
+    color: white;
+    width: 160px;
+    font-size: 250%;
+    padding: 0.5%;
+    margin-bottom: 7%;
+    margin-right: 5%;
+}
+
+.add-btn:hover {
+    background-color: #cfa72f;
+}
+
+.test-profile {
+    position: relative;
+    display: inline-flex;
+    background: #B2EBF2;
+    height: 120px;
+    width: 160px;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+    margin-right: 5%;
+    flex-direction: column;
+    padding: 0.5%;
+    top: -52px;
+    box-sizing: border-box;
+    margin-bottom: 3%;
+    transition: transform .2s;
+
+}
+
+.test-profile:hover {
+    transform: scale(1.05);
+}
+
+.test-name {
+    font-weight: 540;
+    font-size: 120%;
+}
+
+.quest-count {
+    background: #BDBDBD;
+    width: fit-content;
+    border: 1px solid #BDBDBD;
+    border-radius: 12.5rem;
+    font-size: 60%;
+    text-align: center;
+    padding: 1%;
+    margin-top: 5%;
+}
+
+.author-name {
+    margin-top: auto;
+}
+
+.test-profile:hover {
+    background: #9bcbd1;
+}
+
+.sign-in:hover {
+    background-color: #198895;
+}
+
+.log-in:hover {
+    background-color: #8cbec4;
+}

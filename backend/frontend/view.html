@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
+    <link rel="stylesheet" href="static/stylying.css">
+</head>
+
+<body>
+    <header>
+        <span class="comp-name"><img src="static/img/GTESTLOGO.png" class="gtest" alt="Gtest"></span>
+        <div class="link-div">
+            <a class="page-link" href="/">Profile</a>
+            <a class="page-link">Browse</a>
+            <a class="page-link">About us</a>
+        </div>
+        <button class="profile-pic"><img src="" alt=""></button>
+        <button class="log-in" onclick="location.href = '/sign'">Log in</button>
+        <button class="sign-in" onclick="location.href = '/sign'">Sign up</button>
+    </header>
+    <main>
+        <h1 class="test-name">Test Name</h1>
+        <h2 class="test-desc"> Description</h2>
+        <div class="play-btn-div">
+            <button class="flash-btn" onclick="window.location.assign('/flash')">Flashcards</button>
+            <button class="mult-btn" onclick="window.location.assign('/multi')">Multiple</button>
+            <button class="write-btn" onclick="window.location.assign('/write')">Write test</button>
+        </div>
+        <!---<div class="show-def">
+                <span class="term-text">term</span><span style="margin-left: 3%;">|</span><span class="def-text">defenition</span>
+            </div>
+            <button class="edit-btn">Edit</button><button class="delete-btn">Remove</button>--->
+
+    </main>
+    <script src="static/view.js"></script>
+
+</html>

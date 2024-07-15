@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Germantest main page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
+    <link rel="stylesheet" href="static/main.css">
+</head>
+
+<body>
+    <header>
+        <span class="comp-name"><img src="static/img/GTESTLOGO.png" class="gtest" alt="Gtest"></span>
+        <div class="link-div">
+            <a class="page-link" href="/">Profile</a>
+            <a class="page-link">Browse</a>
+            <a class="page-link">About us</a>
+        </div>
+        <button class="profile-pic"><img src="" alt=""></button>
+        <button class="log-in" onclick="location.href = '/sign'">Log in</button>
+        <button class="sign-in" onclick="location.href = '/sign'">Sign up</button>
+    </header>
+    <main>
+        <button class="add-btn"
+            onclick="location.href='/create'; document.cookie = `mode=create; max-age=${60*60}; path=/`">+</button>
+        <!--<div class="test-profile" onclick="location.href='view.html'">
+                <h3 class="test-name">test name</h3>
+                <p class="quest-count">x questions</p>
+                <p class="author-name">author name</p>
+            </div>-->
+    </main>
+    <footer>
+
+    </footer>
+</body>
+<script src="static/main.js"></script>
+
+</html>

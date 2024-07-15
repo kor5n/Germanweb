@@ -88,8 +88,9 @@ def create_user():
     json_users = list(map(lambda x: x.to_json(), users))    
 
     for user in json_users:
+        print(user["email"])
         if email in user["email"]:
-            return jsonify({"message": "This email is already in use"})
+            return jsonify({"message": "This email is already in use"}), 418
 
     h = hashlib.new("SHA256")
     h.update(password.encode())

@@ -2,7 +2,7 @@ let signUpDiv = document.querySelector(".sign-up-div")
 let logInDiv = document.querySelector(".log-in-div")
 let switchSignUp = document.querySelector('.sign-in')
 let switchLogIn = document.querySelector(".log-in")
-let eyeIcon = document.querySelector(".eye-icon")
+let eyeIcon = document.querySelectorAll(".eye-icon")
 let logInBtn = document.querySelector(".login-btn")
 let signUpBtn = document.querySelector(".signup-btn")
 let emailSignUp = document.querySelector(".signup-email")
@@ -16,26 +16,32 @@ let passwordLogIn = document.querySelector(".login-password")
 
 switchSignUp.addEventListener("click", function () {
     signUpDiv.style.display = "flex"
+    passwordLogIn.innerHTML -= eyeIcon
     logInDiv.style.display = "none"
-    eyeIcon.style.top = "37.25%"
+    passwordSignUp.innerHTML += eyeIcon
 })
 switchLogIn.addEventListener("click", function () {
+    passwordSignUp.innerHTML -= eyeIcon
     signUpDiv.style.display = "none"
     logInDiv.style.display = "flex"
-    eyeIcon.style.top = "34.35%"
+    passwordLogIn.innerHTML += eyeIcon
 })
-eyeIcon.addEventListener("click", function () {
-    let passwordInput = document.querySelectorAll(".passwd-input")
-    for (let i = 0; i < passwordInput.length; i++) {
-        if (passwordInput[i].style.display != "none") {
-            if (passwordInput[i].type == "text") {
-                passwordInput[i].type = "password"
-            } else {
-                passwordInput[i].type = "text"
+for(let i =0; i<eyeIcon.length; i++){
+    eyeIcon[i].addEventListener("click", function () {
+        let passwordInput = document.querySelectorAll(".passwd-input")
+        console.log("ckickdd")
+        for (let i = 0; i < passwordInput.length; i++) {
+            if (passwordInput[i].style.display != "none") {
+                if (passwordInput[i].type == "text") {
+                    passwordInput[i].type = "password"
+                } else {
+                    passwordInput[i].type = "text"
+                }
             }
         }
-    }
-})
+    })
+}
+
 signUpBtn.addEventListener("click", async function () {
     if (emailSignUp.value != "" && nameSignUp.value != "" && passwordSignUp.value != "") {
         const data = {

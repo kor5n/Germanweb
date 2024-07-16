@@ -1,4 +1,4 @@
-from flask import request, jsonify, session, render_template
+from flask import request, jsonify, session, render_template,redirect
 from config import app, db
 from models import Test, User
 import hashlib
@@ -6,29 +6,38 @@ import hashlib
 
 @app.route("/")
 def profile_page():
-    return render_template("main.html")
+    if session["id"] != None:
+        return render_template("main.html")
+    else:
+        return redirect("/sign")
 @app.route("/create")
 def create_page():
-    return render_template("create.html")
+    if session["id"] != None:
+        return render_template("create.html")
+    else:
+        return render_template("signup.html")
 @app.route("/sign")
 def signup_page():
-    return render_template("signup.html")
-@app.route("/view")
-def view_page():
-    return render_template("view.html")
-@app.route("/flash")
-def flash_page():
+    if session["id"] != None:
+        return redirect('/')
+    else:
+        return render_template("signup.html")
+@app.route("/view/<int:test_id>", methods=["GET"])
+def view_page(test_id):
+    return render_template("view.html", test_id=test_id)
+@app.route("/flash/<int:test_id>")
+def flash_page(test_id):
     return render_template("flashcards.html")
-@app.route("/multi")
-def multi_page():
-    return render_template("multipleAns.html")
-@app.route("/write")
-def write_page():
+@app.route("/multi/<int:test_id>")
+def multi_page(test_id):
+    return render_template("multipleAnswer.html")
+@app.route("/write/<int:test_id>")
+def write_page(test_id):
     return render_template("writeAns.html")
 
 @app.route("/b/tests", methods = ["GET", "POST"])
 def get_terms():
-    user = User.query.get(request.json.get("session_id"))
+    user = User.query.get(session["id"])
     if user==None:
         return jsonify({"message": "You are not logged in"}), 401
     tests = Test.query.all()
@@ -158,7 +167,7 @@ def log_in():
         usr = User.query.get(session["id"])
     except:
         return jsonify({"message": "Email or password is incorrect"}), 400
-    return jsonify({"message": "You are logged in as " + usr.user_name, "cookie":session["id"]}), 200 
+    return jsonify({"message": "You are logged in as " + usr.user_name}), 200 
 
 if __name__ == "__main__":
     with app.app_context():

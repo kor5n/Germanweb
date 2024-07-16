@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Germantest main page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
-    <link rel="stylesheet" href="static/main.css">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"/>
 </head>
 
 <body>
@@ -34,6 +34,6 @@
 
     </footer>
 </body>
-<script src="static/main.js"></script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
 
 </html>

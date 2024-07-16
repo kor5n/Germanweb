@@ -28,7 +28,6 @@ async function getData() {
     const response = await fetch("http://127.0.0.1:5000/b/tests", options)
     const data = await response.json()
     if (response.status != 200 && response.status != 201) {
-        alert(data.message)
         document.cookie = `user=${session}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
     }
     else {
@@ -36,7 +35,7 @@ async function getData() {
         signInBtn.style.display = "none"
         profilePic.style.display = "inline"
         data.message.forEach(element => {
-            document.querySelector("main").innerHTML += `<div class="test-profile" onclick="document.cookie = 'view_test=${element["id"]}; max-age=${60 * 60}; path=/'; window.location.assign('/view')">
+            document.querySelector("main").innerHTML += `<div class="test-profile">
                                                     <h3 class="test-name">${element["title"]}</h3>
                                                     <p class="quest-count">${element["terms"].split(";").length} questions</p>
                                                     <p class="author-name">${data.username}</p>
@@ -45,6 +44,14 @@ async function getData() {
         })
 
         testDiv = document.querySelectorAll(".test-profile")
+
+        for (let i = 0; i < testDiv.length; i++) {
+            testDiv[i].addEventListener("click", function () {
+                window.alert(testDivsId[i])
+                window.location.assign("/view/" + testDivsId[i])
+            })
+        }
+
 
     }
 

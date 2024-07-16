@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Test</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
-    <link rel="stylesheet" href="static/stylying.css">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylying.css') }}"/>
 </head>
 
 <body>
@@ -27,6 +27,6 @@
     </main>
     
 </body>
-<script src="static/multipleAns.js"></script>
+<script src="{{ url_for('static', filename='multipleAns.js') }}"></script>
 
 </html>

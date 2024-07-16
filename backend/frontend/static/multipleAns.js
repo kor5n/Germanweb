@@ -1,7 +1,6 @@
 let cookies = document.cookie.split(";")
 let session = ""
 let isCookieSaved = false
-let isViewing = false
 let termList = []
 let defList = []
 let ansTerms = []
@@ -11,6 +10,11 @@ let duplicates = []
 let indexList = []
 let attempts = 0
 let rightAttempts = 0
+const logInBtn = document.querySelector(".log-in")
+const signInBtn = document.querySelector(".sign-in")
+const profilePic = document.querySelector(".profile-pic")
+const flashTitle = document.querySelector(".flash-title")
+const url_split = window.location.pathname.slice(1).split("/")
 
 
 for (let i = 0; i < cookies.length; i++) {
@@ -18,10 +22,6 @@ for (let i = 0; i < cookies.length; i++) {
         isCookieSaved = true
         session = cookies[i].split("=")[1]
 
-    }
-    if (cookies[i].split("=")[0].replace(" ", "") == "view_test") {
-        isViewing = true
-        viewing_test = cookies[i].split("=")[1]
     }
 }
 const buttonType = (index, e) => {
@@ -124,11 +124,10 @@ const genTest = () => {
 
 }
 const getTest = async () => {
-    const response = await fetch("http://127.0.0.1:5000/b/view/" + viewing_test)
+    const response = await fetch("http://127.0.0.1:5000/b/view/" + url_split[1])
     const data = await response.json()
     if (response.status != 200 && response.status != 201) {
         window.alert(data.message)
-        document.cookie = `viewing_test=${viewing_test}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
         window.location.assign("/")
     } else {
         termList = data.message[2].split(";")
@@ -139,13 +138,19 @@ const getTest = async () => {
 }
 
 if (isCookieSaved) {
-    if (isViewing) {
+    logInBtn.style.display = "none"
+    signInBtn.style.display = "none"
+    profilePic.style.display = "inline-block"
+    if (url_split[1] !== null) {
         getTest()
     } else {
         window.alert("No test was loaded")
         window.location.assign("/")
     }
 } else {
+    logInBtn.style.display = "inline-block"
+    signInBtn.style.display = "inline-block"
+    profilePic.style.display = "none"
     window.alert("You have to bet logged int to use this feature")
     window.location.assign("/sign")
 }

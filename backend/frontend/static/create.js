@@ -10,7 +10,7 @@ const profilePic = document.querySelector(".profile-pic")
 let isEditing = false
 const title_text = document.querySelector(".title-input")
 const description_text = document.querySelector(".desc-input")
-
+const url_split = window.location.pathname.slice(1).split("/")
 
 console.log(cookies)
 for (let i = 0; i< cookies.length; i++){
@@ -22,25 +22,19 @@ for (let i = 0; i< cookies.length; i++){
         //console.log(cookies[i].split("=")[1])
         
     }
-    if(cookies[i].split("=")[0].replace(" ", "") == "view_test"){
-        isViewing = true
-        viewing_test = cookies[i].split("=")[1]
-    }
-    if(cookies[i].split("=")[0].replace(" ", "") == "mode"){
-        if (cookies[i].split("=")[1].replace(" ", "") == "edit"){
-            isEditing = true
-        } else{
-            isEditing = false
-        }
-    }
-    
+}
+
+if(url_split[0] === "edit"){
+    isEditing = true
+}else{
+    isEditing = false
 }
 
 async function setupEdit(){
-    const response = await fetch("http://127.0.0.1:5000/b/view/"+ viewing_test)
+    const response = await fetch("http://127.0.0.1:5000/b/view/"+ url_split[1])
         const data = await response.json()
         if(response.status != 200 && response.status != 201){
-            alert(data.message)
+            window.alert(data.message)
         } else{
             title_text.value = data.message[0]
             description_text.value = data.message[1]
@@ -77,12 +71,9 @@ submit_btn.addEventListener("click", async function(){
                     break
                 }
             }
-            term_value = term_value.substring(1)
-            console.log(def_value)
-    
-            def_value = def_value.substring(1)
-            console.log(term_value)
-    
+
+            term_value = term_value.substring(1)    
+            def_value = def_value.substring(1)    
             
             if(proceed){
                 const sess = {
@@ -94,7 +85,7 @@ submit_btn.addEventListener("click", async function(){
                 }
                 if(isEditing == false){
                     const options = {
-                        method: "PATCH",
+                        method: "POST",
                         headers:{
                             "Content-Type": "application/json"
                         },
@@ -108,7 +99,7 @@ submit_btn.addEventListener("click", async function(){
                         window.location.assign("/")
                     }
                     else{
-                        alert(data.message)
+                        window.alert(data.message)
                     }
                 }else if(isEditing){
                     const sess = {
@@ -124,12 +115,12 @@ submit_btn.addEventListener("click", async function(){
                         },
                         body: JSON.stringify(sess)
                     }
-                    const response = await fetch("http://127.0.0.1:5000/b/edit-test/" + viewing_test, options)
+                    const response = await fetch("http://127.0.0.1:5000/b/edit-test/" + url_split[1], options)
                     const data = await response.json()
                     console.log(response.status)
                     if(response.status == 201 || response.status == 200){
                         window.alert(data.message)
-                        window.location.assign("/view")
+                        window.location.assign("/view/" + url_split[1])
                     }
                     else{
                         alert(data.message)

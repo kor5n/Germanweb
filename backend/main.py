@@ -16,6 +16,12 @@ def create_page():
         return render_template("create.html")
     else:
         return render_template("signup.html")
+@app.route("/edit/<int:test_id>")
+def edit_page(test_id):
+    if session["id"] != None:
+        return render_template("create.html")
+    else:
+        return redirect("/")
 @app.route("/sign")
 def signup_page():
     if session["id"] != None:
@@ -24,7 +30,7 @@ def signup_page():
         return render_template("signup.html")
 @app.route("/view/<int:test_id>", methods=["GET"])
 def view_page(test_id):
-    return render_template("view.html", test_id=test_id)
+    return render_template("view.html")
 @app.route("/flash/<int:test_id>")
 def flash_page(test_id):
     return render_template("flashcards.html")
@@ -35,7 +41,7 @@ def multi_page(test_id):
 def write_page(test_id):
     return render_template("writeAns.html")
 
-@app.route("/b/tests", methods = ["GET", "POST"])
+@app.route("/b/tests", methods = ["GET"])
 def get_terms():
     user = User.query.get(session["id"])
     if user==None:
@@ -57,7 +63,7 @@ def view_test(test_id):
     
     test_list = [test.title, test.description, test.terms, test.defenition]
     return jsonify({"message": test_list}), 200
-@app.route("/b/create", methods = ["POST", "PATCH"])
+@app.route("/b/create", methods = ["POST"])
 def create_test():
     user_id = request.json.get("session_id")
     if not user_id:

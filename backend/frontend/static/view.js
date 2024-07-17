@@ -10,13 +10,13 @@ for (let i = 0; i < cookies.length; i++) {
     }
 }
 document.querySelector(".flash-btn").addEventListener("click", function(){
-    location.href = "/flash/"+url_split[1]
+    window.location.assign("/flash/"+url_split[1])
 })
 document.querySelector(".mult-btn").addEventListener("click", function(){
-    location.href = "/multi/"+url_split[1]
+    window.location.assign("/multi/"+url_split[1])
 })
 document.querySelector(".write-btn").addEventListener("click", function(){
-    location.href = "/write/"+url_split[1]
+    window.location.assign("/write/"+url_split[1])
 })
 async function getTest() {
     const response = await fetch("http://127.0.0.1:5000/b/view/" + url_split[1])
@@ -35,8 +35,7 @@ async function getTest() {
     }
     document.querySelector("main").innerHTML += `<button class="edit-btn">Edit</button><button class="delete-btn">Remove</button>`
     document.querySelector(".edit-btn").addEventListener("click", function () {
-        document.cookie = `mode=edit; max-age=${60 * 60}; path=/`
-        window.location.assign("/create")
+        window.location.assign("/edit/"+url_split[1])
     })
     document.querySelector(".delete-btn").addEventListener("click", async function () {
         if (this.innerHTML != "Sure?") {
@@ -48,9 +47,9 @@ async function getTest() {
                     "Content-Type": "application/json"
                 },
             }
-            const response = await fetch("http://127.0.0.1:5000/b/delete/" + viewing_test, options)
+            const response = await fetch("http://127.0.0.1:5000/b/delete/" + url_split[1], options)
             const data = await response.json()
-            alert(data.message)
+            window.alert(data.message)
 
             if (response.status == 200 || response.status == 201) {
                 window.location.assign("/")

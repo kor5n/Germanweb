@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <span class="comp-name"><img src="static/img/GTESTLOGO.png" class="gtest" alt="Gtest"></span>
+        <span class="comp-name"><img src="{{ url_for('static', filename='img/GTESTLOGO.png') }}" class="gtest" alt="Gtest"></span>
         <div class="link-div">
             <a class="page-link" href="/">Profile</a>
             <a class="page-link">Browse</a>
@@ -23,7 +23,7 @@
     </header>
     <main>
         <button class="add-btn"
-            onclick="location.href='/create'; document.cookie = `mode=create; max-age=${60*60}; path=/`">+</button>
+            onclick="location.href='/create'">+</button>
         <!--<div class="test-profile" onclick="location.href='view.html'">
                 <h3 class="test-name">test name</h3>
                 <p class="quest-count">x questions</p>

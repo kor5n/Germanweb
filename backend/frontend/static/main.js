@@ -1,6 +1,5 @@
 let cookies = document.cookie.split(";")
 let isCookieSaved = false
-let session = ""
 let testDivsId = []
 let testDiv = []
 let logInBtn = document.querySelector(".log-in")
@@ -9,25 +8,15 @@ let profilePic = document.querySelector(".profile-pic")
 for (let i = 0; i < cookies.length; i++) {
     if (cookies[i].split("=")[0].replace(" ", "") == "user") {
         isCookieSaved = true
-        session = cookies[i].split("=")[1]
         break
     }
 }
 
 async function getData() {
-    const sess = {
-        "session_id": session
-    }
-    const options = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(sess)
-    }
-    const response = await fetch("http://127.0.0.1:5000/b/tests", options)
+    const response = await fetch("http://127.0.0.1:5000/b/tests")
     const data = await response.json()
     if (response.status != 200 && response.status != 201) {
+        window.alert(data.message)
         document.cookie = `user=${session}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
     }
     else {
@@ -47,7 +36,6 @@ async function getData() {
 
         for (let i = 0; i < testDiv.length; i++) {
             testDiv[i].addEventListener("click", function () {
-                window.alert(testDivsId[i])
                 window.location.assign("/view/" + testDivsId[i])
             })
         }

@@ -1,7 +1,3 @@
-let cookies = document.cookie.split(";")
-let session = ""
-let isCookieSaved = false
-let isViewing = false
 let realDefList = []
 let rightAnswers = 0
 let attempts = 0
@@ -11,14 +7,6 @@ const signInBtn = document.querySelector(".sign-in")
 const profilePic = document.querySelector(".profile-pic")
 const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
-
-for (let i = 0; i < cookies.length; i++) {
-    if (cookies[i].split("=")[0].replace(" ", "") == "user") {
-        isCookieSaved = true
-        session = cookies[i].split("=")[1]
-
-    }
-}
 
 function shuffle(array) {
     let currentIndex = array.length;
@@ -91,7 +79,7 @@ const getTest = async () => {
     const data = await response.json()
     if (response.status != 200 && response.status != 201) {
         window.alert(data.message)
-        window.location.assign("main.html")
+        window.location.assign("/")
     } else {
         termList = data.message[2].split(";")
         defList = data.message[3].split(";")
@@ -102,7 +90,7 @@ const getTest = async () => {
     }
 }
 
-if (isCookieSaved) {
+if (url_split[1] !== null) {
     logInBtn.style.display = "none"
     signInBtn.style.display = "none"
     profilePic.style.display = "inline-block"
@@ -110,12 +98,12 @@ if (isCookieSaved) {
         getTest()
     } else {
         window.alert("No test was loaded")
-        window.location.assign("main.html")
+        window.location.assign("/")
     }
 } else {
     logInBtn.style.display = "inline-block"
     signInBtn.style.display = "inline-block"
     profilePic.style.display = "none"
     window.alert("You have to bet logged int to use this feature")
-    window.location.assign("signup.html")
+    window.location.assign("/sign")
 }

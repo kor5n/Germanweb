@@ -6,20 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Test</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
-    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylying.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylying.css') }}" />
 </head>
 
 <body>
     <header>
-        <span class="comp-name"><img src="{{ url_for('static', filename='img/GTESTLOGO.png') }}" class="gtest" alt="Gtest"></span>
+        <span class="comp-name"><img src="{{ url_for('static', filename='img/GTESTLOGO.png') }}" class="gtest"
+                alt="Gtest"></span>
         <div class="link-div">
             <a class="page-link" href="/">Profile</a>
             <a class="page-link">Browse</a>
             <a class="page-link">About us</a>
         </div>
         <button class="profile-pic"><img src="" alt=""></button>
-        <button class="log-in" onclick="location.href = '/sign'">Log in</button>
-        <button class="sign-in" onclick="location.href = '/sign'">Sign up</button>
+        <button class="log-in">Log in</button>
+        <button class="sign-in">Sign up</button>
     </header>
     <main>
         <div class="sign-up-div">

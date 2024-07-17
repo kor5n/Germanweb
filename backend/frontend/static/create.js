@@ -1,9 +1,6 @@
 const add_btn = document.querySelector(".add-term-btn")
 const rm_btn = document.querySelector(".rm-term-btn")
 const submit_btn = document.querySelector(".submit-btn")
-const cookies = document.cookie.split(";")
-let isCookieSaved = false
-let session = ""
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
 const profilePic = document.querySelector(".profile-pic")
@@ -11,18 +8,6 @@ let isEditing = false
 const title_text = document.querySelector(".title-input")
 const description_text = document.querySelector(".desc-input")
 const url_split = window.location.pathname.slice(1).split("/")
-
-console.log(cookies)
-for (let i = 0; i< cookies.length; i++){
-    if(cookies[i].split("=")[0].replace(" ", "") == "user"){
-        //console.log(cookies[i].split("=")[0])
-        isCookieSaved = true
-        session = cookies[i].split("=")[1]
-        index = i
-        //console.log(cookies[i].split("=")[1])
-        
-    }
-}
 
 if(url_split[0] === "edit"){
     isEditing = true
@@ -77,7 +62,7 @@ submit_btn.addEventListener("click", async function(){
             
             if(proceed){
                 const sess = {
-                    "session_id":session,
+                    "session_id":url_split[1],
                     "title": title_text.value,
                     "description": description_text.value,
                     "term": term_value,
@@ -134,7 +119,7 @@ submit_btn.addEventListener("click", async function(){
         
 })
 
-if (isCookieSaved){
+if (true){
     logInBtn.style.display = "none"
     signInBtn.style.display = "none"
     profilePic.style.display = "inline-block"

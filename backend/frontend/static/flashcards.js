@@ -9,11 +9,11 @@ const fakeFlash = document.querySelector(".trans-flash")
 let termList = []
 let defList = [] 
 let count = 0
-let cookies = document.cookie.split(";")
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
 const profilePic = document.querySelector(".profile-pic")
 const flashTitle = document.querySelector(".flash-title")
+const url_split = window.location.pathname.slice(1).split("/")
 
 function rotateFlashcard(){
     rotateOn = true
@@ -97,12 +97,11 @@ leftArrow.addEventListener("click", function(){
     
 })
 async function getTest(){
-    const response = await fetch("http://127.0.0.1:5000/b/view/"+ viewing_test)
+    const response = await fetch("http://127.0.0.1:5000/b/view/"+ url_split[1])
     const data = await response.json()
 
     if(response.status != 200 && response.status != 201){
         window.alert(data.message)
-        document.cookie = `viewing_test=${viewing_test}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
         window.location.assign("/")
     }else{
         termList = data.message[2].split(";")
@@ -112,16 +111,7 @@ async function getTest(){
         writeTerm()
     }
 }
-for (let i = 0; i< cookies.length; i++){
-    if(cookies[i].split("=")[0].replace(" ", "") == "user"){
-        isCookieSaved = true
-    }
-    if(cookies[i].split("=")[0].replace(" ", "") == "view_test"){
-        isViewing = true
-        viewing_test = cookies[i].split("=")[1]
-    }
-}
-if(isCookieSaved){
+if(true){
     logInBtn.style.display = "none"
     signInBtn.style.display = "none"
     profilePic.style.display = "inline-block"
@@ -131,7 +121,7 @@ if(isCookieSaved){
     profilePic.style.display = "none"
 }
 
-if(isViewing){
+if(url_split[1] !== null){
     getTest()
 } else{
     window.alert("No test was loaded")

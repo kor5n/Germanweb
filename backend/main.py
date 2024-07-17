@@ -1,4 +1,4 @@
-from flask import request, jsonify, session, render_template,redirect
+from flask import request, jsonify, session, render_template,redirect, flash
 from config import app, db
 from models import Test, User
 import hashlib
@@ -6,9 +6,12 @@ import hashlib
 
 @app.route("/")
 def profile_page():
-    if session["id"] != None:
-        return render_template("main.html")
-    else:
+    try:
+        if session["id"] != None:
+            return render_template("main.html")
+        else:
+            return redirect("/sign")
+    except:
         return redirect("/sign")
 @app.route("/create")
 def create_page():
@@ -24,9 +27,12 @@ def edit_page(test_id):
         return redirect("/")
 @app.route("/sign")
 def signup_page():
-    if session["id"] != None:
-        return redirect('/')
-    else:
+    try:
+        if session["id"] != None:
+            return redirect("/")
+        else:
+            return render_template("signup.html")
+    except:
         return render_template("signup.html")
 @app.route("/view/<int:test_id>", methods=["GET"])
 def view_page(test_id):
@@ -57,12 +63,14 @@ def get_terms():
     return jsonify({"message":  user_tests, "username": user.user_name}), 200
 @app.route("/b/view/<int:test_id>", methods = ["GET"])
 def view_test(test_id):
+    can_modify = False
     test = Test.query.get(test_id)
     if not test:
         return jsonify({"message": "Test not found"}), 404
-    
+    if test.user_id == session["id"]:
+        can_modify = True
     test_list = [test.title, test.description, test.terms, test.defenition]
-    return jsonify({"message": test_list}), 200
+    return jsonify({"message": test_list, "canModify":can_modify}), 200
 @app.route("/b/create", methods = ["POST"])
 def create_test():
     user_id = request.json.get("session_id")
@@ -144,7 +152,7 @@ def create_user():
     except Exception as e:
         return jsonify({"message": str(e)}), 400
         
-    return jsonify({"message": "New user created", "cookie":session["id"]}), 201
+    return jsonify({"message": "New user created"}), 201
 @app.route("/b/sign-in", methods=["GET", "POST"])
 def log_in():
     email = request.json.get("email")

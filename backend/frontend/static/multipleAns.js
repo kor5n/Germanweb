@@ -1,6 +1,3 @@
-let cookies = document.cookie.split(";")
-let session = ""
-let isCookieSaved = false
 let termList = []
 let defList = []
 let ansTerms = []
@@ -16,14 +13,6 @@ const profilePic = document.querySelector(".profile-pic")
 const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
 
-
-for (let i = 0; i < cookies.length; i++) {
-    if (cookies[i].split("=")[0].replace(" ", "") == "user") {
-        isCookieSaved = true
-        session = cookies[i].split("=")[1]
-
-    }
-}
 const buttonType = (index, e) => {
     if (rightAnswers[e] == ansTerms[index]) {
         return "right-btn"
@@ -137,7 +126,7 @@ const getTest = async () => {
     }
 }
 
-if (isCookieSaved) {
+if (url_split[1] !== null) {
     logInBtn.style.display = "none"
     signInBtn.style.display = "none"
     profilePic.style.display = "inline-block"

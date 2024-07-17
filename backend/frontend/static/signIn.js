@@ -66,14 +66,11 @@ signUpBtn.addEventListener("click", async function () {
             signUpSwitch.style.display = "none"
             profilePic.style.display = "inline"
             signUpDiv.style.display = "none"
-            eyeIcon.style.display = "none"
 
-            console.log(resp.cookie)
-            document.cookie = `user=${resp.cookie}; max-age=${20 * 60 * 24 * 60}; path=/`
             window.location.assign("/")
         }
     } else {
-        alert("Yosu must include a valid name, email and password")
+        alert("You must include a valid name, email and password")
     }
 })
 logInBtn.addEventListener("click", async function () {
@@ -101,8 +98,6 @@ logInBtn.addEventListener("click", async function () {
             profilePic.style.display = "inline"
             logInDiv.style.display = "none"
 
-            console.log(resp.cookie)
-            document.cookie = `user=${resp.cookie}; max-age=${20 * 60 * 24 * 60}; path=/`
             window.location.assign("/")
         }
     } else {

@@ -1,23 +1,14 @@
-let cookies = document.cookie.split(";")
-let isCookieSaved = false
 let testDivsId = []
 let testDiv = []
 let logInBtn = document.querySelector(".log-in")
 let signInBtn = document.querySelector(".sign-in")
 let profilePic = document.querySelector(".profile-pic")
-for (let i = 0; i < cookies.length; i++) {
-    if (cookies[i].split("=")[0].replace(" ", "") == "user") {
-        isCookieSaved = true
-        break
-    }
-}
 
 async function getData() {
     const response = await fetch("http://127.0.0.1:5000/b/tests")
     const data = await response.json()
     if (response.status != 200 && response.status != 201) {
         window.alert(data.message)
-        document.cookie = `user=${session}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
     }
     else {
         logInBtn.style.display = "none"
@@ -46,7 +37,7 @@ async function getData() {
 
 
 }
-if (isCookieSaved) {
+if (true) {
     getData()
 } else {
     logInBtn.style.display = "inline-block"

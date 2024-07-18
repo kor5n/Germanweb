@@ -108,17 +108,18 @@ async function getTest(){
         defList = data.message[3].split(";")
         flashTitle.innerHTML = data.message[0]
         count = 0
+        if (data.loggedIn == true) {
+            logInBtn.style.display = "none"
+            signInBtn.style.display = "none"
+            profilePic.style.display = "inline-block"
+        } else {
+            logInBtn.style.display = "inline-block"
+            signInBtn.style.display = "inline-block"
+            profilePic.style.display = "none"
+        }
         writeTerm()
     }
-}
-if(true){
-    logInBtn.style.display = "none"
-    signInBtn.style.display = "none"
-    profilePic.style.display = "inline-block"
-}else{
-    logInBtn.style.display = "inline-block"
-    signInBtn.style.display = "inline-block"
-    profilePic.style.display = "none"
+    
 }
 
 if(url_split[1] !== null){

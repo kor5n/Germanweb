@@ -86,24 +86,22 @@ const getTest = async () => {
         fetchedDefs = data.message[3].split(";")
         realDefList = data.message[3].split(";")
         document.querySelector(".flash-title").innerHTML = data.message[0]
+        if (data.loggedIn == true) {
+            logInBtn.style.display = "none"
+            signInBtn.style.display = "none"
+            profilePic.style.display = "inline-block"
+        } else {
+            logInBtn.style.display = "inline-block"
+            signInBtn.style.display = "inline-block"
+            profilePic.style.display = "none"
+        }
         genTest()
     }
 }
 
 if (url_split[1] !== null) {
-    logInBtn.style.display = "none"
-    signInBtn.style.display = "none"
-    profilePic.style.display = "inline-block"
-    if (url_split[1] !== null) {
-        getTest()
-    } else {
-        window.alert("No test was loaded")
-        window.location.assign("/")
-    }
+    getTest()
 } else {
-    logInBtn.style.display = "inline-block"
-    signInBtn.style.display = "inline-block"
-    profilePic.style.display = "none"
-    window.alert("You have to bet logged int to use this feature")
-    window.location.assign("/sign")
+    window.alert("No test was loaded")
+    window.location.assign("/")
 }

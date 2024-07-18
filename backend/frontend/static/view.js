@@ -10,7 +10,17 @@ async function getTest() {
         window.alert(data.message)
         window.location.assign("/")
     } else {
-        
+
+        if (data.loggedIn == true) {
+            logInBtn.style.display = "none"
+            signInBtn.style.display = "none"
+            profilePic.style.display = "inline-block"
+        } else {
+            logInBtn.style.display = "inline-block"
+            signInBtn.style.display = "inline-block"
+            profilePic.style.display = "none"
+        }
+
         document.querySelector(".test-name").innerHTML = data.message[0]
         document.querySelector(".test-desc").innerHTML = data.message[1]
         for (let i = 0; i < data.message[2].split(";").length; i++) {
@@ -18,10 +28,10 @@ async function getTest() {
             <span class="term-text">${data.message[2].split(";")[i]}</span><span style="margin-left: 3%;">|</span><span class="def-text">${data.message[3].split(";")[i]}</span>
             </div>`
         }
-        if(data.canModify === true){
+        if (data.canModify === true) {
             document.querySelector("main").innerHTML += `<button class="edit-btn">Edit</button><button class="delete-btn">Remove</button>`
             document.querySelector(".edit-btn").addEventListener("click", function () {
-                window.location.assign("/edit/"+url_split[1])
+                window.location.assign("/edit/" + url_split[1])
             })
             document.querySelector(".delete-btn").addEventListener("click", async function () {
                 if (this.innerHTML != "Sure?") {
@@ -36,36 +46,24 @@ async function getTest() {
                     const response = await fetch("http://127.0.0.1:5000/b/delete/" + url_split[1], options)
                     const data = await response.json()
                     window.alert(data.message)
-    
+
                     if (response.status == 200 || response.status == 201) {
                         window.location.assign("/")
                     }
                 }
-    
+
             })
         }
+        document.querySelector(".flash-btn").addEventListener("click", function () {
+            window.location.assign("/flash/" + url_split[1])
+        })
+        document.querySelector(".mult-btn").addEventListener("click", function () {
+            window.location.assign("/multi/" + url_split[1])
+        })
+        document.querySelector(".write-btn").addEventListener("click", function () {
+            window.location.assign("/write/" + url_split[1])
+        })
     }
-}
-    
-document.querySelector(".flash-btn").addEventListener("click", function(){
-    window.location.assign("/flash/"+url_split[1])
-})
-document.querySelector(".mult-btn").addEventListener("click", function(){
-    window.location.assign("/multi/"+url_split[1])
-})
-document.querySelector(".write-btn").addEventListener("click", function(){
-    window.location.assign("/write/"+url_split[1])
-})
-
-
-if (true) {
-    logInBtn.style.display = "none"
-    signInBtn.style.display = "none"
-    profilePic.style.display = "inline-block"
-} else {
-    logInBtn.style.display = "inline-block"
-    signInBtn.style.display = "inline-block"
-    profilePic.style.display = "none"
 }
 
 if (url_split[1] !== null) {

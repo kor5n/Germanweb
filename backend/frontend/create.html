@@ -40,6 +40,13 @@
             
             
         </main>
+        <script>
+            const islogged = '{{ logged_in }}'
+            if(!islogged){
+                window.alert("You are not logged in")
+                window.location.assign("/sign")
+            }
+        </script>
         <script src="{{ url_for('static', filename='create.js') }}"></script>
     </body>
 </html>

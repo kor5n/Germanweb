@@ -3,28 +3,15 @@ from config import app, db
 from models import Test, User
 import hashlib
 
-
 @app.route("/")
 def profile_page():
-    try:
-        if session["id"] != None:
-            return render_template("main.html")
-        else:
-            return redirect("/sign")
-    except:
-        return redirect("/sign")
-@app.route("/create")
+    return render_template("main.html")
+@app.route("/create")#Has to be logged in
 def create_page():
-    if session["id"] != None:
-        return render_template("create.html")
-    else:
-        return render_template("signup.html")
-@app.route("/edit/<int:test_id>")
+    return render_template("create.html")    
+@app.route("/edit/<int:test_id>")#Has to be logged in
 def edit_page(test_id):
-    if session["id"] != None:
-        return render_template("create.html")
-    else:
-        return redirect("/")
+    return render_template("create.html")
 @app.route("/sign")
 def signup_page():
     try:
@@ -34,7 +21,7 @@ def signup_page():
             return render_template("signup.html")
     except:
         return render_template("signup.html")
-@app.route("/view/<int:test_id>", methods=["GET"])
+@app.route("/view/<int:test_id>")
 def view_page(test_id):
     return render_template("view.html")
 @app.route("/flash/<int:test_id>")
@@ -63,14 +50,19 @@ def get_terms():
     return jsonify({"message":  user_tests, "username": user.user_name}), 200
 @app.route("/b/view/<int:test_id>", methods = ["GET"])
 def view_test(test_id):
+    logged_in = True
     can_modify = False
     test = Test.query.get(test_id)
     if not test:
         return jsonify({"message": "Test not found"}), 404
-    if test.user_id == session["id"]:
-        can_modify = True
+    
+    try :
+        if test.user_id == session["id"]:
+            can_modify = True
+    except:
+        logged_in = False
     test_list = [test.title, test.description, test.terms, test.defenition]
-    return jsonify({"message": test_list, "canModify":can_modify}), 200
+    return jsonify({"message": test_list, "canModify":can_modify, "loggedIn" : logged_in}), 200
 @app.route("/b/create", methods = ["POST"])
 def create_test():
     user_id = request.json.get("session_id")

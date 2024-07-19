@@ -18,12 +18,21 @@
             <a class="page-link">About us</a>
         </div>
         <button class="profile-pic"><img src="" alt=""></button>
+        <div class="sub-menu">
+            <div class="user-name sub-in">
+                <span class="sub-text sub-name">Profile name</span>
+            </div>
+            <div class="logout-btn sub-in" >
+                <span class="sub-text logout-btn" onclick="await fetch('http://127.0.0.1:5000/b/logout')
+                window.location.reload()">Logout</span>
+            </div>
+        </div>
         <button class="log-in" onclick="location.href = '/sign'">Log in</button>
         <button class="sign-in" onclick="location.href = '/sign'">Sign up</button>
     </header>
     <main>
         <h1 class="test-name">Test Name</h1>
-        <h2 class="test-desc"> Description</h2>
+        <h2 class="test-desc">Description</h2>
         <div class="play-btn-div">
             <button class="flash-btn">Flashcards</button>
             <button class="mult-btn">Multiple</button>

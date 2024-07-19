@@ -38,7 +38,7 @@ def write_page(test_id):
 def get_terms():
     user = User.query.get(session["id"])
     if user==None:
-        return jsonify({"message": "You are not logged in"}), 401
+        return jsonify({"message": "You are not logged in or user does not exist"}), 401
     tests = Test.query.all()
     json_tests = list(map(lambda x: x.to_json(), tests))
     user_tests = []
@@ -65,25 +65,23 @@ def view_test(test_id):
     return jsonify({"message": test_list, "canModify":can_modify, "loggedIn" : logged_in}), 200
 @app.route("/b/create", methods = ["POST"])
 def create_test():
-    user_id = request.json.get("session_id")
-    if not user_id:
-        return jsonify({"message": "You are not logged in"}, 401)
+    if not session["id"]:
+        return jsonify({"message": "You are not logged in"}), 401
     title = request.json.get("title")
     desc = request.json.get("description")
     terms = request.json.get("term")
     defs = request.json.get("defenition")
 
     if not title or not desc or not terms or not defs:
-        return (jsonify({"message": "You must include a username, title and description"}), 400)
+        return jsonify({"message": "You must include a username, title and description"}), 400
     
-    new_test =Test(title=title, description=desc, terms=terms, defenition=defs, user_id=user_id)
+    new_test =Test(title=title, description=desc, terms=terms, defenition=defs, user_id=session["id"])
     try: 
         db.session.add(new_test)
         db.session.commit()
     except Exception as e:
         return jsonify({"message": str(e)}), 400
     
-    user = User.query.get(user_id)
     return jsonify({"message": "Test created"}), 201
 
 @app.route("/b/edit-test/<int:test_id>", methods=["PATCH"])
@@ -105,7 +103,6 @@ def update_test(test_id):
 @app.route("/b/delete/<int:test_id>", methods=["DELETE"])
 def delete_test(test_id):
     test = Test.query.get(test_id)
-    print(type(test))
 
     if not test:
         return jsonify({"message": "Test not found"}), 404
@@ -126,7 +123,6 @@ def create_user():
     json_users = list(map(lambda x: x.to_json(), users))    
 
     for user in json_users:
-        print(user["email"])
         if email in user["email"]:
             return jsonify({"message": "This email is already in use"}), 418
 
@@ -140,7 +136,6 @@ def create_user():
         db.session.add(new_user)
         db.session.commit()
         session["id"] = new_user.id
-        print(session["id"])
     except Exception as e:
         return jsonify({"message": str(e)}), 400
         
@@ -149,7 +144,6 @@ def create_user():
 def log_in():
     email = request.json.get("email")
     password = request.json.get("password")
-    print(email)
 
     h = hashlib.new("SHA256")
     h.update(password.encode())
@@ -174,7 +168,13 @@ def log_in():
     except:
         return jsonify({"message": "Email or password is incorrect"}), 400
     return jsonify({"message": "You are logged in as " + usr.user_name}), 200 
-
+@app.route("/b/logout", methods=["GET"])
+def logout():
+    if session["id"] != None:
+        session["id"] = None
+        return jsonify({"message": "Succesfully logged out"}), 200
+    else:
+        return jsonify({"message":"Couldn't log out(didn't find your info)"}),404
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

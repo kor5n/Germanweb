@@ -3,17 +3,27 @@ let testDiv = []
 let logInBtn = document.querySelector(".log-in")
 let signInBtn = document.querySelector(".sign-in")
 let profilePic = document.querySelector(".profile-pic")
+const subMenu = document.querySelector(".sub-menu")
+
+document.querySelector(".profile-pic").addEventListener("click", () => {
+    if (subMenu.style.display == "none") {
+        subMenu.style.display = "block"
+    } else {
+        subMenu.style.display = "none"
+    }
+})
 
 async function getData() {
     const response = await fetch("http://127.0.0.1:5000/b/tests")
     const data = await response.json()
     if (response.status != 200 && response.status != 201) {
-        window.alert(data.message)
+        //window.alert(data.message)
     }
     else {
         logInBtn.style.display = "none"
         signInBtn.style.display = "none"
         profilePic.style.display = "inline"
+        document.querySelector(".sub-name").innerHTML = data.username
         data.message.forEach(element => {
             document.querySelector("main").innerHTML += `<div class="test-profile">
                                                     <h3 class="test-name">${element["title"]}</h3>

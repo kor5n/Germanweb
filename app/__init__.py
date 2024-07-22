@@ -66,8 +66,6 @@ def view_test(test_id):
     except:
         logged_in = False
     test_list = [test.title, test.description, test.terms, test.defenition]
-    print(logged_in)
-    print(can_modify)
     return jsonify({"message": test_list, "canModify":can_modify, "loggedIn" : logged_in}), 200
 @app.route("/b/create", methods = ["POST"])
 def create_test():
@@ -166,7 +164,6 @@ def log_in():
                 session["id"] = user["id"]
                 break
     except Exception as e:
-        print(e)
         return jsonify({"message": "Email or password is incorrect"}), 400
 
     try:

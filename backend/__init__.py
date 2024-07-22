@@ -36,7 +36,10 @@ def write_page(test_id):
 
 @app.route("/b/tests", methods = ["GET"])
 def get_terms():
-    user = User.query.get(session["id"])
+    try:
+        user = User.query.get(session["id"])
+    except:
+        return jsonify({"message": "You are not logged in or user does not exist"}), 401
     if user==None:
         return jsonify({"message": "You are not logged in or user does not exist"}), 401
     tests = Test.query.all()
@@ -57,11 +60,14 @@ def view_test(test_id):
         return jsonify({"message": "Test not found"}), 404
     
     try :
-        if test.user_id == session["id"]:
-            can_modify = True
+        can_modify = test.user_id == session["id"]
+        if session["id"] == None:
+            logged_in = False
     except:
         logged_in = False
     test_list = [test.title, test.description, test.terms, test.defenition]
+    print(logged_in)
+    print(can_modify)
     return jsonify({"message": test_list, "canModify":can_modify, "loggedIn" : logged_in}), 200
 @app.route("/b/create", methods = ["POST"])
 def create_test():

@@ -12,6 +12,15 @@ const signInBtn = document.querySelector(".sign-in")
 const profilePic = document.querySelector(".profile-pic")
 const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
+const subMenu = document.querySelector(".sub-menu")
+
+document.querySelector(".profile-pic").addEventListener("click", () => {
+    if (subMenu.style.display == "none") {
+        subMenu.style.display = "block"
+    } else {
+        subMenu.style.display = "none"
+    }
+})
 
 const buttonType = (index, e) => {
     if (rightAnswers[e] == ansTerms[index]) {
@@ -42,9 +51,11 @@ function randomAnswers(rightAnswer) {
         randomElement = termList[Math.floor(Math.random() * termList.length)]
         ansTerms.push(randomElement)
     }
-    duplicates = ansTerms.filter((item, index) => ansTerms.indexOf(item) !== index)
-    if (duplicates.length > 0) {
-        randomAnswers(rightAnswer)
+    if (termList.length >= 4) {
+        duplicates = ansTerms.filter((item, index) => ansTerms.indexOf(item) !== index)
+        if (duplicates.length > 0) {
+            randomAnswers(rightAnswer)
+        }
     }
 }
 
@@ -76,22 +87,18 @@ const genTest = () => {
     }
     document.querySelector("main").innerHTML += `<h2 class="acc-score" style="display: inline-block; margin-right: 10%;">Your accuracy: </h2><button class="retry-btn">Retry</button>`
     let WrongBtnList = document.querySelectorAll(".wrong-btn")
-    console.log(WrongBtnList.length)
     for (let i = 0; i < WrongBtnList.length; i++) {
-        console.log(WrongBtnList[i])
         WrongBtnList[i].addEventListener("click", function () {
-            if(this.style.background !== "red"){
+            if (this.style.background !== "red") {
                 this.style.background = "red"
                 attempts += 1
             }
         })
     }
     let RightBtnList = document.querySelectorAll(".right-btn")
-    console.log(RightBtnList.length)
     for (let i = 0; i < RightBtnList.length; i++) {
-        console.log(RightBtnList[i])
         RightBtnList[i].addEventListener("click", function () {
-            if(this.style.background !== "green"){
+            if (this.style.background !== "green") {
                 this.style.background = "green"
                 attempts += 1
                 rightAttempts += 1
@@ -113,7 +120,7 @@ const genTest = () => {
 
 }
 const getTest = async () => {
-    const response = await fetch("http://127.0.0.1:5000/b/view/" + url_split[1])
+    const response = await fetch("/b/view/" + url_split[1])
     const data = await response.json()
     if (response.status != 200 && response.status != 201) {
         window.alert(data.message)
@@ -122,11 +129,11 @@ const getTest = async () => {
         termList = data.message[2].split(";")
         defList = data.message[3].split(";")
         document.querySelector(".flash-title").innerHTML = data.message[0]
-        if (data.loggedIn == true) {
+        if (data.loggedIn === true) {
             logInBtn.style.display = "none"
             signInBtn.style.display = "none"
             profilePic.style.display = "inline-block"
-        } else {
+        } else if (data.loggedIn == false) {
             logInBtn.style.display = "inline-block"
             signInBtn.style.display = "inline-block"
             profilePic.style.display = "none"

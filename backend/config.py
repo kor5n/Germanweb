@@ -10,7 +10,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = "My very beatiful secret key"
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
-CORS(app, resources={r'*':{"origins":"http://localhost:8000"}})
+CORS(app, resources={r'*':{"origins":"*"}})
 
 db = SQLAlchemy(app)
 

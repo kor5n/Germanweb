@@ -29,7 +29,6 @@ switchLogIn.addEventListener("click", function () {
 for(let i =0; i<eyeIcon.length; i++){
     eyeIcon[i].addEventListener("click", function () {
         let passwordInput = document.querySelectorAll(".passwd-input")
-        console.log("ckickdd")
         for (let i = 0; i < passwordInput.length; i++) {
             if (passwordInput[i].style.display != "none") {
                 if (passwordInput[i].type == "text") {
@@ -56,7 +55,7 @@ signUpBtn.addEventListener("click", async function () {
             },
             body: JSON.stringify(data)
         }
-        const response = await fetch("http://127.0.0.1:5000/b/sign-up", options)
+        const response = await fetch("/b/sign-up", options)
         const resp = await response.json()
         if (response.status != 201 && response.status != 200) {
 
@@ -74,7 +73,6 @@ signUpBtn.addEventListener("click", async function () {
     }
 })
 logInBtn.addEventListener("click", async function () {
-    console.log("clicked")
     if (emailLogIn.value != "" && passwordLogIn.value != "") {
         const data = {
             "email": emailLogIn.value,
@@ -87,7 +85,7 @@ logInBtn.addEventListener("click", async function () {
             },
             body: JSON.stringify(data)
         }
-        const response = await fetch("http://127.0.0.1:5000/b/sign-in", options)
+        const response = await fetch("/b/sign-in", options)
         const resp = await response.json()
         if (response.status != 201 && response.status != 200) {
 

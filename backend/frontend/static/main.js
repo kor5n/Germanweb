@@ -14,7 +14,7 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
 })
 
 async function getData() {
-    const response = await fetch("http://127.0.0.1:5000/b/tests")
+    const response = await fetch("/b/tests")
     const data = await response.json()
     if (response.status != 200 && response.status != 201) {
         //window.alert(data.message)

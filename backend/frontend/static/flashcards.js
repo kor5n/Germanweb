@@ -14,6 +14,15 @@ const signInBtn = document.querySelector(".sign-in")
 const profilePic = document.querySelector(".profile-pic")
 const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
+const subMenu = document.querySelector(".sub-menu")
+
+document.querySelector(".profile-pic").addEventListener("click", () => {
+    if (subMenu.style.display == "none") {
+        subMenu.style.display = "block"
+    } else {
+        subMenu.style.display = "none"
+    }
+})
 
 function rotateFlashcard(){
     rotateOn = true
@@ -97,7 +106,7 @@ leftArrow.addEventListener("click", function(){
     
 })
 async function getTest(){
-    const response = await fetch("http://127.0.0.1:5000/b/view/"+ url_split[1])
+    const response = await fetch("/b/view/"+ url_split[1])
     const data = await response.json()
 
     if(response.status != 200 && response.status != 201){
@@ -108,11 +117,11 @@ async function getTest(){
         defList = data.message[3].split(";")
         flashTitle.innerHTML = data.message[0]
         count = 0
-        if (data.loggedIn == true) {
+        if (data.loggedIn === true) {
             logInBtn.style.display = "none"
             signInBtn.style.display = "none"
             profilePic.style.display = "inline-block"
-        } else {
+        } else if(data.loggedIn === false) {
             logInBtn.style.display = "inline-block"
             signInBtn.style.display = "inline-block"
             profilePic.style.display = "none"

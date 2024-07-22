@@ -26,8 +26,8 @@
                 <span class="sub-text sub-name">Profile name</span>
             </div>
             <div class="logout-btn sub-in" >
-                <span class="sub-text logout-btn" onclick="await fetch('http://127.0.0.1:5000/b/logout')
-                window.location.reload()">Logout</span>
+                <span class="sub-text logout-btn" onclick="(async () => {await fetch('/b/logout')
+                    window.location.reload()})();">Logout</span>
             </div>
         </div>
         <button class="log-in" onclick="location.href = '/sign'">Log in</button>

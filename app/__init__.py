@@ -1,4 +1,4 @@
-from flask import request, jsonify, session, render_template,redirect, flash
+from flask import request, jsonify, session, render_template,redirect
 from config import app, db
 from models import Test, User
 import hashlib

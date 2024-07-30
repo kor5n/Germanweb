@@ -30,8 +30,8 @@ for(let i =0; i<eyeIcon.length; i++){
     eyeIcon[i].addEventListener("click", function () {
         let passwordInput = document.querySelectorAll(".passwd-input")
         for (let i = 0; i < passwordInput.length; i++) {
-            if (passwordInput[i].style.display != "none") {
-                if (passwordInput[i].type == "text") {
+            if (passwordInput[i].style.display !== "none") {
+                if (passwordInput[i].type === "text") {
                     passwordInput[i].type = "password"
                 } else {
                     passwordInput[i].type = "text"
@@ -42,7 +42,7 @@ for(let i =0; i<eyeIcon.length; i++){
 }
 
 signUpBtn.addEventListener("click", async function () {
-    if (emailSignUp.value != "" && nameSignUp.value != "" && passwordSignUp.value != "") {
+    if (emailSignUp.value !== "" && nameSignUp.value !== "" && passwordSignUp.value !== "") {
         const data = {
             "username": nameSignUp.value,
             "email": emailSignUp.value,
@@ -57,7 +57,7 @@ signUpBtn.addEventListener("click", async function () {
         }
         const response = await fetch("/b/sign-up", options)
         const resp = await response.json()
-        if (response.status != 201 && response.status != 200) {
+        if (response.status !== 201 && response.status !== 200) {
 
             alert(resp.message)
         } else {
@@ -73,7 +73,7 @@ signUpBtn.addEventListener("click", async function () {
     }
 })
 logInBtn.addEventListener("click", async function () {
-    if (emailLogIn.value != "" && passwordLogIn.value != "") {
+    if (emailLogIn.value !== "" && passwordLogIn.value !== "") {
         const data = {
             "email": emailLogIn.value,
             "password": passwordLogIn.value
@@ -87,7 +87,7 @@ logInBtn.addEventListener("click", async function () {
         }
         const response = await fetch("/b/sign-in", options)
         const resp = await response.json()
-        if (response.status != 201 && response.status != 200) {
+        if (response.status !== 201 && response.status !== 200) {
 
             alert(resp.message)
         } else {

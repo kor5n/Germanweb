@@ -5,7 +5,7 @@ const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
 
 document.querySelector(".profile-pic").addEventListener("click", () => {
-    if (subMenu.style.display == "none") {
+    if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
         subMenu.style.display = "none"
@@ -15,7 +15,7 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
 async function getTest() {
     const response = await fetch("/b/view/" + url_split[1])
     const data = await response.json()
-    if (response.status != 200 && response.status != 201) {
+    if (response.status !== 200 && response.status !== 201) {
         window.alert(data.message)
         window.location.assign("/")
     } else {
@@ -43,7 +43,7 @@ async function getTest() {
                 window.location.assign("/edit/" + url_split[1])
             })
             document.querySelector(".delete-btn").addEventListener("click", async function () {
-                if (this.innerHTML != "Sure?") {
+                if (this.innerHTML !== "Sure?") {
                     this.innerHTML = "Sure?"
                 } else {
                     const options = {
@@ -56,7 +56,7 @@ async function getTest() {
                     const data = await response.json()
                     window.alert(data.message)
 
-                    if (response.status == 200 || response.status == 201) {
+                    if (response.status === 200 || response.status === 201) {
                         window.location.assign("/")
                     }
                 }

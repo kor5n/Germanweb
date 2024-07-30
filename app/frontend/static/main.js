@@ -6,7 +6,7 @@ let profilePic = document.querySelector(".profile-pic")
 const subMenu = document.querySelector(".sub-menu")
 
 document.querySelector(".profile-pic").addEventListener("click", () => {
-    if (subMenu.style.display == "none") {
+    if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
         subMenu.style.display = "none"
@@ -16,7 +16,7 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
 async function getData() {
     const response = await fetch("/b/tests")
     const data = await response.json()
-    if (response.status != 200 && response.status != 201) {
+    if (response.status !== 200 && response.status !== 201) {
         //window.alert(data.message)
     }
     else {

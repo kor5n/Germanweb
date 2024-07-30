@@ -11,7 +11,7 @@ const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
 
 document.querySelector(".profile-pic").addEventListener("click", () => {
-    if (subMenu.style.display == "none") {
+    if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
         subMenu.style.display = "none"
@@ -26,7 +26,7 @@ if (url_split[0] === "edit") {
 async function setupEdit() {
     const response = await fetch("/b/view/" + url_split[1])
     const data = await response.json()
-    if (response.status != 200 && response.status != 201) {
+    if (response.status !== 200 && response.status !== 201) {
         window.alert(data.message)
     } else {
         title_text.value = data.message[0]
@@ -53,11 +53,11 @@ submit_btn.addEventListener("click", async function () {
     let def_value = ""
 
 
-    if (title_text.value != "" && description_text.value != "") {
+    if (title_text.value !== "" && description_text.value !== "") {
         for (let i = 0; i < term_values.length; i++) {
             term_value += ";" + term_values[i].value
             def_value += ';' + def_values[i].value
-            if (term_values[i].value == "" && def_values[i].value == "") {
+            if (term_values[i].value === "" && def_values[i].value === "") {
                 alert("You have to write something")
                 proceed = false
                 break
@@ -74,7 +74,7 @@ submit_btn.addEventListener("click", async function () {
                 "term": term_value,
                 "defenition": def_value
             }
-            if (isEditing == false) {
+            if (isEditing === false) {
                 const options = {
                     method: "POST",
                     headers: {
@@ -84,7 +84,7 @@ submit_btn.addEventListener("click", async function () {
                 }
                 const response = await fetch("/b/create", options)
                 const data = await response.json()
-                if (response.status == 201 || response.status == 200) {
+                if (response.status === 201 || response.status === 200) {
                     window.alert(data.message)
                     window.location.assign("/")
                 }
@@ -107,7 +107,7 @@ submit_btn.addEventListener("click", async function () {
                 }
                 const response = await fetch("/b/edit-test/" + url_split[1], options)
                 const data = await response.json()
-                if (response.status == 201 || response.status == 200) {
+                if (response.status === 201 || response.status === 200) {
                     window.alert(data.message)
                     window.location.assign("/view/" + url_split[1])
                 }

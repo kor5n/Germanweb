@@ -17,7 +17,7 @@ const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
 
 document.querySelector(".profile-pic").addEventListener("click", () => {
-    if (subMenu.style.display == "none") {
+    if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
         subMenu.style.display = "none"
@@ -29,7 +29,7 @@ function rotateFlashcard(){
     degRotate +=10
     flashcard.style.transform = `rotateX(${degRotate}deg)`
     if(degRotate==90){
-        if(flashTerm.style.display != "none"){
+        if(flashTerm.style.display !== "none"){
             flashTerm.style.display = "none"
             flashDef.style.display = "inline-flex"
             flashDef.style.transform = "scale(1, -1)"
@@ -47,7 +47,7 @@ function rotateFlashcard(){
     }
 }
 function transAnimation(way){
-    if(way == "right"){
+    if(way === "right"){
         anime({
             targets: ".flashcard",
             translateX:[
@@ -61,7 +61,7 @@ function transAnimation(way){
             easing: "easeInOutQuad",
             loop: false
         })
-    }else if(way == "left"){
+    }else if(way === "left"){
         anime({
             targets: ".flashcard",
             translateX:[
@@ -88,7 +88,7 @@ function writeTerm(){
 }
 righArrow.addEventListener("click", function(){
     count += 1
-    if(count == termList.length){
+    if(count === termList.length){
         count -= 1
     }else{
         transAnimation("right")
@@ -109,7 +109,7 @@ async function getTest(){
     const response = await fetch("/b/view/"+ url_split[1])
     const data = await response.json()
 
-    if(response.status != 200 && response.status != 201){
+    if(response.status !== 200 && response.status !== 201){
         window.alert(data.message)
         window.location.assign("/")
     }else{

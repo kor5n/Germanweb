@@ -10,7 +10,7 @@ const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
 
 document.querySelector(".profile-pic").addEventListener("click", () => {
-    if (subMenu.style.display == "none") {
+    if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
         subMenu.style.display = "none"
@@ -21,7 +21,7 @@ function shuffle(array) {
     let currentIndex = array.length;
 
     // While there remain elements to shuffle...
-    while (currentIndex != 0) {
+    while (currentIndex !== 0) {
 
         // Pick a remaining element...
         let randomIndex = Math.floor(Math.random() * currentIndex);
@@ -86,7 +86,7 @@ const genTest = () => {
 const getTest = async () => {
     const response = await fetch("/b/view/" + url_split[1])
     const data = await response.json()
-    if (response.status != 200 && response.status != 201) {
+    if (response.status !== 200 && response.status !== 201) {
         window.alert(data.message)
         window.location.assign("/")
     } else {

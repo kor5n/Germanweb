@@ -10,6 +10,21 @@ const description_text = document.querySelector(".desc-input")
 const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
 
+async function getImg() {
+    const respimg = await fetch("/b/img")
+    const img = await respimg.json()
+
+    if (img.img) {
+        profilePic.querySelector("img").src = `/static/img/${img.img}`
+        profilePic.querySelector("img").alt = img.img
+    }
+}
+
+logInBtn.style.display = "none"
+signInBtn.style.display = "none"
+profilePic.style.display = "inline-block"
+getImg()
+
 document.querySelector(".profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
@@ -124,9 +139,7 @@ submit_btn.addEventListener("click", async function () {
 })
 
 
-logInBtn.style.display = "none"
-signInBtn.style.display = "none"
-profilePic.style.display = "inline-block"
+
 
 if (isEditing) {
     setupEdit()

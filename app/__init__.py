@@ -2,6 +2,7 @@ from flask import request, jsonify, session, render_template,redirect
 from config import app, db
 from models import Test, User
 import hashlib
+from create_img import create_img, hex_to_rgb
 
 @app.route("/")
 def profile_page():
@@ -49,7 +50,8 @@ def get_terms():
         if test["user_id"] == user.id:
             user_tests.append(test)
     if len(user_tests)==0:
-        return jsonify({"message": "You don't have any tests"}), 200
+        return jsonify({"message": "You don't have any tests", "username": user.user_name}), 200
+
     return jsonify({"message":  user_tests, "username": user.user_name}), 200
 @app.route("/b/view/<int:test_id>", methods = ["GET"])
 def view_test(test_id):
@@ -119,10 +121,9 @@ def create_user():
     username = request.json.get("username")
     email = request.json.get("email")
     password = request.json.get("password")
-
     if not username or not email or not password:
         return (jsonify({"message": "You must include a username, email and password"}), 400)
-    
+
     users = User.query.all()
     json_users = list(map(lambda x: x.to_json(), users))    
 
@@ -133,8 +134,7 @@ def create_user():
     h = hashlib.new("SHA256")
     h.update(password.encode())
 
-    new_user = User(user_name=username, email=email, password=h.hexdigest())
-
+    new_user = User(user_name=username, email=email, password=h.hexdigest(), img=create_img(username))
     
     try: 
         db.session.add(new_user)
@@ -142,7 +142,7 @@ def create_user():
         session["id"] = new_user.id
     except Exception as e:
         return jsonify({"message": str(e)}), 400
-        
+    
     return jsonify({"message": "New user created"}), 201
 @app.route("/b/sign-in", methods=["GET", "POST"])
 def log_in():
@@ -178,9 +178,13 @@ def logout():
         return jsonify({"message": "Succesfully logged out"}), 200
     else:
         return jsonify({"message":"Couldn't log out(didn't find your info)"}),404
+@app.route("/b/img", methods=["GET"])
+def img():
+    user = User.query.get(session["id"])
+    return jsonify({"img":user.img}), 200
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
 

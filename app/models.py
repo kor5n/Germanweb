@@ -23,13 +23,15 @@ class User(db.Model):
     user_name = db.Column(db.String(20), unique=False, nullable=False)
     email = db.Column(db.String(50), unique=False, nullable=False)
     password = db.Column(db.String, unique=False, nullable=False)
+    img = db.Column(db.String(100))
     #tests = db.Column(db.ARRAY(db.Class), unique=False, nullable=False)
     def to_json(self):
         return{
             "id": self.id,
             "user_name": self.user_name,
             "email": self.email,
-            "password": self.password
+            "password": self.password,
+            "img": self.img
         }
 
 

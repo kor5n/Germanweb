@@ -14,6 +14,16 @@ const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
 
+async function getImg() {
+    const respimg = await fetch("/b/img")
+    const img = await respimg.json()
+
+    if (img.img) {
+        profilePic.querySelector("img").src = `/static/img/${img.img}`
+        profilePic.querySelector("img").alt = img.img
+    }
+}
+
 document.querySelector(".profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
@@ -47,12 +57,14 @@ function shuffle(array) {
 function randomAnswers(rightAnswer) {
     ansTerms = []
     ansTerms.push(rightAnswer)
+    console.log(ansTerms)
     for (let i = 0; i < 3; i++) {
         randomElement = termList[Math.floor(Math.random() * termList.length)]
         ansTerms.push(randomElement)
     }
     if (termList.length >= 4) {
         duplicates = ansTerms.filter((item, index) => ansTerms.indexOf(item) !== index)
+        console.log(duplicates.length)
         if (duplicates.length > 0) {
             randomAnswers(rightAnswer)
         }
@@ -133,6 +145,7 @@ const getTest = async () => {
             logInBtn.style.display = "none"
             signInBtn.style.display = "none"
             profilePic.style.display = "inline-block"
+            getImg()
         } else if (data.loggedIn === false) {
             logInBtn.style.display = "inline-block"
             signInBtn.style.display = "inline-block"

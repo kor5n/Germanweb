@@ -1,8 +1,8 @@
 let testDivsId = []
 let testDiv = []
-let logInBtn = document.querySelector(".log-in")
-let signInBtn = document.querySelector(".sign-in")
-let profilePic = document.querySelector(".profile-pic")
+const logInBtn = document.querySelector(".log-in")
+const signInBtn = document.querySelector(".sign-in")
+const profilePic = document.querySelector(".profile-pic")
 const subMenu = document.querySelector(".sub-menu")
 
 document.querySelector(".profile-pic").addEventListener("click", () => {
@@ -13,9 +13,20 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
     }
 })
 
+async function getImg() {
+    const respimg = await fetch("/b/img")
+    const img = await respimg.json()
+
+    if (img.img) {
+        profilePic.querySelector("img").src = `/static/img/${img.img}`
+        profilePic.querySelector("img").alt = img.img
+    }
+}
+
 async function getData() {
     const response = await fetch("/b/tests")
     const data = await response.json()
+    console.log(data)
     if (response.status !== 200 && response.status !== 201) {
         //window.alert(data.message)
     }
@@ -23,6 +34,8 @@ async function getData() {
         logInBtn.style.display = "none"
         signInBtn.style.display = "none"
         profilePic.style.display = "inline"
+        getImg()
+
         document.querySelector(".sub-name").innerHTML = data.username
         data.message.forEach(element => {
             document.querySelector("main").innerHTML += `<div class="test-profile">

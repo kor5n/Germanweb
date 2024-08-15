@@ -17,6 +17,16 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
     }
 })
 
+async function getImg() {
+    const respimg = await fetch("/b/img")
+    const img = await respimg.json()
+
+    if (img.img) {
+        profilePic.querySelector("img").src = `/static/img/${img.img}`
+        profilePic.querySelector("img").alt = img.img
+    }
+}
+
 function shuffle(array) {
     let currentIndex = array.length;
 
@@ -99,6 +109,7 @@ const getTest = async () => {
             logInBtn.style.display = "none"
             signInBtn.style.display = "none"
             profilePic.style.display = "inline-block"
+            getImg()
         } else if (data.loggedIn === false) {
             logInBtn.style.display = "inline-block"
             signInBtn.style.display = "inline-block"

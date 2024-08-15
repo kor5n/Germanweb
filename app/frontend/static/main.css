@@ -59,6 +59,14 @@ button:hover {
     width: 42px;
 }
 
+.profile-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    border-radius: 100%;
+}
+
 .log-in {
     height: 60%;
     background-color: #B2EBF2;

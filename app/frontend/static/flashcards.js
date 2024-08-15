@@ -16,6 +16,16 @@ const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
 
+async function getImg() {
+    const respimg = await fetch("/b/img")
+    const img = await respimg.json()
+
+    if (img.img) {
+        profilePic.querySelector("img").src = `/static/img/${img.img}`
+        profilePic.querySelector("img").alt = img.img
+    }
+}
+
 document.querySelector(".profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
@@ -121,6 +131,7 @@ async function getTest(){
             logInBtn.style.display = "none"
             signInBtn.style.display = "none"
             profilePic.style.display = "inline-block"
+            getImg()
         } else if(data.loggedIn === false) {
             logInBtn.style.display = "inline-block"
             signInBtn.style.display = "inline-block"

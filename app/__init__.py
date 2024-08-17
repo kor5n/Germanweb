@@ -220,8 +220,7 @@ def browse():
     except:
         logged_in = False
 
-    return jsonify({"message": "Succesfully found tests", "tests":json_tests, "loggedIn":logged_in, "authors":authors}),200
-
+    return jsonify({"message": "Successfully found tests", "tests":json_tests, "loggedIn":logged_in, "authors":authors}),200
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

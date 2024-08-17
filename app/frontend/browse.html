@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Browse</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
-        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylying.css') }}"/>
-    </head>
-    
-    <body>
-        <header>
-            <span class="comp-name"><img src="{{ url_for('static', filename='img/GTESTLOGO.png') }}" class="gtest" alt="Gtest"></span>
-            <div class="link-div">
-                <a class="page-link" href="/">Profile</a>
-                <a class="page-link" href="/browse">Browse</a>
-                <a class="page-link">About us</a>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylying.css') }}" />
+</head>
+
+<body>
+    <header>
+        <span class="comp-name"><img src="{{ url_for('static', filename='img/GTESTLOGO.png') }}" class="gtest"
+                alt="Gtest"></span>
+        <div class="link-div">
+            <a class="page-link" href="/">Profile</a>
+            <a class="page-link" href="/browse">Browse</a>
+            <a class="page-link">About us</a>
+        </div>
+        <button class="profile-pic"><img class="profile-img"></button>
+        <div class="sub-menu">
+            <div class="user-name sub-in">
+                <span class="sub-text sub-name">Profile name</span>
             </div>
-            <button class="profile-pic"><img class="profile-img"></button>
-            <div class="sub-menu">
-                <div class="user-name sub-in">
-                    <span class="sub-text sub-name">Profile name</span>
-                </div>
-                <div class="logout-btn sub-in">
-                    <span class="sub-text logout-btn" onclick="(async () => {await fetch('/b/logout')
+            <div class="logout-btn sub-in">
+                <span class="sub-text logout-btn" onclick="(async () => {await fetch('/b/logout')
                     window.location.reload()})();">Logout</span>
-                </div>
             </div>
-            <button class="log-in" onclick="location.href = '/login'">Log in</button>
-            <button class="sign-in" onclick="location.href = '/signup'">Sign up</button>
-        </header>
-        <main>
-            <div class="search-div"></div>
-        </main>
-    </body>
-    <script src="{{ url_for('static', filename='browse.js') }}"></script>
+        </div>
+        <button class="log-in" onclick="location.href = '/login'">Log in</button>
+        <button class="sign-in" onclick="location.href = '/signup'">Sign up</button>
+    </header>
+    <main>
+        <div class="search-div"><textarea rows="1" cols="40" placeholder="Search for tests"
+                class="search-input"></textarea><button class="search-btn">Search</button></div>
+    </main>
+</body>
+<script src="{{ url_for('static', filename='browse.js') }}"></script>
+
 </html>

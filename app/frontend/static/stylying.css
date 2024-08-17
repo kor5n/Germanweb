@@ -582,3 +582,32 @@ textarea {
 .author-name {
     margin-top: auto;
 }
+
+.search-div {
+    display: flex;
+    height: 100px;
+    justify-content: center;
+}
+
+.search-input {
+    border-radius: 50px 0 0 50px;
+    border: 1px solid grey;
+    border-right: none;
+    height: 25px;
+    padding-top: 1%;
+    padding-left: 2%;
+    text-align: left;
+}
+
+.search-input::target-text {
+    padding-top: 1%;
+    padding-left: 2%;
+    text-align: left;
+}
+
+.search-btn {
+    border-radius: 0 50px 50px 0;
+    background-color: white;
+    border: 1px solid grey;
+    height: 37.5px;
+}

@@ -30,7 +30,6 @@ async function getBrowse() {
     const response = await fetch("/b/browse")
     const data = await response.json()
 
-    console.log(data)
     if (response.status !== 200 && response.status !== 201) {
         document.querySelector("main").innerHTML += `<h1 style="margin-top:20%; transform:scale(2); margin-left:15%;color:white">Something went wrong :(, try to refresh the page<h1/>`
     } else {
@@ -49,7 +48,6 @@ async function getBrowse() {
                 window.location.assign("/view/" + data.tests[j]["id"])
             })
         }
-        //console.log(typeof (data.tests))
     }
 }
 

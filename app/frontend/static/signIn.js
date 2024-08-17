@@ -15,16 +15,10 @@ let emailLogIn = document.querySelector(".login-email")
 let passwordLogIn = document.querySelector(".login-password")
 
 switchSignUp.addEventListener("click", function () {
-    signUpDiv.style.display = "flex"
-    passwordLogIn.innerHTML -= eyeIcon
-    logInDiv.style.display = "none"
-    passwordSignUp.innerHTML += eyeIcon
+    window.location.assign("/signup")
 })
 switchLogIn.addEventListener("click", function () {
-    passwordSignUp.innerHTML -= eyeIcon
-    signUpDiv.style.display = "none"
-    logInDiv.style.display = "flex"
-    passwordLogIn.innerHTML += eyeIcon
+    window.location.assign("/login")
 })
 for(let i =0; i<eyeIcon.length; i++){
     eyeIcon[i].addEventListener("click", function () {
@@ -103,3 +97,14 @@ logInBtn.addEventListener("click", async function () {
     }
 })
 
+if(window.location.pathname === "/login"){
+    passwordSignUp.innerHTML -= eyeIcon
+    signUpDiv.style.display = "none"
+    logInDiv.style.display = "flex"
+    passwordLogIn.innerHTML += eyeIcon
+}else if(window.location.pathname === "/signup"){
+    signUpDiv.style.display = "flex"
+    passwordLogIn.innerHTML -= eyeIcon
+    logInDiv.style.display = "none"
+    passwordSignUp.innerHTML += eyeIcon
+}

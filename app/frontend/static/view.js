@@ -43,7 +43,7 @@ async function getTest() {
         
         document.querySelector("title").innerHTML = data.message[0]
 
-        document.querySelector(".test-name").innerHTML = data.message[0]
+        document.querySelector(".view-name").innerHTML = data.message[0]
         document.querySelector(".test-desc").innerHTML = data.message[1]
         for (let i = 0; i < data.message[2].split(";").length; i++) {
             document.querySelector("main").innerHTML += `<div class="show-def">

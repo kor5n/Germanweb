@@ -133,7 +133,7 @@ main {
     background-color: #8cbec4;
 }
 
-.test-name {
+.view-name {
     margin-bottom: 3%;
     font-weight: 600;
     font-size: 330%;
@@ -366,6 +366,10 @@ input {
 
 h1 {
     font-size: 2em;
+}
+
+h3 {
+    font-size: 1.25em;
 }
 
 .arrow-div {

@@ -13,8 +13,17 @@ def create_page():
 @app.route("/edit/<int:test_id>")#Has to be logged in
 def edit_page(test_id):
     return render_template("create.html")
-@app.route("/sign")
+@app.route("/signup")
 def signup_page():
+    try:
+        if session["id"] != None:
+            return redirect("/")
+        else:
+            return render_template("signup.html")
+    except:
+        return render_template("signup.html")
+@app.route("/login")
+def login_page():
     try:
         if session["id"] != None:
             return redirect("/")

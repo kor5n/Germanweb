@@ -528,10 +528,53 @@ textarea {
 .sub-text {
     scale: 1.1;
 }
+
 .profile-img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
     border-radius: 100%;
+}
+
+.test-profile {
+    margin-top: 5%;
+    position: relative;
+    display: inline-flex;
+    background: #B2EBF2;
+    height: 120px;
+    width: 160px;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+    margin-right: 5%;
+    flex-direction: column;
+    padding: 0.5%;
+    top: -52px;
+    box-sizing: border-box;
+    margin-bottom: 3%;
+    transition: transform .2s;
+}
+
+.test-profile:hover {
+    transform: scale(1.05);
+    background: #9bcbd1;
+}
+
+.test-name {
+    font-weight: 540;
+}
+
+.quest-count {
+    background: #BDBDBD;
+    width: fit-content;
+    border: 1px solid #BDBDBD;
+    border-radius: 12.5rem;
+    font-size: 60%;
+    text-align: center;
+    padding: 1%;
+    margin-top: 5%;
+}
+
+.author-name {
+    margin-top: auto;
 }

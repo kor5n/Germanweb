@@ -34,6 +34,9 @@ def multi_page(test_id):
 @app.route("/write/<int:test_id>")
 def write_page(test_id):
     return render_template("writeAns.html")
+@app.route("/browse")
+def browse_page():
+    return render_template("browse.html")
 
 @app.route("/b/tests", methods = ["GET"])
 def get_terms():
@@ -182,6 +185,34 @@ def logout():
 def img():
     user = User.query.get(session["id"])
     return jsonify({"img":user.img}), 200
+@app.route("/b/browse", methods=["GET"])
+def browse():
+    authors= []
+    logged_in = True
+    tests = Test.query.all()
+    users = User.query.all()
+
+
+    if not tests or not users:
+        return jsonify({"message":"Couldn't find tests or user info"}), 404
+    
+    json_tests = list(map(lambda x: x.to_json(), tests))  
+    json_users = list(map(lambda x: x.to_json(), users))
+
+    for element in json_tests:
+        if element["user_id"] == json_users[element["user_id"]-1]["id"]:
+            authors.append(json_users[element["user_id"]-1]["user_name"])
+        else:
+            return jsonify({"message":"Something went wrong"}),404
+
+    try:
+        if session["id"] == None:
+                logged_in = False
+    except:
+        logged_in = False
+
+    return jsonify({"message": "Succesfully found tests", "tests":json_tests, "loggedIn":logged_in, "authors":authors}),200
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

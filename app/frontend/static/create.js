@@ -44,6 +44,7 @@ async function setupEdit() {
     if (response.status !== 200 && response.status !== 201) {
         window.alert(data.message)
     } else {
+        document.querySelector("title").innerHTML = "Edit" + data.message[0]
         title_text.value = data.message[0]
         description_text.value = data.message[1]
         for (let i = 0; i < data.message[2].split(";").length; i++) {

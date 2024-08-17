@@ -133,6 +133,7 @@ main {
 
 .test-profile:hover {
     transform: scale(1.05);
+    background: #9bcbd1;
 }
 
 .test-name {
@@ -153,10 +154,6 @@ main {
 
 .author-name {
     margin-top: auto;
-}
-
-.test-profile:hover {
-    background: #9bcbd1;
 }
 
 .sign-in:hover {

@@ -40,6 +40,8 @@ async function getTest() {
             signInBtn.style.display = "inline-block"
             profilePic.style.display = "none"
         }
+        
+        document.querySelector("title").innerHTML = data.message[0]
 
         document.querySelector(".test-name").innerHTML = data.message[0]
         document.querySelector(".test-desc").innerHTML = data.message[1]

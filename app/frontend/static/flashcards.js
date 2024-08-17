@@ -123,6 +123,7 @@ async function getTest(){
         window.alert(data.message)
         window.location.assign("/")
     }else{
+        document.querySelector("title").innerHTML = "Flashcards" + data.message[0]
         termList = data.message[2].split(";")
         defList = data.message[3].split(";")
         flashTitle.innerHTML = data.message[0]

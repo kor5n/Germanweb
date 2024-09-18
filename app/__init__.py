@@ -2,7 +2,7 @@ from flask import request, jsonify, session, render_template,redirect
 from config import app, db
 from models import Test, User
 import hashlib
-from create_img import create_img, hex_to_rgb
+from create_img import create_img
 
 @app.route("/")
 def profile_page():
@@ -201,7 +201,6 @@ def browse():
     tests = Test.query.all()
     users = User.query.all()
 
-
     if not tests or not users:
         return jsonify({"message":"Couldn't find tests or user info"}), 404
     
@@ -224,6 +223,6 @@ def browse():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)
 
 

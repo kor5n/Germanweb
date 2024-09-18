@@ -345,11 +345,13 @@ input {
 }
 
 .flashcard {
+    margin-left: auto;
+    margin-right: auto;
     display: inline-flex;
     background-color: white;
     border-radius: 6px;
-    height: 550px;
-    width: 855px;
+    height: 40em;
+    width: 100%;
     align-items: center;
     justify-content: center;
     perspective: 400px;
@@ -610,4 +612,17 @@ textarea {
     background-color: white;
     border: 1px solid grey;
     height: 37.5px;
+}
+
+.random-btn {
+    background-color: #4255FF;
+    font-weight: 700;
+    color: white;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    border: 1px solid #0097A7;
+    border-radius: 6px;
+    width: 15%;
 }

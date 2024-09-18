@@ -100,7 +100,7 @@ const getTest = async () => {
         window.alert(data.message)
         window.location.assign("/")
     } else {
-        document.querySelector("title").innerHTML = "Write" + data.message[0]
+        document.querySelector("title").innerHTML = "Write " + data.message[0]
         termList = data.message[2].split(";")
         defList = data.message[3].split(";")
         fetchedDefs = data.message[3].split(";")

@@ -15,6 +15,16 @@ const profilePic = document.querySelector(".profile-pic")
 const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
+const randomBtn = document.querySelector(".random-btn")
+
+function random(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+  }
+
+randomBtn.addEventListener("click", function(){
+    count = random(0, termList.length)
+    writeTerm()
+})
 
 async function getImg() {
     const respimg = await fetch("/b/img")
@@ -96,6 +106,7 @@ function writeTerm(){
     flashTerm.innerHTML = termList[count]
     flashDef.innerHTML = defList[count]
 }
+
 righArrow.addEventListener("click", function(){
     count += 1
     if(count === termList.length){
@@ -123,7 +134,7 @@ async function getTest(){
         window.alert(data.message)
         window.location.assign("/")
     }else{
-        document.querySelector("title").innerHTML = "Flashcards" + data.message[0]
+        document.querySelector("title").innerHTML = "Flashcards " + data.message[0]
         termList = data.message[2].split(";")
         defList = data.message[3].split(";")
         flashTitle.innerHTML = data.message[0]

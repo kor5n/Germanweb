@@ -65,7 +65,7 @@ async function getTest() {
                             "Content-Type": "application/json"
                         },
                     }
-                    const response = await fetch("http://127.0.0.1:5000/b/delete/" + url_split[1], options)
+                    const response = await fetch("/b/delete/" + url_split[1], options)
                     const data = await response.json()
                     window.alert(data.message)
 

@@ -74,9 +74,8 @@ async function getBrowse() {
     } else {
         if (data.loggedIn === true) {
             getImg()
-            addTests(data.tests, data.authors)
         }
-
+        addTests(data.tests, data.authors)
     }
 }
 

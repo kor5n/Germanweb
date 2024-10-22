@@ -7,7 +7,7 @@ const righArrow = document.querySelector(".right-trans")
 const leftArrow = document.querySelector(".left-trans")
 const fakeFlash = document.querySelector(".trans-flash")
 let termList = []
-let defList = [] 
+let defList = []
 let count = 0
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
@@ -16,13 +16,15 @@ const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
 const randomBtn = document.querySelector(".random-btn")
+let facingOpposite = false
 
 function random(min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
-  }
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
-randomBtn.addEventListener("click", function(){
+randomBtn.addEventListener("click", function () {
     count = random(0, termList.length)
+    oppositeRotation()
     writeTerm()
 })
 
@@ -44,96 +46,108 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
     }
 })
 
-function rotateFlashcard(){
+function rotateFlashcard() {
     rotateOn = true
-    degRotate +=10
+    degRotate += 10
     flashcard.style.transform = `rotateX(${degRotate}deg)`
-    if(degRotate==90){
-        if(flashTerm.style.display !== "none"){
+    if (degRotate == 90) {
+        if (flashTerm.style.display !== "none") {
             flashTerm.style.display = "none"
             flashDef.style.display = "inline-flex"
             flashDef.style.transform = "scale(1, -1)"
 
-        } else{
+        } else {
             flashDef.style.display = "none"
             flashTerm.style.display = "inline-flex"
             flashTerm.style.transform = "scale(1, -1)"
         }
     }
-    if(degRotate >= 180){
+    if (degRotate >= 180) {
         clearInterval(rotateIntervalId)
+        if (facingOpposite === false) {
+            facingOpposite = true
+        } else {
+            facingOpposite = false
+        }
         rotateOn = false
         degRotate = 0
     }
 }
-function transAnimation(way){
-    if(way === "right"){
+const oppositeRotation = () => {
+    if (facingOpposite) {
+        rotateIntervalId = setInterval(rotateFlashcard, 5)
+    }
+}
+function transAnimation(way) {
+    if (way === "right") {
         anime({
             targets: ".flashcard",
-            translateX:[
-                {value: 250, duration: 0, delay: 0},
-                {value: 0, duration: 100, delay: 100}
+            translateX: [
+                { value: 250, duration: 0, delay: 0 },
+                { value: 0, duration: 100, delay: 100 }
             ],
-            rotateY:[
-                {value: 40, duration: 0, delay: 0},
-                {value: 0, duration: 100, delay: 200}
+            rotateY: [
+                { value: 40, duration: 0, delay: 0 },
+                { value: 0, duration: 100, delay: 200 }
             ],
             easing: "easeInOutQuad",
             loop: false
         })
-    }else if(way === "left"){
+    } else if (way === "left") {
         anime({
             targets: ".flashcard",
-            translateX:[
-                {value: -250, duration: 0, delay: 0},
-                {value: 0, duration: 100, delay: 100}
+            translateX: [
+                { value: -250, duration: 0, delay: 0 },
+                { value: 0, duration: 100, delay: 100 }
             ],
-            rotateY:[
-                {value: -40, duration: 0, delay: 0},
-                {value: 0, duration: 100, delay: 200}
+            rotateY: [
+                { value: -40, duration: 0, delay: 0 },
+                { value: 0, duration: 100, delay: 200 }
             ],
             easing: "easeInOutQuad",
             loop: false
         })
     }
 }
-flashcard.addEventListener("click", function(){
-    if(!rotateOn){
-        rotateIntervalId = setInterval(rotateFlashcard,10)
+flashcard.addEventListener("click", function () {
+    if (!rotateOn) {
+        rotateIntervalId = setInterval(rotateFlashcard, 10)
     }
 })
-function writeTerm(){
+function writeTerm() {
     flashTerm.innerHTML = termList[count]
     flashDef.innerHTML = defList[count]
 }
 
-righArrow.addEventListener("click", function(){
+righArrow.addEventListener("click", function () {
     count += 1
-    if(count === termList.length){
+    if (count === termList.length) {
         count -= 1
-    }else{
+    } else {
+        oppositeRotation()
         transAnimation("right")
         writeTerm()
     }
 })
-leftArrow.addEventListener("click", function(){
+leftArrow.addEventListener("click", function () {
     count -= 1
-    if(count< 0){
+    if (count < 0) {
         count += 1
-    }else{
+    } else {
+        oppositeRotation()
         transAnimation("left")
         writeTerm()
     }
-    
+
 })
-async function getTest(){
-    const response = await fetch("/b/view/"+ url_split[1])
+async function getTest() {
+    const response = await fetch("/b/view/" + url_split[1])
     const data = await response.json()
 
-    if(response.status !== 200 && response.status !== 201){
+    if (response.status !== 200 && response.status !== 201) {
         window.alert(data.message)
         window.location.assign("/")
-    }else{
+    } else {
         document.querySelector("title").innerHTML = "Flashcards " + data.message[0]
         termList = data.message[2].split(";")
         defList = data.message[3].split(";")
@@ -144,19 +158,19 @@ async function getTest(){
             signInBtn.style.display = "none"
             profilePic.style.display = "inline-block"
             getImg()
-        } else if(data.loggedIn === false) {
+        } else if (data.loggedIn === false) {
             logInBtn.style.display = "inline-block"
             signInBtn.style.display = "inline-block"
             profilePic.style.display = "none"
         }
         writeTerm()
     }
-    
+
 }
 
-if(url_split[1] !== null){
+if (url_split[1] !== null) {
     getTest()
-} else{
+} else {
     window.alert("No test was loaded")
     window.location.assign("/")
 }

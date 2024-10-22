@@ -26,6 +26,7 @@ async function getImg() {
 async function getData() {
     const response = await fetch("/b/tests")
     const data = await response.json()
+    console.log(response)
     console.log(data)
     if (response.status !== 200 && response.status !== 201) {
         //window.alert(data.message)

@@ -74,7 +74,7 @@ function rotateFlashcard() {
     }
 }
 const oppositeRotation = () => {
-    if (facingOpposite) {
+    if (facingOpposite && rotateOn === false) {
         rotateIntervalId = setInterval(rotateFlashcard, 5)
     }
 }

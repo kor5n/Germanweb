@@ -36,6 +36,7 @@ for(let i =0; i<eyeIcon.length; i++){
 }
 
 signUpBtn.addEventListener("click", async function () {
+    this.innerHTML = "Wait..."
     if (emailSignUp.value !== "" && nameSignUp.value !== "" && passwordSignUp.value !== "") {
         const data = {
             "username": nameSignUp.value,
@@ -52,7 +53,6 @@ signUpBtn.addEventListener("click", async function () {
         const response = await fetch("/b/sign-up", options)
         const resp = await response.json()
         if (response.status !== 201 && response.status !== 200) {
-
             alert(resp.message)
         } else {
             logInSwitch.style.display = "none"
@@ -65,8 +65,10 @@ signUpBtn.addEventListener("click", async function () {
     } else {
         alert("You must include a valid name, email and password")
     }
+    this.innerHTML = "Sign up"
 })
 logInBtn.addEventListener("click", async function () {
+    this.innerHTML = "Wait..."
     if (emailLogIn.value !== "" && passwordLogIn.value !== "") {
         const data = {
             "email": emailLogIn.value,
@@ -95,6 +97,7 @@ logInBtn.addEventListener("click", async function () {
     } else {
         alert("You must include a valid email and password")
     }
+    this.innerHTML = "Log in"
 })
 
 if(window.location.pathname === "/login"){

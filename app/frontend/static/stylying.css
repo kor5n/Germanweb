@@ -138,6 +138,11 @@ main {
     font-weight: 600;
     font-size: 330%;
 }
+.by-author{
+    font-weight: 100;
+    color: rgb(99, 97, 97);
+    font-size: 40%;
+}
 
 .test-desc {
     margin-bottom: 3%;

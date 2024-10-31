@@ -80,8 +80,9 @@ def view_test(test_id):
             logged_in = False
     except:
         logged_in = False
+    owner_name = User.query.get(test.user_id).user_name
     test_list = [test.title, test.description, test.terms, test.defenition]
-    return jsonify({"message": test_list, "canModify":can_modify, "loggedIn" : logged_in}), 200
+    return jsonify({"message": test_list, "canModify":can_modify, "loggedIn" : logged_in, "ownerName": owner_name}), 200
 @app.route("/b/create", methods = ["POST"])
 def create_test():
     if not session["id"]:
@@ -189,6 +190,8 @@ def log_in():
 
     try:
         usr = User.query.get(session["id"])
+        if not usr:
+            return jsonify({"message": "Email or password is incorrect"}), 400
     except:
         return jsonify({"message": "Email or password is incorrect"}), 400
     return jsonify({"message": "You are logged in as " + usr.user_name}), 200 

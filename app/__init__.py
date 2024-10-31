@@ -156,7 +156,7 @@ def create_user():
     h = hashlib.new("SHA256")
     h.update(password.encode())
 
-    new_user = User(user_name=username, email=email, password=h.hexdigest(), img=create_img(username))
+    new_user = User(user_name=username, email=email, password=h.hexdigest(), img=create_img(username), favourites="")
     
     try: 
         db.session.add(new_user)
@@ -232,6 +232,60 @@ def browse():
         logged_in = False
 
     return jsonify({"message": "Successfully found tests", "tests":json_tests, "loggedIn":logged_in, "authors":authors}),200
+@app.route("/b/add-favourite/<int:test_id>", methods=["POST"])
+def add_favourite(test_id):
+    try:
+        if session["id"] == None:
+                logged_in = False
+        else:
+            logged_in = True
+    except:
+        logged_in = False
+    
+    if logged_in == False:
+        return jsonify({"message": "You are not logged in"}),401
+
+    try:
+        usr = User.query.get(session["id"])
+    except:
+        return jsonify({"message":"This id does not exist"})
+
+    if str(test_id) in usr.favourites.split(",") or len(usr.favourites) <= 0:
+        return jsonify({"mesage": "This test is already in favourites"}),400
+    
+    usr.favourites += str(test_id) + ','
+
+    db.session.commit()
+
+    return jsonify({"message" : "Succesfully added new favourite test"}),200
+@app.route("/b/del-favourite/<int:test_id>", methods=["POST"])
+def del_favourite(test_id):
+    try:
+        if session["id"] == None:
+                logged_in = False
+        else:
+            logged_in = True
+    except:
+        logged_in = False
+    
+    if logged_in == False:
+        return jsonify({"message": "You are not logged in"}),401
+
+    try:
+        usr = User.query.get(session["id"])
+    except:
+        return jsonify({"message":"This id does not exist"})
+    
+    if str(test_id) not in usr.favourites.split(",") or len(usr.favourites) <= 0:
+        return jsonify({"message":"You do not have this favourite"}),400
+
+    fav_list = usr.favourites.split(",")
+    fav_list.remove(str(test_id))
+    usr.favourites = fav_list.join(",")
+    db.session.commit()
+
+    return jsonify({"message":"Succesfully removed test from favourites"}),200         
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

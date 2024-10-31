@@ -24,6 +24,7 @@ class User(db.Model):
     email = db.Column(db.String(50), unique=False, nullable=False)
     password = db.Column(db.String, unique=False, nullable=False)
     img = db.Column(db.String(100))
+    favourites = db.Column(db.String(1000), unique=False, nullable=False)
     #tests = db.Column(db.ARRAY(db.Class), unique=False, nullable=False)
     def to_json(self):
         return{

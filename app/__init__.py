@@ -1,7 +1,8 @@
 from flask import request, jsonify, session, render_template,redirect
-from config import app, db
+from config import app, db,mail
 from models import Test, User
 import hashlib
+from flask_mail import Message
 from create_img import create_img
 
 @app.route("/")
@@ -142,6 +143,14 @@ def create_user():
     for user in json_users:
         if email in user["email"]:
             return jsonify({"message": "This email is already in use"}), 418
+    
+    try:
+        msg = Message(f"Welcome to GermanTest {username}!", sender="germantest813@gmail.com", recipients=[email])
+        msg.body = f"Welcome again {username} to this wonderfull study community! We are very delighted to have you here. Hoping that you will find something for yourself."
+        mail.send(msg)
+    except Exception as e:
+        print(e)
+        return jsonify({"message": "Invalid email"}),412
 
     h = hashlib.new("SHA256")
     h.update(password.encode())
@@ -223,6 +232,6 @@ def browse():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
 

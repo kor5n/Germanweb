@@ -32,21 +32,24 @@ const addTests = (tests, authors) => {
         })
     }
     document.querySelector(".search-btn").addEventListener("click", () => {
-        if(document.querySelector(".search-input").value !== ""){
+        if (document.querySelector(".search-input").value !== "") {
             let testsfound = []
             let authorslist = []
-            for (let i = 0; i < data.tests.length; i++) {
-                if (data.tests[i]["title"].toLowerCase().includes(document.querySelector(".search-input").value.toLowerCase()) || data.tests[i]["description"].toLowerCase().includes(document.querySelector(".search-input").value.toLowerCase())){
-                    testsfound.push(data.tests[i])
+            let testindexes = []
+            for (let i = 0; i < tests.length; i++) {
+                if (tests[i]["title"].toLowerCase().includes(document.querySelector(".search-input").
+                    value.toLowerCase()) || tests[i]["description"].toLowerCase().includes(document.querySelector(".search-input").value.toLowerCase())) {
+                    testsfound.push(tests[i])
+                    testindexes.push(i)
                 }
             }
-            for(let j=0;j<testsfound;j++){
-                if (testsfound[i]["user_id"] == data.authors[testsfound[i]["user_id"]-1]["id"]){
-                    authorslist.push(json_users[element["user_id"]-1]["user_name"])
-                }
+            console.log(testsfound)
+            for (let j = 0; j < testsfound.length; j++) {
+                authorslist.push(authors[testindexes])
             }
+
             addTests(testsfound, authorslist)
-        }else{
+        } else {
             getBrowse()
         }
     })

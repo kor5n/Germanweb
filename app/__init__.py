@@ -150,7 +150,6 @@ def create_user():
         msg.body = f"Welcome again {username} to this wonderfull study community! We are very delighted to have you here. Hoping that you will find something for yourself."
         mail.send(msg)
     except Exception as e:
-        print(e)
         return jsonify({"message": "Invalid email"}),412
 
     h = hashlib.new("SHA256")
@@ -204,7 +203,10 @@ def logout():
         return jsonify({"message":"Couldn't log out(didn't find your info)"}),404
 @app.route("/b/img", methods=["GET"])
 def img():
-    user = User.query.get(session["id"])
+    try: 
+        user = User.query.get(session["id"])
+    except:
+        return jsonify({"message":"You are not logged in"}),401
     return jsonify({"img":user.img}), 200
 @app.route("/b/browse", methods=["GET"])
 def browse():

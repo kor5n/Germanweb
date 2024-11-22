@@ -14,10 +14,17 @@ async function getImg() {
     const respimg = await fetch("/b/img")
     const img = await respimg.json()
 
-    if (img.img) {
-        profilePic.querySelector("img").src = `/static/img/${img.img}`
-        profilePic.querySelector("img").alt = img.img
+    if (Math.round(respimg.status * 100) === 200) {
+        if (img.img) {
+            profilePic.querySelector("img").src = `/static/img/${img.img}`
+            profilePic.querySelector("img").alt = img.img
+        }
+    } else if (respimg.status === 401) {
+        alert(img.message)
+        window.location.assign("/")
     }
+
+
 }
 
 logInBtn.style.display = "none"
@@ -25,8 +32,8 @@ signInBtn.style.display = "none"
 profilePic.style.display = "inline-block"
 getImg()
 
-document.querySelector(".dropdown-btn").addEventListener("click", () =>{
-    if (document.querySelector(".smartsorter-div").style.display === "none"){
+document.querySelector(".dropdown-btn").addEventListener("click", () => {
+    if (document.querySelector(".smartsorter-div").style.display === "none") {
         document.querySelector(".smartsorter-div").style.display = "block"
     } else {
         document.querySelector(".smartsorter-div").style.display = "none"
@@ -64,17 +71,18 @@ async function setupEdit() {
 add_btn.addEventListener("click", function () {
     let savedTerm = []
     let savedDef = []
-    for(let i=0; i<document.querySelectorAll(".term-input").length; i++){
+    for (let i = 0; i < document.querySelectorAll(".term-input").length; i++) {
         savedTerm.push(document.querySelectorAll(".term-input")[i].value)
-        savedDef.push(document.querySelectorAll(".def-input")[i].value)    
+        savedDef.push(document.querySelectorAll(".def-input")[i].value)
     }
     document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20"></textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="defenition"></textarea></div>`
-    for(let i=0; i<document.querySelectorAll(".term-input").length; i++){
-        if(savedTerm[i] != undefined && savedDef != undefined){
+    for (let i = 0; i < document.querySelectorAll(".term-input").length; i++) {
+        if (savedTerm[i] != undefined && savedDef != undefined) {
             document.querySelectorAll(".term-input")[i].value = savedTerm[i]
             document.querySelectorAll(".def-input")[i].value = savedDef[i]
         }
-    }})
+    }
+})
 rm_btn.addEventListener("click", function () {
     let terms = document.querySelectorAll(".inner-div")
     terms[terms.length - 1].remove()

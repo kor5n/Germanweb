@@ -16,7 +16,6 @@ const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
 const randomBtn = document.querySelector(".random-btn")
-let facingOpposite = false
 
 function random(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -24,7 +23,6 @@ function random(min, max) {
 
 randomBtn.addEventListener("click", function () {
     count = random(0, termList.length)
-    oppositeRotation()
     writeTerm()
 })
 
@@ -64,18 +62,8 @@ function rotateFlashcard() {
     }
     if (degRotate >= 180) {
         clearInterval(rotateIntervalId)
-        if (facingOpposite === false) {
-            facingOpposite = true
-        } else {
-            facingOpposite = false
-        }
         rotateOn = false
         degRotate = 0
-    }
-}
-const oppositeRotation = () => {
-    if (facingOpposite && rotateOn === false) {
-        rotateIntervalId = setInterval(rotateFlashcard, 5)
     }
 }
 function transAnimation(way) {
@@ -124,7 +112,6 @@ righArrow.addEventListener("click", function () {
     if (count === termList.length) {
         count -= 1
     } else {
-        oppositeRotation()
         transAnimation("right")
         writeTerm()
     }
@@ -134,7 +121,6 @@ leftArrow.addEventListener("click", function () {
     if (count < 0) {
         count += 1
     } else {
-        oppositeRotation()
         transAnimation("left")
         writeTerm()
     }

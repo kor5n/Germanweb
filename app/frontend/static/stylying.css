@@ -632,3 +632,10 @@ textarea {
     border-radius: 6px;
     width: 15%;
 }
+.smartsorter-div{
+    display: none;
+}
+.dropdown-btn{
+    margin-top: 10%;
+    margin-bottom: 10%;
+}

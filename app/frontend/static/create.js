@@ -25,6 +25,14 @@ signInBtn.style.display = "none"
 profilePic.style.display = "inline-block"
 getImg()
 
+document.querySelector(".dropdown-btn").addEventListener("click", () =>{
+    if (document.querySelector(".smartsorter-div").style.display === "none"){
+        document.querySelector(".smartsorter-div").style.display = "block"
+    } else {
+        document.querySelector(".smartsorter-div").style.display = "none"
+    }
+})
+
 document.querySelector(".profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"

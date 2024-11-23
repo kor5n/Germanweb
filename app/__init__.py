@@ -11,7 +11,6 @@ def profile_page():
         if not session["id"] or session["id"] == None:
             return redirect("/browse")
         else:
-            print(session["id"])
             return render_template("main.html")
     except:
         return redirect("/browse")

@@ -7,13 +7,32 @@ from create_img import create_img
 
 @app.route("/")
 def profile_page():
-    return render_template("main.html")
+    try:
+        if not session["id"] or session["id"] == None:
+            return redirect("/browse")
+        else:
+            print(session["id"])
+            return render_template("main.html")
+    except:
+        return redirect("/browse")
 @app.route("/create")#Has to be logged in
 def create_page():
-    return render_template("create.html")    
+    try:
+        if not session["id"] or session["id"] == None:
+            return redirect("/signup")
+        else:
+            return render_template("create.html")
+    except:
+        return redirect("/signup")    
 @app.route("/edit/<int:test_id>")#Has to be logged in
 def edit_page(test_id):
-    return render_template("create.html")
+    try:
+        if not session["id"] or session["id"] == None:
+            return redirect("/signup")
+        else:
+            return render_template("create.html")
+    except:
+        return redirect("/signup") 
 @app.route("/signup")
 def signup_page():
     try:

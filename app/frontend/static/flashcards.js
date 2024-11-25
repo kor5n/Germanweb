@@ -21,10 +21,28 @@ function random(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-randomBtn.addEventListener("click", function () {
+const randomAction = () => {
     count = random(0, termList.length)
     writeTerm()
+}
+
+randomBtn.addEventListener("click", function () {
+    button.blur();
+    randomAction()
 })
+
+document.addEventListener("keydown", (event) => {
+    event.preventDefault();
+    if (event.key === " " || event.key === "ArrowDown" || event.key === "s") {
+        randomAction();
+    } else if (event.key === "ArrowLeft" || event.key === "a") {
+        arrowAction("left");
+    } else if (event.key === "ArrowRight" || event.key === "d") {
+        arrowAction("right");
+    } else if (event.key === "w" || event.key === "ArrowUp"){
+        flashAction();
+    }
+});
 
 async function getImg() {
     const respimg = await fetch("/b/img")
@@ -97,34 +115,49 @@ function transAnimation(way) {
         })
     }
 }
-flashcard.addEventListener("click", function () {
+
+const flashAction = () =>{
     if (!rotateOn) {
         rotateIntervalId = setInterval(rotateFlashcard, 10)
     }
+}
+
+flashcard.addEventListener("click", function () {
+    flashAction()
 })
 function writeTerm() {
+    console.log(count);
     flashTerm.innerHTML = termList[count]
     flashDef.innerHTML = defList[count]
 }
 
-righArrow.addEventListener("click", function () {
-    count += 1
-    if (count === termList.length) {
+const arrowAction = (direction) => {
+    if (direction === "right") {
+        count += 1
+        if (count === termList.length) {
+            count = 0
+        } else {
+            transAnimation("right")
+            writeTerm()
+        }
+    } else if (direction === "left") {
         count -= 1
-    } else {
-        transAnimation("right")
-        writeTerm()
+        if (count < 0) {
+            count = termList.length - 1
+        } else {
+            transAnimation("left")
+            writeTerm()
+        }
     }
+}
+
+righArrow.addEventListener("click", function () {
+    button.blur();
+    arrowAction("right");
 })
 leftArrow.addEventListener("click", function () {
-    count -= 1
-    if (count < 0) {
-        count += 1
-    } else {
-        transAnimation("left")
-        writeTerm()
-    }
-
+    button.blur();
+    arrowAction("left");
 })
 async function getTest() {
     const response = await fetch("/b/view/" + url_split[1])

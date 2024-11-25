@@ -105,7 +105,8 @@ const getTest = async () => {
         defList = data.message[3].split(";")
         fetchedDefs = data.message[3].split(";")
         realDefList = data.message[3].split(";")
-        document.querySelector(".flash-title").innerHTML = data.message[0]
+        flashTitle.innerHTML = data.message[0]
+        flashTitle.href = '/view/'+ window.location.pathname.slice(1).split('/')[1]
         if (data.loggedIn === true) {
             logInBtn.style.display = "none"
             signInBtn.style.display = "none"

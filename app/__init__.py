@@ -165,9 +165,10 @@ def create_user():
     
     try:
         msg = Message(f"Welcome to GermanTest {username}!", sender="germantest813@gmail.com", recipients=[email])
-        msg.body = f"Welcome again {username} to this wonderfull study community! We are very delighted to have you here. Hoping that you will find something for yourself."
+        msg.body = f"Welcome {username} to this wonderfull study community! We are very delighted to have you here. Hoping that you will find something for yourself."
         mail.send(msg)
     except Exception as e:
+        print(e)
         return jsonify({"message": "Invalid email"}),412
 
     h = hashlib.new("SHA256")
@@ -178,7 +179,7 @@ def create_user():
     try: 
         db.session.add(new_user)
         db.session.commit()
-        session["id"] = new_user.id
+        #session["id"] = new_user.id
     except Exception as e:
         return jsonify({"message": str(e)}), 400
     

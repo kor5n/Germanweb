@@ -126,7 +126,6 @@ flashcard.addEventListener("click", function () {
     flashAction()
 })
 function writeTerm() {
-    console.log(count);
     flashTerm.innerHTML = termList[count]
     flashDef.innerHTML = defList[count]
 }

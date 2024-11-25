@@ -23,7 +23,7 @@ app.config["MAIL_PASSWORD"] = mail_password
 app.config["MAIL_USE_SSL"] = True
 
 Session(app)
-CORS(app, resources={r'*':{"origins":"*"}})
+CORS(app, resources={r'/*':{"origins":["http://192.168.56.103:8000"]}})
 
 mail = Mail(app)
 db = SQLAlchemy(app)

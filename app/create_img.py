@@ -41,11 +41,11 @@ def create_img(name):
     name = "profile" + str(num) + ".png"
     while file_exists == True:
         name = "profile" + str(num) + ".png"
-        if os.path.exists("frontend/static/img/"+name):
+        if os.path.exists("app/frontend/static/img/"+name):
             num +=1
         else:
             file_exists = False
-    image.save("frontend/static/img/"+name)
+    image.save("app/frontend/static/img/"+name)
     return name
 
 

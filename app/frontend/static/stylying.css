@@ -362,6 +362,7 @@ input {
     justify-content: center;
     perspective: 400px;
     border: 2px solid #0097A7;
+    padding: 5%;
 }
 
 .flash-term {
@@ -404,7 +405,7 @@ h3 {
 
 .flash-title {
     font-size: 2em;
-    text-decoration: none;
+    /*text-decoration: none;*/
     color: black;
 }
 

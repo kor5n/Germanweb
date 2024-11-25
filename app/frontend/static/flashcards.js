@@ -170,6 +170,7 @@ async function getTest() {
         termList = data.message[2].split(";")
         defList = data.message[3].split(";")
         flashTitle.innerHTML = data.message[0]
+        flashTitle.href = '/view/'+ window.location.pathname.slice(1).split('/')[1]
         count = 0
         if (data.loggedIn === true) {
             logInBtn.style.display = "none"

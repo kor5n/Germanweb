@@ -31,6 +31,14 @@ MAIL_PASSWORD = "your password to your mail app at gmail"
 SECRET_KEY = "random secure key"
 ```
 
+You will also need to make a python virtual environment and install dependencies
+
+```
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
 And finally run the app!
 
 ```

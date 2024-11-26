@@ -27,7 +27,6 @@ const randomAction = () => {
 }
 
 randomBtn.addEventListener("click", function () {
-    button.blur();
     randomAction()
 })
 
@@ -151,11 +150,9 @@ const arrowAction = (direction) => {
 }
 
 righArrow.addEventListener("click", function () {
-    button.blur();
     arrowAction("right");
 })
 leftArrow.addEventListener("click", function () {
-    button.blur();
     arrowAction("left");
 })
 async function getTest() {

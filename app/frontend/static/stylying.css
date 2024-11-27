@@ -575,6 +575,8 @@ textarea {
 
 .test-name {
     font-weight: 540;
+    overflow: hidden;
+    max-height: 40%;
 }
 
 .quest-count {

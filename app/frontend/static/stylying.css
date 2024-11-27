@@ -137,6 +137,7 @@ main {
     margin-bottom: 3%;
     font-weight: 600;
     font-size: 330%;
+    overflow: overlay;
 }
 .by-author{
     font-weight: 100;
@@ -147,6 +148,7 @@ main {
 .test-desc {
     margin-bottom: 3%;
     font-weight: 550;
+    overflow: overlay;
 }
 
 .show-def {

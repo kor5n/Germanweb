@@ -14,10 +14,10 @@ async function getImg() {
     const respimg = await fetch("/b/img")
     const img = await respimg.json()
 
-    if (Math.round(respimg.status * 100) === 200) {
+    if (Math.round(respimg.status) === 200) {
         if (img.img) {
-            profilePic.querySelector("img").src = `/static/img/${img.img}`
-            profilePic.querySelector("img").alt = img.img
+            profilePic.querySelector(".profile-img").src = `/static/img/${img.img}`
+            profilePic.querySelector(".profile-img").alt = img.img
         }
     } else if (respimg.status === 401) {
         alert(img.message)

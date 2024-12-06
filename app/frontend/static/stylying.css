@@ -125,6 +125,20 @@ main {
     margin-left: 1.5%;
 }
 
+.rm-this-btn{
+    background: red;
+    height: 1.9em;
+    width: 1.9em;
+    color: white;
+    border-radius: 6px;
+    margin-top: auto;
+    margin-bottom: auto;
+    border: 1px solid #00BCD4;
+    font-weight: 600;
+    text-align: center;
+    margin-left: 1.5%
+}
+
 .sign-in:hover {
     background-color: #198895;
 }

@@ -63,7 +63,20 @@ async function setupEdit() {
         title_text.value = data.message[0]
         description_text.value = data.message[1]
         for (let i = 0; i < data.message[2].split(";").length; i++) {
-            document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20">${data.message[2].split(";")[i]}</textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="defenition">${data.message[3].split(";")[i]}</textarea></div>`
+            document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20">${data.message[2].split(";")[i]}</textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="defenition">${data.message[3].split(";")[i]}</textarea><button class="rm-this-btn">X</button></div>`
+        }
+
+	for (let i =0; i<document.querySelectorAll(".rm-this-btn").length;i++){
+            document.querySelectorAll(".rm-this-btn")[i].addEventListener("click", function(){
+                console.log(document.querySelectorAll(".inner-div"))
+                if (document.querySelectorAll(".inner-div").length > 1){
+                    const index = Array.from(document.querySelectorAll(".rm-this-btn")).indexOf(this)
+                    document.querySelectorAll(".inner-div")[index].remove()
+                }else{
+                    document.querySelectorAll(".inner-div")[0].remove()
+                }
+                
+            })
         }
     }
 }
@@ -75,12 +88,25 @@ add_btn.addEventListener("click", function () {
         savedTerm.push(document.querySelectorAll(".term-input")[i].value)
         savedDef.push(document.querySelectorAll(".def-input")[i].value)
     }
-    document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20"></textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="defenition"></textarea></div>`
+    document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20"></textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="defenition"></textarea><button class="rm-this-btn">X</button></div>`
     for (let i = 0; i < document.querySelectorAll(".term-input").length; i++) {
         if (savedTerm[i] != undefined && savedDef != undefined) {
             document.querySelectorAll(".term-input")[i].value = savedTerm[i]
             document.querySelectorAll(".def-input")[i].value = savedDef[i]
         }
+    }
+
+    for (let i =0; i<document.querySelectorAll(".rm-this-btn").length;i++){
+            document.querySelectorAll(".rm-this-btn")[i].addEventListener("click", function(){
+                console.log(document.querySelectorAll(".inner-div"))
+                if (document.querySelectorAll(".inner-div").length > 1){
+		    const index = Array.from(document.querySelectorAll(".rm-this-btn")).indexOf(this)
+                    document.querySelectorAll(".inner-div")[index].remove()
+                }else{
+                    document.querySelectorAll(".inner-div")[0].remove()
+                }
+                
+            })
     }
 })
 rm_btn.addEventListener("click", function () {

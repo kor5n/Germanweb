@@ -32,7 +32,8 @@ class User(db.Model):
             "user_name": self.user_name,
             "email": self.email,
             "password": self.password,
-            "img": self.img
+            "img": self.img,
+            "favourites": self.favourites
         }
 
 

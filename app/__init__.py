@@ -11,7 +11,6 @@ def profile_page():
         if not session["id"] or session["id"] == None:
             return redirect("/browse")
         else:
-            print(session["id"])
             return render_template("main.html")
     except:
         return redirect("/browse")
@@ -82,9 +81,9 @@ def get_terms():
         if test["user_id"] == user.id:
             user_tests.append(test)
     if len(user_tests)==0:
-        return jsonify({"message": "You don't have any tests", "username": user.user_name}), 200
+        return jsonify({"message": "You don't have any tests", "username": user.user_name, "favourites": user.favourites}), 200
 
-    return jsonify({"message":  user_tests, "username": user.user_name}), 200
+    return jsonify({"message":  user_tests, "username": user.user_name, "favourites": user.favourites}), 200
 @app.route("/b/view/<int:test_id>", methods = ["GET"])
 def view_test(test_id):
     logged_in = True
@@ -255,9 +254,10 @@ def browse():
     return jsonify({"message": "Successfully found tests", "tests":json_tests, "loggedIn":logged_in, "authors":authors}),200
 @app.route("/b/add-favourite/<int:test_id>", methods=["POST"])
 def add_favourite(test_id):
+    print(test_id)
     try:
         if session["id"] == None:
-                logged_in = False
+            logged_in = False
         else:
             logged_in = True
     except:
@@ -268,10 +268,11 @@ def add_favourite(test_id):
 
     try:
         usr = User.query.get(session["id"])
+        print(usr.favourites)
     except:
         return jsonify({"message":"This id does not exist"})
 
-    if str(test_id) in usr.favourites.split(",") or len(usr.favourites) <= 0:
+    if str(test_id) in usr.favourites.split(","):
         return jsonify({"mesage": "This test is already in favourites"}),400
     
     usr.favourites += str(test_id) + ','
@@ -283,7 +284,7 @@ def add_favourite(test_id):
 def del_favourite(test_id):
     try:
         if session["id"] == None:
-                logged_in = False
+            logged_in = False
         else:
             logged_in = True
     except:
@@ -297,12 +298,12 @@ def del_favourite(test_id):
     except:
         return jsonify({"message":"This id does not exist"})
     
-    if str(test_id) not in usr.favourites.split(",") or len(usr.favourites) <= 0:
+    if str(test_id) not in usr.favourites.split(","):
         return jsonify({"message":"You do not have this favourite"}),400
 
     fav_list = usr.favourites.split(",")
     fav_list.remove(str(test_id))
-    usr.favourites = fav_list.join(",")
+    usr.favourites = ",".join(fav_list)
     db.session.commit()
 
     return jsonify({"message":"Succesfully removed test from favourites"}),200         

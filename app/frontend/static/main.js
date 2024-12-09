@@ -26,25 +26,37 @@ async function getImg() {
 async function getData() {
     const response = await fetch("/b/tests")
     const data = await response.json()
-    console.log(response)
-    console.log(data)
     if (response.status !== 200 && response.status !== 201) {
         //window.alert(data.message)
     }
     else {
+        let favourites = data.favourites
+        if (favourites.length > 0){
+            favourites = favourites.split(",")
+            for (let i=0; i<favourites.length;i++){
+                favourites[i] = +favourites[i]
+            }
+        }
         logInBtn.style.display = "none"
         signInBtn.style.display = "none"
         profilePic.style.display = "inline"
         getImg()
 
         document.querySelector(".sub-name").innerHTML = data.username
+        let isRed = "grey"
         data.message.forEach(element => {
+            if (favourites.length > 0){
+                if (favourites.includes(element["id"])){
+                    isRed = "red"
+                }
+            }
             document.querySelector("main").innerHTML += `<div class="test-profile">
                                                     <h3 class="test-name">${element["title"]}</h3>
                                                     <p class="quest-count">${element["terms"].split(";").length} questions</p>
-                                                    <p class="author-name">${data.username}</p>
+                                                    <p class="author-name">${data.username} <button style="--c:${isRed}" class="heart-btn"></button></p>   
                                                 </div>`
             testDivsId.push(element["id"])
+            isRed = "grey"
         })
 
         testDiv = document.querySelectorAll(".test-profile")
@@ -54,7 +66,21 @@ async function getData() {
                 window.location.assign("/view/" + testDivsId[i])
             })
         }
-
+        for (let i=0; i<document.querySelectorAll(".heart-btn").length;i++){
+            document.querySelectorAll(".heart-btn")[i].addEventListener("click", async function (e) {
+                e.stopPropagation();
+                const computedStyle = getComputedStyle(this);
+                const currentColor = computedStyle.getPropertyValue("--c").trim();
+                if (currentColor === "grey"){
+                    this.style.setProperty('--c', 'red')
+                    await fetch("/b/add-favourite/"+testDivsId[i], {method: "POST"})
+                }else if (currentColor === "red"){
+                    this.style.setProperty("--c", "grey")
+                    await fetch("/b/del-favourite/"+testDivsId[i], {method: "POST"})
+                }
+                
+            })
+        }
 
     }
 

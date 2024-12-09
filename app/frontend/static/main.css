@@ -133,7 +133,7 @@ main {
 
 .test-profile:hover {
     transform: scale(1.05);
-    background: #9bcbd1;
+    /*background: #9bcbd1;*/
 }
 
 .test-name {
@@ -194,4 +194,19 @@ main {
 
 .sub-text {
     scale: 1.1;
+}
+.heart-btn{
+    margin-left: 5%;
+    --c: grey;
+    background:
+   radial-gradient(at 70% 31%,var(--c) 29%,#0000 30%),
+   radial-gradient(at 30% 31%,var(--c) 29%,#0000 30%),
+   conic-gradient(from -45deg at 50% 84%,var(--c) 90deg,#0000 0) 
+    bottom/100% 50% no-repeat;
+    height: 100%;
+    border: none;
+    aspect-ratio: 1;
+}
+.heart-btn:hover{
+    transform: scale(1.15)
 }

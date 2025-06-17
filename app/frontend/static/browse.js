@@ -31,7 +31,7 @@ const addTests = async (tests, authors) => {
         document.querySelector("main").innerHTML += `<div class="test-profile">
                                                 <h3 class="test-name">${tests[i]["title"]}</h3>
                                                 <p class="quest-count">${tests[i]["terms"].split(";").length} questions</p>
-                                                <p class="author-name">${authors[i]}</p><button style="--c:${btnColor}" class="heart-btn"></button></p>
+                                                <p class="author-name">${authors[i]} <button style="--c:${btnColor}" class="heart-btn"></button></p>
                                             </div>`
         btnColor = "grey"
     }

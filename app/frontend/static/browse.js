@@ -1,5 +1,3 @@
-let testDivsId = []
-let testDiv = []
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
 const profilePic = document.querySelector(".profile-pic")
@@ -15,22 +13,50 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
     }
 })
 
-const addTests = (tests, authors) => {
+const addTests = async (tests, authors) => {
     document.querySelector("main").innerHTML = `<div class="search-div"><textarea rows="1" cols="40" placeholder="Search for tests"
     class="search-input"></textarea><button class="search-btn">Search</button></div>`
 
+    let testsResp = await fetch("/b/tests")
+    let clientTests = await testsResp.json()
+    let btnColor = "grey"
+    let favourites = clientTests.favourites.split(",")
+
     for (let i = 0; i < tests.length; i++) {
+        if (favourites.length > 0){
+            if (favourites.includes(tests[i]["id"].toString())){
+                btnColor = "red"
+            }
+        }
         document.querySelector("main").innerHTML += `<div class="test-profile">
                                                 <h3 class="test-name">${tests[i]["title"]}</h3>
                                                 <p class="quest-count">${tests[i]["terms"].split(";").length} questions</p>
-                                                <p class="author-name">${authors[i]}</p>
+                                                <p class="author-name">${authors[i]}</p><button style="--c:${btnColor}" class="heart-btn"></button></p>
                                             </div>`
+        btnColor = "grey"
     }
+
+    console.log("...")
+
     for (let j = 0; j < tests.length; j++) {
         document.querySelectorAll(".test-profile")[j].addEventListener("click", () => {
             window.location.assign("/view/" + tests[j]["id"])
         })
+        document.querySelectorAll(".heart-btn")[j].addEventListener("click", async function (e) {
+            e.stopPropagation();
+            const computedStyle = getComputedStyle(this);
+            const currentColor = computedStyle.getPropertyValue("--c").trim();
+            if (currentColor === "grey"){
+                this.style.setProperty('--c', 'red')
+                await fetch("/b/add-favourite/"+tests[j]["id"], {method: "POST"})
+            }else if (currentColor === "red"){
+                this.style.setProperty("--c", "grey")
+                await fetch("/b/del-favourite/"+tests[j]["id"], {method: "POST"})
+            }
+            
+        })
     }
+    
     document.querySelector(".search-btn").addEventListener("click", () => {
         if (document.querySelector(".search-input").value !== "") {
             let testsfound = []
@@ -43,7 +69,7 @@ const addTests = (tests, authors) => {
                     testindexes.push(i)
                 }
             }
-            console.log(testsfound)
+            //console.log(testsfound)
             for (let j = 0; j < testsfound.length; j++) {
                 authorslist.push(authors[testindexes])
             }

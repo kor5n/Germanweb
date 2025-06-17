@@ -4,6 +4,7 @@ from models import Test, User
 import hashlib
 from flask_mail import Message
 from create_img import create_img
+from random import randint
 
 @app.route("/")
 def profile_page():
@@ -232,14 +233,28 @@ def browse():
     logged_in = True
     tests = Test.query.all()
     users = User.query.all()
+    test_list = []
 
     if not tests or not users:
         return jsonify({"message":"Couldn't find tests or user info"}), 404
     
     json_tests = list(map(lambda x: x.to_json(), tests))  
     json_users = list(map(lambda x: x.to_json(), users))
+        
+    iterations = 30
 
-    for element in json_tests:
+    if iterations > len(json_tests):
+        test_list = json_tests
+        more_tests = False
+    else:
+        free_tests = json_tests
+        for i in range(iterations):
+            index = randint(0, len(free_tests) -1)
+            test_list.append(free_tests[index])
+            free_tests.pop(index)
+        more_tests=True
+    
+    for element in test_list:
         if element["user_id"] == json_users[element["user_id"]-1]["id"]:
             authors.append(json_users[element["user_id"]-1]["user_name"])
         else:
@@ -247,11 +262,11 @@ def browse():
 
     try:
         if session["id"] == None:
-                logged_in = False
+            logged_in = False
     except:
         logged_in = False
 
-    return jsonify({"message": "Successfully found tests", "tests":json_tests, "loggedIn":logged_in, "authors":authors}),200
+    return jsonify({"message": "Successfully found tests", "tests":test_list, "loggedIn":logged_in, "authors":authors, "moreTests":more_tests}),200
 @app.route("/b/add-favourite/<int:test_id>", methods=["POST"])
 def add_favourite(test_id):
     print(test_id)

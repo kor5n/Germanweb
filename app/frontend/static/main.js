@@ -1,5 +1,9 @@
 let testDivsId = []
 let testDiv = []
+let favTestId = []
+let combinedTests = []
+const myDiv = document.querySelector(".self-div")
+const favDiv = document.querySelector(".fav-div")
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
 const profilePic = document.querySelector(".profile-pic")
@@ -50,14 +54,26 @@ async function getData() {
                     isRed = "red"
                 }
             }
-            document.querySelector("main").innerHTML += `<div class="test-profile">
+            myDiv.innerHTML += `<div class="test-profile">
                                                     <h3 class="test-name">${element["title"]}</h3>
                                                     <p class="quest-count">${element["terms"].split(";").length} questions</p>
                                                     <p class="author-name">${data.username} <button style="--c:${isRed}" class="heart-btn"></button></p>   
                                                 </div>`
+
+            if (isRed === "red"){
+                favDiv.innerHTML += `<div class="test-profile">
+                                                    <h3 class="test-name">${element["title"]}</h3>
+                                                    <p class="quest-count">${element["terms"].split(";").length} questions</p>
+                                                    <p class="author-name">${data.username} <button style="--c:${isRed}" class="heart-btn"></button></p>   
+                                                </div>`
+                favTestId.push(element["id"])
+            }
             testDivsId.push(element["id"])
+            
             isRed = "grey"
         })
+
+        combinedTests = testDivsId + favTestId
 
         testDiv = document.querySelectorAll(".test-profile")
 
@@ -73,15 +89,15 @@ async function getData() {
                 const currentColor = computedStyle.getPropertyValue("--c").trim();
                 if (currentColor === "grey"){
                     this.style.setProperty('--c', 'red')
-                    await fetch("/b/add-favourite/"+testDivsId[i], {method: "POST"})
+                    await fetch("/b/add-favourite/"+combinedTests[i], {method: "POST"})
                 }else if (currentColor === "red"){
                     this.style.setProperty("--c", "grey")
-                    await fetch("/b/del-favourite/"+testDivsId[i], {method: "POST"})
+                    await fetch("/b/del-favourite/"+combinedTests[i], {method: "POST"})
                 }
                 
             })
         }
-
+        
     }
 
 

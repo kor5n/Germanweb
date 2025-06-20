@@ -90,10 +90,10 @@ button:hover {
     width: 90px;
 }
 
-main {
+.main-div {
     padding-top: 5%;
-    padding-left: 20%;
-    padding-right: 20%
+    padding-left: 5%;
+    padding-right: 5%
 }
 
 .add-btn {
@@ -209,4 +209,13 @@ main {
 }
 .heart-btn:hover{
     transform: scale(1.15)
+}
+.main-label{
+    color: white;
+    font-weight: 800;
+    margin-right: 10%;
+    font-size: x-large;
+}
+.test-container{
+    margin-bottom: 10%;
 }

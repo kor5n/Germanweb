@@ -66,6 +66,9 @@ def write_page(test_id):
 @app.route("/browse")
 def browse_page():
     return render_template("browse.html")
+@app.route("/about")
+def about_page():
+    return render_template("about.html")
 
 @app.route("/b/tests", methods = ["GET"])
 def get_terms():

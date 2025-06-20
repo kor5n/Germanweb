@@ -665,3 +665,9 @@ textarea {
     border: none;
     aspect-ratio: 1;
 }
+.about-text{
+    color: white;
+    font-weight: 500;
+    font-size: x-large;
+    margin-bottom: 5%;
+}

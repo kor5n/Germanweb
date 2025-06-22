@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Create Test</title>
+        <title>About</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylying.css') }}"/>
     </head>
@@ -16,7 +16,6 @@
                 <a class="page-link" href="/browse">Browse</a>
                 <a class="page-link" href="/about">About</a>
             </div>
-            <a class="flash-title">Test name</a>
             <button class="profile-pic"><img class="profile-img"></button>
             <div class="sub-menu">
                 <div class="user-name sub-in">
@@ -24,29 +23,28 @@
                 </div>
                 <div class="logout-btn sub-in">
                     <span class="sub-text logout-btn" onclick="(async () => {await fetch('/b/logout')
-                        window.location.reload()})();">Logout</span>
+                    window.location.reload()})();">Logout</span>
                 </div>
             </div>
             <button class="log-in" onclick="location.href = '/login'">Log in</button>
             <button class="sign-in" onclick="location.href = '/signup'">Sign up</button>
         </header>
         <main>
+            <p class="about-text">Hello, It’s me Kor5n. A teenage future software engineer with his first ever web project.
+                Which is also open source! at <a class="about-text" style="text-decoration: none; color: blue;" href="https://github.com/kor5n/GermanWeb">Github</a> </p>
+
+            <p class="about-text">This project started from my eagerness to improve in German in school. 
+                The project’s prototypes were written in python with kivy. 
+                Then came the wacky android mobile app written in Unity (yes, the game engine). 
+                With the trilogy concluding on the web. </p>
             
-            <div class="flash-div">
-                <div class="flashcard">
-                    <h1 class="flash-term">Term</h1>
-                    <h1 class="flash-def">Defenition</h1>
-                </div>
-            </div>
-            
-            <div class="arrow-div">
-                <button class="left-trans trans"><img src="{{ url_for('static', filename='img/righArrow.png') }}" style="transform: scaleX(-1); height: 80%; width: 80%;" alt="<-"></button>
-                <button class="random-btn">Random</button>
-                <button class="right-trans trans"><img src="{{ url_for('static', filename='img/righArrow.png') }}" style="height: 80%; width: 80%;" alt=""></button>
-            </div>
-            
+            <p class="about-text">Eventually the app helped me get my totally deserved A. </p>
+
+            <p class="about-text">I hope you find some helpful study material as well as tools to build own tests to study before different exams/tests both in school and life.</p>
+
+            <p class="about-text">PS. You can find the prototypes and the mobile app <a class="about-text" style="text-decoration: none; color: blue;" href="https://github.com/kor5n/germanTest">here</a></p>
+
         </main>
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-    <script src="{{ url_for('static', filename='flashcards.js') }}"></script>
+<script src="{{ url_for('static', filename='about.js') }}"></script>
 </html>

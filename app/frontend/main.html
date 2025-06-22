@@ -18,7 +18,7 @@
         <div class="link-div">
             <a class="page-link" href="/">Profile</a>
             <a class="page-link" href="/browse">Browse</a>
-            <a class="page-link">About us</a>
+            <a class="page-link" href="/about">About</a>
         </div>
         <button class="profile-pic"><img src="{{ url_for('static', filename='img/profile1.png') }}" class="profile-img"></button>
         <div class="sub-menu">
@@ -34,13 +34,24 @@
         <button class="sign-in" onclick="location.href = '/signup'">Sign up</button>
     </header>
     <main>
-        <button class="add-btn" onclick="window.location.assign('/create')">+</button>
+        <div class="main-div">
+            
+            <div class="self-div test-container">
+                <span class="main-label">My tests</span>
+                <button class="add-btn" onclick="window.location.assign('/create')">+</button>
+            </div>
         <!--<div class="test-profile" onclick="location.href='view.html'">
                 <h3 class="test-name">test name</h3>
                 <p class="quest-count">x questions</p>
                 <p class="author-name">author name</p>
-                <span><button></button></span>
+                <button class="heart-btn"></button>
             </div>-->
+            <div class="fav-div test-container">
+                <span class="main-label">Favourite tests</span>
+                
+            </div>
+        </div>
+        
     </main>
     <footer>
 

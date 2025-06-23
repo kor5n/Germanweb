@@ -27,6 +27,38 @@ async function getImg() {
     }
 }
 
+const showMyTests = (myTests, username) =>{
+    if (myTests === "You don't have any tests" || myTests.length == 0){
+        myTests = []
+    }else{
+        myTests.forEach(element => {
+	    myDiv.innerHTML += `<div class="test-profile">
+                                                    <h3 class="test-name">${element["title"]}</h3>
+                                                    <p class="quest-count">${element["terms"].split(";").length} questions</p>
+                                                    <p class="author-name">${username}</p>
+                                                </div>`
+	})
+     
+	
+    }
+}
+
+const showFavTests = (favTests, username) =>{
+    if (typeof favTests == 'undefined' || favTests.length == 0){
+        favTests = []
+    }else{
+	favTests.forEach(element => {
+	    favDiv.innerHTML += `<div class="test-profile">
+                                                    <h3 class="test-name">${element["title"]}</h3>
+                                                    <p class="quest-count">${element["terms"].split(";").length} questions</p>
+                                                    <p class="author-name">${username} <button style="--c:red" class="heart-btn"></button></p>
+                                                </div>`
+	
+	})
+    }
+}
+
+
 async function getData() {
     const response = await fetch("/b/tests")
     const data = await response.json()
@@ -34,13 +66,7 @@ async function getData() {
         //window.alert(data.message)
     }
     else {
-        let favourites = data.favourites
-        if (favourites.length > 0){
-            favourites = favourites.split(",")
-            for (let i=0; i<favourites.length;i++){
-                favourites[i] = +favourites[i]
-            }
-        }
+            
         logInBtn.style.display = "none"
         signInBtn.style.display = "none"
         profilePic.style.display = "inline"
@@ -48,38 +74,20 @@ async function getData() {
 
         document.querySelector(".sub-name").innerHTML = data.username
         let isRed = "grey"
-        data.message.forEach(element => {
-            if (favourites.length > 0){
-                if (favourites.includes(element["id"])){
-                    isRed = "red"
-                }
-            }
-            myDiv.innerHTML += `<div class="test-profile">
-                                                    <h3 class="test-name">${element["title"]}</h3>
-                                                    <p class="quest-count">${element["terms"].split(";").length} questions</p>
-                                                    <p class="author-name">${data.username} <button style="--c:${isRed}" class="heart-btn"></button></p>   
-                                                </div>`
 
-            if (isRed === "red"){
-                favDiv.innerHTML += `<div class="test-profile">
-                                                    <h3 class="test-name">${element["title"]}</h3>
-                                                    <p class="quest-count">${element["terms"].split(";").length} questions</p>
-                                                    <p class="author-name">${data.username} <button style="--c:${isRed}" class="heart-btn"></button></p>   
-                                                </div>`
-                favTestId.push(element["id"])
-            }
-            testDivsId.push(element["id"])
-            
-            isRed = "grey"
-        })
+	console.log(data)
 
-        combinedTests = testDivsId + favTestId
+	showMyTests(data.message, data.username)
+
+	showFavTests(data.favourites, data.username)
+
+	const combinedTests = data.message + data.favourites   
 
         testDiv = document.querySelectorAll(".test-profile")
 
         for (let i = 0; i < testDiv.length; i++) {
             testDiv[i].addEventListener("click", function () {
-                window.location.assign("/view/" + testDivsId[i])
+                window.location.assign("/view/" + combinedTests[i])
             })
         }
         for (let i=0; i<document.querySelectorAll(".heart-btn").length;i++){
@@ -89,10 +97,10 @@ async function getData() {
                 const currentColor = computedStyle.getPropertyValue("--c").trim();
                 if (currentColor === "grey"){
                     this.style.setProperty('--c', 'red')
-                    await fetch("/b/add-favourite/"+combinedTests[i], {method: "POST"})
+                    await fetch("/b/add-favourite/"+data.favourites[i]["id"], {method: "POST"})
                 }else if (currentColor === "red"){
                     this.style.setProperty("--c", "grey")
-                    await fetch("/b/del-favourite/"+combinedTests[i], {method: "POST"})
+                    await fetch("/b/del-favourite/"+data.favourites[i]["id"], {method: "POST"})
                 }
                 
             })

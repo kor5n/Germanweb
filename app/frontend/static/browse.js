@@ -24,14 +24,17 @@ const addTests = async (tests, authors) => {
         loggedIn = true	    
     }
     let btnColor = "grey"
+    let favourites = ""
     if (loggedIn){
 	if (typeof clientTests !== 'undefined') {
     	    if (clientTests.favourites.length >= 1){
-                let favourites = clientTests.favourites.split(",")
+		for(let i=0; i<clientTests.favourites.length; i++){
+		    favourites += clientTests.favourites[i]["id"]+","
+		}
     	    }else {let favourites = ","}
 	}else{ let favourites = ","  }
     }
-
+    let displayType = "inline"
     for (let i = 0; i < tests.length; i++) {
 	if (loggedIn){
 	    if (typeof favourites !== 'undefined'){
@@ -42,12 +45,22 @@ const addTests = async (tests, authors) => {
                 }
  	    }
 	}
+	 
+	if (clientTests.message !== "You don't have any tests"){
+	    for (let j=0; j<clientTests.message.length; j++){
+	    	if(clientTests.message[j]["id"] == tests[i]["id"]){
+		    displayType = "none"
+		    break
+		}
+	    }
+	}
         document.querySelector("main").innerHTML += `<div class="test-profile">
                                                 <h3 class="test-name">${tests[i]["title"]}</h3>
                                                 <p class="quest-count">${tests[i]["terms"].split(";").length} questions</p>
-                                                <p class="author-name">${authors[i]} <button style="--c:${btnColor}" class="heart-btn"></button></p>
+                                                <p class="author-name">${authors[i]} <button style="--c:${btnColor}; display: ${displayType}" class="heart-btn"></button></p>
                                             </div>`
         btnColor = "grey"
+	displayType = "inline"
     }
 
     //console.log("...")

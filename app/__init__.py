@@ -92,7 +92,7 @@ def get_terms():
     if len(user_tests)==0:
         return jsonify({"message": "You don't have any tests", "username": user.user_name, "favourites": fav_tests}), 200
 
-    return jsonify({"message":  user_tests, "username": user.user_name, "favourites": fav_test}), 200
+    return jsonify({"message":  user_tests, "username": user.user_name, "favourites": fav_tests}), 200
 @app.route("/b/view/<int:test_id>", methods = ["GET"])
 def view_test(test_id):
     logged_in = True
@@ -332,6 +332,20 @@ def del_favourite(test_id):
     db.session.commit()
 
     return jsonify({"message":"Succesfully removed test from favourites"}),200         
+@app.route("/b/usernames", methods=["POST"])
+def usernames():
+    ids = request.json.get("ids")
+    users = User.query.all()
+    json_users = list(map(lambda x: x.to_json(), users))
+    authors = []
+
+    for element in ids:
+        if element == json_users[element-1]["id"]:
+            authors.append(json_users[element-1]["user_name"])
+        else:
+            return jsonify({"message":"Something went wrong"}),404
+
+    return jsonify({"usernames": authors}), 200
 
 if __name__ == "__main__":
     with app.app_context():

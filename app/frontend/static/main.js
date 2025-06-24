@@ -43,18 +43,39 @@ const showMyTests = (myTests, username) =>{
     }
 }
 
-const showFavTests = (favTests, username) =>{
+const showFavTests = async (favTests) =>{
     if (typeof favTests == 'undefined' || favTests.length == 0){
         favTests = []
     }else{
-	favTests.forEach(element => {
+	let usr_ids = []
+        for(let i=0; i<favTests.length; i++){
+        usr_ids.push(favTests[i]["user_id"])
+        }
+        const data = {
+            "ids": usr_ids
+        }
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }
+        const resp  = await fetch("/b/usernames", options)
+        const usrData  = await resp.json()
+
+        if(!resp.ok){
+            window.alert("Something went wrong")
+        }
+
+	for(let i=0; i < favTests.length; i++) {
 	    favDiv.innerHTML += `<div class="test-profile">
-                                                    <h3 class="test-name">${element["title"]}</h3>
-                                                    <p class="quest-count">${element["terms"].split(";").length} questions</p>
-                                                    <p class="author-name">${username} <button style="--c:red" class="heart-btn"></button></p>
+                                                    <h3 class="test-name">${favTests[i]["title"]}</h3>
+                                                    <p class="quest-count">${favTests[i]["terms"].split(";").length} questions</p>
+                                                    <p class="author-name">${usrData.usernames[i]} <button style="--c:red" class="heart-btn"></button></p>
                                                 </div>`
 	
-	})
+	}
     }
 }
 
@@ -79,7 +100,7 @@ async function getData() {
 
 	showMyTests(data.message, data.username)
 
-	showFavTests(data.favourites, data.username)
+	showFavTests(data.favourites)
 
 	const combinedTests = data.message + data.favourites   
 

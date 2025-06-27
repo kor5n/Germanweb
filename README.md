@@ -48,8 +48,4 @@ Germanweb/venv/bin/gunicorn -w <number of cores> -b <ip>:<port> wsgi:app
 # ToDo
 Add a co-ownership system
 
-Add "favourites" to home 
-
 optimize css for mobile devices
-
-Add about page

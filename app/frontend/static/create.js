@@ -9,6 +9,30 @@ const title_text = document.querySelector(".title-input")
 const description_text = document.querySelector(".desc-input")
 const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
+let nodeArray = []
+let newNode;
+
+class TermDefNode{
+    constructor(element){
+        this.element = element
+        this.defIndex = 0
+        this.termText = this.element.value        
+    }
+    changeTerm(){
+        if(this.termText != this.element.value){
+            this.termText = this.element.value
+        }
+    }
+    changeIndex(){
+        console.log(this.termText,  this.element.value)
+        if(this.termText === this.element.value){
+            this.defIndex += 1
+        }else{
+            this.changeTerm()
+            this.defIndex = 0
+        }
+    }
+}
 
 async function getImg() {
     const respimg = await fetch("/b/img")
@@ -32,14 +56,6 @@ signInBtn.style.display = "none"
 profilePic.style.display = "inline-block"
 getImg()
 
-document.querySelector(".dropdown-btn").addEventListener("click", () => {
-    if (document.querySelector(".smartsorter-div").style.display === "none") {
-        document.querySelector(".smartsorter-div").style.display = "block"
-    } else {
-        document.querySelector(".smartsorter-div").style.display = "none"
-    }
-})
-
 document.querySelector(".profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
@@ -53,6 +69,43 @@ if (url_split[0] === "edit") {
 } else {
     isEditing = false
 }
+
+const updateListener = () =>{
+    for (let i =0; i<document.querySelectorAll(".rm-this-btn").length;i++){
+        document.querySelectorAll(".rm-this-btn")[i].addEventListener("click", function(){
+            if (document.querySelectorAll(".inner-div").length > 1){
+                document.querySelectorAll(".inner-div")[i].remove()
+                nodeArray[i].remove()
+            }else{
+                document.querySelectorAll(".inner-div")[0].remove()
+                nodeArray[0].remove()
+            }
+            
+        })
+        document.querySelectorAll(".def-input")[i].addEventListener("click", async (event) =>{
+            if(event.target.value === ""){
+                console.log(document.querySelectorAll(".term-input")[i].value)
+            nodeArray[i].element = document.querySelectorAll(".term-input")[i]
+            if(nodeArray[i].termText === ""){
+                nodeArray[i].changeTerm()
+            }
+            console.log(nodeArray[i].termText)
+        
+            if(event.target.placeholder !== "definition"){
+                nodeArray[i].changeIndex()
+            }
+            
+            event.target.placeholder = await getDef(nodeArray[i].termText, nodeArray[i].defIndex)
+            event.target.addEventListener("keydown", (event) =>{
+                if (event.key === "Tab"){
+                    event.target.value = event.target.placeholder
+                }
+            })
+            }
+        })
+    }
+}
+
 async function setupEdit() {
     const response = await fetch("/b/view/" + url_split[1])
     const data = await response.json()
@@ -63,54 +116,60 @@ async function setupEdit() {
         title_text.value = data.message[0]
         description_text.value = data.message[1]
         for (let i = 0; i < data.message[2].split(";").length; i++) {
-            document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20">${data.message[2].split(";")[i]}</textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="defenition">${data.message[3].split(";")[i]}</textarea><button class="rm-this-btn">X</button></div>`
+            document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20">${data.message[2].split(";")[i]}</textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="definition">${data.message[3].split(";")[i]}</textarea><button class="rm-this-btn">X</button></div>`
+            newNode = new TermDefNode(document.querySelectorAll(".term-input")[i])
+            nodeArray.push(newNode)
         }
-        for (let i =0; i<document.querySelectorAll(".rm-this-btn").length;i++){
-            document.querySelectorAll(".rm-this-btn")[i].addEventListener("click", function(){
-                console.log(document.querySelectorAll(".inner-div"))
-                if (document.querySelectorAll(".inner-div").length > 1){
-                    document.querySelectorAll(".inner-div")[i].remove()
-                }else{
-                    document.querySelectorAll(".inner-div")[0].remove()
-                }
-                
-            })
-        }
+        updateListener()
     }
 }
 
-add_btn.addEventListener("click", function () {
+const getDef = async (term, index) => {
+    console.log(index)
+    console.log(term)
+    const resp = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${term}`);
+    const data = await resp.json();
+    if(resp.ok){   
+        try{
+            const def = data[index]?.meanings || [];
+            if (def == []){
+            return "...";
+            }
+            return def[0]["definitions"][0]["definition"];
+        }catch{
+            return "..."
+        }
+    } else{
+        return "...";
+    }
+}
+    
+
+add_btn.addEventListener("click", async function () {
     let savedTerm = []
     let savedDef = []
-    let lastindex;
     for (let i = 0; i < document.querySelectorAll(".term-input").length; i++) {
         savedTerm.push(document.querySelectorAll(".term-input")[i].value)
         savedDef.push(document.querySelectorAll(".def-input")[i].value)
     }
-    document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20"></textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="defenition"></textarea><button class="rm-this-btn">X</button></div>`
+    document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20"></textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="definition"></textarea><button class="rm-this-btn">X</button></div>`
+    newNode = new TermDefNode(document.querySelectorAll(".term-input")[document.querySelectorAll(".term-input").length -1])
+    nodeArray.push(newNode)
+    console.log(nodeArray)
     for (let i = 0; i < document.querySelectorAll(".term-input").length; i++) {
         if (savedTerm[i] != undefined && savedDef != undefined) {
             document.querySelectorAll(".term-input")[i].value = savedTerm[i]
             document.querySelectorAll(".def-input")[i].value = savedDef[i]
         }
     }
-    lastindex = document.querySelectorAll(".rm-this-btn").length -1
-    for (let i =0; i<document.querySelectorAll(".rm-this-btn").length;i++){
-        document.querySelectorAll(".rm-this-btn")[i].addEventListener("click", function(){
-            console.log(document.querySelectorAll(".inner-div"))
-            if (document.querySelectorAll(".inner-div").length > 1){
-                document.querySelectorAll(".inner-div")[i].remove()
-            }else{
-                document.querySelectorAll(".inner-div")[0].remove()
-            }
-            
-        })
-    }
+    updateListener()
+    
     
 })
 rm_btn.addEventListener("click", function () {
     let terms = document.querySelectorAll(".inner-div")
     terms[terms.length - 1].remove()
+    nodeArray.pop()
 })
 submit_btn.addEventListener("click", async function () {
     let proceed = true
@@ -123,6 +182,12 @@ submit_btn.addEventListener("click", async function () {
 
     if (title_text.value !== "" && description_text.value !== "") {
         for (let i = 0; i < term_values.length; i++) {
+            if(term_values[i].value.includes(";")){
+                term_values[i].value = term_values[i].value.replace(/;/g, ';')
+            }
+            if(def_values[i].value.includes(";")){
+                def_values[i].values = def_values[i].value.replace(/;/g, ';')
+            }
             term_value += ";" + term_values[i].value
             def_value += ';' + def_values[i].value
             if (term_values[i].value === "" && def_values[i].value === "") {

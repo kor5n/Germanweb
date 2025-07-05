@@ -6,4 +6,4 @@ Add a co-ownership system
 
 optimize css for mobile devices
 
-Add (AI) explainer
+Add explainer

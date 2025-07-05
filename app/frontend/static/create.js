@@ -16,7 +16,8 @@ class TermDefNode{
     constructor(element){
         this.element = element
         this.defIndex = 0
-        this.termText = this.element.value        
+        this.termText = this.element.value
+        this.definitions;        
     }
     changeTerm(){
         if(this.termText != this.element.value){
@@ -24,7 +25,7 @@ class TermDefNode{
         }
     }
     changeIndex(){
-        console.log(this.termText,  this.element.value)
+        //console.log(this.termText,  this.element.value)
         if(this.termText === this.element.value){
             this.defIndex += 1
         }else{
@@ -84,24 +85,32 @@ const updateListener = () =>{
         })
         document.querySelectorAll(".def-input")[i].addEventListener("click", async (event) =>{
             if(event.target.value === ""){
-                console.log(document.querySelectorAll(".term-input")[i].value)
-            nodeArray[i].element = document.querySelectorAll(".term-input")[i]
+                //console.log(document.querySelectorAll(".term-input")[i].value)
+                nodeArray[i].element = document.querySelectorAll(".term-input")[i]
+            }
             if(nodeArray[i].termText === ""){
                 nodeArray[i].changeTerm()
             }
-            console.log(nodeArray[i].termText)
-        
-            if(event.target.placeholder !== "definition"){
-                nodeArray[i].changeIndex()
-            }
-            
-            event.target.placeholder = await getDef(nodeArray[i].termText, nodeArray[i].defIndex)
-            event.target.addEventListener("keydown", (event) =>{
-                if (event.key === "Tab"){
-                    event.target.value = event.target.placeholder
+            if(event.target.placeholder === "definition" && nodeArray[i].element.value !== ""){
+                nodeArray[i].definitions = await getDef(nodeArray[i].termText)
+                event.target.placeholder = nodeArray[i].definitions[nodeArray[i].defIndex]["definitions"][0]["definition"]
+            }else{
+                if(nodeArray[i].termText !== document.querySelectorAll(".term-input")[i].value){
+                    nodeArray[i].element = document.querySelectorAll(".term-input")[i]
+                    nodeArray[i].changeIndex()
+                    nodeArray[i].definitions = await getDef(nodeArray[i].termText)
+                }else{
+                    nodeArray[i].changeIndex()
                 }
-            })
-            }
+                //console.log(nodeArray[i].defIndex)
+                try {
+                    event.target.placeholder = nodeArray[i].definitions[nodeArray[i].defIndex]["definitions"][0]["definition"]
+                }catch{
+                    nodeArray[i].defIndex = 0
+                    event.target.placeholder = nodeArray[i].definitions[nodeArray[i].defIndex]["definitions"][0]["definition"]
+                }
+            }            
+            //console.log(nodeArray[i].termText)                
         })
     }
 }
@@ -124,18 +133,17 @@ async function setupEdit() {
     }
 }
 
-const getDef = async (term, index) => {
-    console.log(index)
+const getDef = async (term) => {
     console.log(term)
     const resp = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${term}`);
     const data = await resp.json();
     if(resp.ok){   
         try{
-            const def = data[index]?.meanings || [];
+            const def = data[0]?.meanings || [];
             if (def == []){
-            return "...";
+                return "...";
             }
-            return def[0]["definitions"][0]["definition"];
+            return def;
         }catch{
             return "..."
         }
@@ -155,7 +163,7 @@ add_btn.addEventListener("click", async function () {
     document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20"></textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="definition"></textarea><button class="rm-this-btn">X</button></div>`
     newNode = new TermDefNode(document.querySelectorAll(".term-input")[document.querySelectorAll(".term-input").length -1])
     nodeArray.push(newNode)
-    console.log(nodeArray)
+   // console.log(nodeArray)
     for (let i = 0; i < document.querySelectorAll(".term-input").length; i++) {
         if (savedTerm[i] != undefined && savedDef != undefined) {
             document.querySelectorAll(".term-input")[i].value = savedTerm[i]

@@ -95,10 +95,6 @@ const updateListener = () =>{
                 }
 
             }
-            //console.log(nodeArray[i].definitions)
-            //console.log(nodeArray[i].defIndex)
-            //console.log(nodeArray[i].scndIndex)
-
             if(event.target.placeholder !== "definition"){
                 event.target.addEventListener("keydown", (event) =>{
                     if (event.key === "Tab"){
@@ -107,7 +103,6 @@ const updateListener = () =>{
                     }
                 })
             }
-            //console.log(nodeArray[i].termText)                
         })
     }
 }
@@ -122,7 +117,7 @@ async function setupEdit() {
         title_text.value = data.message[0]
         description_text.value = data.message[1]
         for (let i = 0; i < data.message[2].split(";").length; i++) {
-            document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea tabindex="-1" class="term-input" placeholder="term" rows="1" cols="20">${data.message[2].split(";")[i]}</textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea tabindex="-1" rows="1" cols="20" class="def-input" placeholder="definition">${data.message[3].split(";")[i]}</textarea><button tabindex="-1" class="rm-this-btn">X</button></div>`
+            document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20">${data.message[2].split(";")[i]}</textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="definition">${data.message[3].split(";")[i]}</textarea><button class="rm-this-btn">X</button></div>`
             newNode = new TermDefNode()
             nodeArray.push(newNode)
         }
@@ -157,7 +152,7 @@ add_btn.addEventListener("click", async function () {
         savedTerm.push(document.querySelectorAll(".term-input")[i].value)
         savedDef.push(document.querySelectorAll(".def-input")[i].value)
     }
-    document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" tabindex="-1" placeholder="term" rows="1" cols="20"></textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea tabindex="-1" rows="1" cols="20" class="def-input" placeholder="definition"></textarea><button tabindex="-1" class="rm-this-btn">X</button></div>`
+    document.querySelector(".term-div").innerHTML += `<div class="inner-div" style="display: inline-flex; margin-top: 5%;"><textarea class="term-input" placeholder="term" rows="1" cols="20"></textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="definition"></textarea><button class="rm-this-btn">X</button></div>`
     newNode = new TermDefNode(document.querySelectorAll(".term-input")[document.querySelectorAll(".term-input").length -1])
     nodeArray.push(newNode)
    // console.log(nodeArray)

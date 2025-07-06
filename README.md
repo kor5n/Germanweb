@@ -5,5 +5,3 @@ Just a self study web app
 Add a co-ownership system
 
 optimize css for mobile devices
-
-Add explainer

@@ -110,6 +110,14 @@ const updateListener = () =>{
                     event.target.placeholder = nodeArray[i].definitions[nodeArray[i].defIndex]["definitions"][0]["definition"]
                 }
             }            
+
+            if(event.target.placeholder !== "definition"){
+                event.target.addEventListener("keydown", (event) =>{
+                if (event.key === "Tab"){
+                    event.target.value = event.target.placeholder
+                }
+            })
+            }
             //console.log(nodeArray[i].termText)                
         })
     }

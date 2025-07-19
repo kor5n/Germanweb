@@ -1,7 +1,7 @@
 from flask import request, jsonify, session, render_template,redirect
 from config import app, db,mail
 from models import Test, User
-import hashlib
+import bcrypt
 from flask_mail import Message
 from create_img import create_img
 from random import randint
@@ -160,12 +160,12 @@ def create_user():
     if not username or not email or not password:
         return (jsonify({"message": "You must include a username, email and password"}), 400)
 
-    users = User.query.all()
-    json_users = list(map(lambda x: x.to_json(), users))    
+    #users = User.query.all()
+    #json_users = list(map(lambda x: x.to_json(), users))    
 
-    for user in json_users:
-        if email in user["email"]:
-            return jsonify({"message": "This email is already in use"}), 418
+    #for user in json_users:
+    if User.query.filter_by(email=email).first():
+        return jsonify({"message": "This email is already in use"}), 418
     
     try:
         msg = Message(f"Welcome to GermanTest {username}!", sender="germantest813@gmail.com", recipients=[email])
@@ -174,10 +174,12 @@ def create_user():
     except Exception as e:
         return jsonify({"message": "Invalid email"}),412
 
-    h = hashlib.new("SHA256")
-    h.update(password.encode())
+    #h = hashlib.new("SHA256")
+    #h.update(password.encode())
 
-    new_user = User(user_name=username, email=email, password=h.hexdigest(), img=create_img(username), favourites="")
+    h = bcrypt.hashpw(password, bcrypt.gensalt())
+
+    new_user = User(user_name=username, email=email, password=h, img=create_img(username), favourites="")
     
     try: 
         db.session.add(new_user)
@@ -192,8 +194,10 @@ def log_in():
     email = request.json.get("email")
     password = request.json.get("password")
 
-    h = hashlib.new("SHA256")
-    h.update(password.encode())
+    #h = hashlib.new("SHA256")
+    #h.update(password.encode())
+
+    h = bcrypt.hashpw(password, bcrypt.gensalt())
 
     if not email or not password:
         return jsonify({"message": "You must include email and password"}), 400
@@ -203,7 +207,7 @@ def log_in():
     
     try:
         for user in json_users:
-            if user["email"]==email and user["password"]==h.hexdigest():
+            if user["email"]==email and bcrypt.checkpw(user["password"], h):
                 session["id"] = user["id"]
                 break
     except Exception as e:

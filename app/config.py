@@ -21,6 +21,9 @@ app.config["MAIL_PORT"] = 465
 app.config["MAIL_USERNAME"] = "germantest813@gmail.com"
 app.config["MAIL_PASSWORD"] = mail_password
 app.config["MAIL_USE_SSL"] = True
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 
 Session(app)
 CORS(app, resources={r'*':{"origins":"*"}})

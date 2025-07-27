@@ -5,6 +5,7 @@ import hashlib
 from flask_mail import Message
 from .create_img import create_img
 from random import randint
+from .mail_valid import is_valid
 
 @app.route("/")
 def profile_page():
@@ -168,13 +169,16 @@ def create_user():
     users = User.query.all()
     json_users = list(map(lambda x: x.to_json(), users))    
 
-    for user in json_users:
-        if email in user["email"]:
-            return jsonify({"message": "This email is already in use"}), 418
+    #for user in json_users:
+    if User.query.filter_by(email=email).first():
+        return jsonify({"message": "This email is already in use"}), 418
+
+    if is_valid(email) == False:
+        return jsonify({"message": "Invalid email"}), 412    
     
     try:
         msg = Message(f"Welcome to GermanTest {username}!", sender="germantest813@gmail.com", recipients=[email])
-        msg.body = f"Welcome {username} to this wonderfull study community! We are very delighted to have you here. Hoping that you will find something for yourself."
+        msg.body = f"Welcome again {username} to this wonderfull study community! We are very delighted to have you here. Hoping that you will find something for yourself.\nThis is an automatic message one you first sign up at germanweb.kotov.lv"
         mail.send(msg)
     except Exception as e:
         print(e)

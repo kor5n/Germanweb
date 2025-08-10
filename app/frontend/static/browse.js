@@ -4,6 +4,7 @@ const profilePic = document.querySelector(".profile-pic")
 const subMenu = document.querySelector(".sub-menu")
 let data = 0
 let response = 0
+const curPage = window.location.split("/")[1]
 
 document.querySelector(".profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
@@ -13,7 +14,7 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
     }
 })
 
-const addTests = async (tests, authors) => {
+const addTests = async (testlist, authors) => {
     document.querySelector("main").innerHTML = `<div class="search-div"><textarea rows="1" cols="40" placeholder="Search for tests"
     class="search-input"></textarea><button class="search-btn">Search</button></div>`
     
@@ -24,17 +25,10 @@ const addTests = async (tests, authors) => {
         loggedIn = true	    
     }
     let btnColor = "grey"
-    let favourites = ""
-    if (loggedIn){
-	if (typeof clientTests !== 'undefined') {
-    	    if (clientTests.favourites.length >= 1){
-		for(let i=0; i<clientTests.favourites.length; i++){
-		    favourites += clientTests.favourites[i]["id"]+","
-		}
-    	    }else {let favourites = ","}
-	}else{ let favourites = ","  }
-    }
-    let displayType = "inline"
+    let favourites = clientTests.favourites.split(",")
+
+    const tests = testlist[curPage]
+
     for (let i = 0; i < tests.length; i++) {
 	if (loggedIn){
 	    if (typeof favourites !== 'undefined'){
@@ -63,7 +57,27 @@ const addTests = async (tests, authors) => {
 	displayType = "inline"
     }
 
-    //console.log("...")
+    if (testlist.length > 1){
+        document.querySelector("main").innerHTML +=`
+        <div class="page-div">
+            <button class="previous-btn">previous page</button>
+            <button class="next-btn">next page</button>
+            <p class="page-tracker">page ${curPage}/${testlist.length}</p>
+        </div>
+    `
+        document.querySelector(".previous-btn").addEventListener("click", () => {
+        const newPage = curPage-1
+        if (newPage > 0){
+            window.location.assign("/browse/"+(newPage).toString())
+        }
+        })
+        document.querySelector(".next-btn").addEventListener("click", () => {
+            const newPage = curPage+1
+            if (newPage <= testlist.length){
+                window.location.assign("/browse/"+(newPage).toString())
+            }
+        })
+    }
 
     for (let j = 0; j < tests.length; j++) {
         document.querySelectorAll(".test-profile")[j].addEventListener("click", () => {
@@ -87,27 +101,9 @@ const addTests = async (tests, authors) => {
     }
     
     document.querySelector(".search-btn").addEventListener("click", () => {
-        if (document.querySelector(".search-input").value !== "") {
-            let testsfound = []
-            let authorslist = []
-            let testindexes = []
-            for (let i = 0; i < tests.length; i++) {
-                if (tests[i]["title"].toLowerCase().includes(document.querySelector(".search-input").
-                    value.toLowerCase()) || tests[i]["description"].toLowerCase().includes(document.querySelector(".search-input").value.toLowerCase())) {
-                    testsfound.push(tests[i])
-                    testindexes.push(i)
-                }
-            }
-            //console.log(testsfound)
-            for (let j = 0; j < testsfound.length; j++) {
-                authorslist.push(authors[testindexes])
-            }
-
-            addTests(testsfound, authorslist)
-        } else {
-            getBrowse()
-        }
+        getBrowse(document.querySelector(".search-input").value)
     })
+
 }
 
 async function getImg() {
@@ -123,8 +119,14 @@ async function getImg() {
     }
 }
 
-async function getBrowse() {
-    response = await fetch("/b/browse")
+async function getBrowse(prompt) {
+    let tmp_prompt = ""
+    if (prompt === ""){
+        tmp_prompt = "null"
+    }else{
+        tmp_prompt = prompt
+    }
+    response = await fetch("/b/browse/"+tmp_prompt)
     data = await response.json()
 
     if (response.status !== 200 && response.status !== 201) {

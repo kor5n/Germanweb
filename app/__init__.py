@@ -15,7 +15,7 @@ def profile_page():
         else:
             return render_template("main.html")
     except:
-        return redirect("/browse")
+        return redirect("/browse/1")
 @app.route("/create")#Has to be logged in
 def create_page():
     try:
@@ -64,8 +64,8 @@ def multi_page(test_id):
 @app.route("/write/<int:test_id>")
 def write_page(test_id):
     return render_template("writeAns.html")
-@app.route("/browse")
-def browse_page():
+@app.route("/browse/<int:page>")
+def browse_page(page):
     return render_template("browse.html")
 @app.route("/about")
 def about_page():
@@ -240,8 +240,8 @@ def img():
     except:
         return jsonify({"message":"You are not logged in"}),401
     return jsonify({"img":user.img}), 200
-@app.route("/b/browse", methods=["GET"])
-def browse():
+@app.route("/b/browse/<string:prompt>", methods=["GET"])
+def browse(prompt):
     authors= []
     logged_in = True
     tests = Test.query.all()
@@ -253,25 +253,32 @@ def browse():
     
     json_tests = list(map(lambda x: x.to_json(), tests))  
     json_users = list(map(lambda x: x.to_json(), users))
+        
+    iterations = 30
+    test_list = json_tests
+    collect_list = [[]]
+    if prompt != "null":
+        for test in test_list:
+            if prompt not in test.title:
+                test_list.remove(test)
 
-    iterations = 30 #max value of shown test on browser page when searching
-
-    if iterations > len(json_tests):
-        test_list = json_tests
-        more_tests = False
-    else: #choosing random tests if there are more than max 
-        free_tests = json_tests
-        for i in range(iterations):
-            index = randint(0, len(free_tests) -1)
-            test_list.append(free_tests[index])
-            free_tests.pop(index)
-        more_tests=True
+    if iterations > len(test_list):
+        collect_index = 0
+        for i in range(start=len(test_list), step=iterations):
+            if (i+1) % iterations == 0:
+                collect_list.append([])
+                collect_index +=1
+            else:
+                collect_list[collect_index].append(test_list[i])
+    else:
+        collect_list[0] = test_list
     
-    for element in test_list:
-        if element["user_id"] == json_users[element["user_id"]-1]["id"]:
-            authors.append(json_users[element["user_id"]-1]["user_name"])
-        else:
-            return jsonify({"message":"Something went wrong"}),404
+    for list in collect_list:
+        for element in list:
+            if element["user_id"] == json_users[element["user_id"]-1]["id"]:
+                authors.append(json_users[element["user_id"]-1]["user_name"])
+            else:
+                return jsonify({"message":"Something went wrong"}),404
 
     try:
         if session["id"] == None:
@@ -279,7 +286,7 @@ def browse():
     except:
         logged_in = False
 
-    return jsonify({"message": "Successfully found tests", "tests":test_list, "loggedIn":logged_in, "authors":authors, "moreTests":more_tests}),200
+    return jsonify({"message": "Successfully found tests", "tests":collect_list, "loggedIn":logged_in, "authors":authors}),200
 @app.route("/b/add-favourite/<int:test_id>", methods=["POST"])
 def add_favourite(test_id):
     try:

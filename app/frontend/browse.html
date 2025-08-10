@@ -15,7 +15,7 @@
                 alt="Gtest"></span>
         <div class="link-div">
             <a class="page-link" href="/">Profile</a>
-            <a class="page-link" href="/browse">Browse</a>
+                <a class="page-link" href="/browse/1">Browse</a>
             <a class="page-link" href="/about">About</a>
         </div>
         <button class="profile-pic"><img class="profile-img"></button>
@@ -34,6 +34,19 @@
     <main>
         <div class="search-div"><textarea rows="1" cols="40" placeholder="Search for tests"
                 class="search-input"></textarea><button class="search-btn">Search</button></div>
+
+        <!--<div class="test-profile" onclick="location.href='view.html'">
+                <h3 class="test-name">test name</h3>
+                <p class="quest-count">x questions</p>
+                <p class="author-name">author name</p>
+                <button class="heart-btn"></button>
+            </div>-->
+        
+        <!--<div class="page-div">
+            <button class="previous-btn">previous page</button>
+            <button class="next-btn">next page</button>
+            <p class="page-tracker">page 1/1</p>
+        </div>-->
     </main>
 </body>
 <script src="{{ url_for('static', filename='browse.js') }}"></script>

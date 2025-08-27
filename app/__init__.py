@@ -1,7 +1,7 @@
 from flask import request, jsonify, session, render_template,redirect
 from config import app, db,mail
 from models import Test, User
-import bcrypt
+import hashlib
 from flask_mail import Message
 from create_img import create_img
 from random import randint
@@ -161,34 +161,30 @@ def create_user():
     if not username or not email or not password:
         return (jsonify({"message": "You must include a username, email and password"}), 400)
 
-    #users = User.query.all()
-    #json_users = list(map(lambda x: x.to_json(), users))    
+    users = User.query.all()
+    json_users = list(map(lambda x: x.to_json(), users))    
 
-    #for user in json_users:
-    if User.query.filter_by(email=email).first():
-        return jsonify({"message": "This email is already in use"}), 418
-
-    if is_valid(email) == False:
-        return jsonify({"message": "Invalid email"}), 412    
+    for user in json_users:
+        if email in user["email"]:
+            return jsonify({"message": "This email is already in use"}), 418
     
     try:
         msg = Message(f"Welcome to GermanTest {username}!", sender="germantest813@gmail.com", recipients=[email])
-        msg.body = f"Welcome again {username} to this wonderfull study community! We are very delighted to have you here. Hoping that you will find something for yourself.\nThis is an automatic message one you first sign up at germanweb.kotov.lv"
+        msg.body = f"Welcome {username} to this wonderfull study community! We are very delighted to have you here. Hoping that you will find something for yourself."
         mail.send(msg)
     except Exception as e:
+        print(e)
         return jsonify({"message": "Invalid email"}),412
 
-    #h = hashlib.new("SHA256")
-    #h.update(password.encode())
+    h = hashlib.new("SHA256")
+    h.update(password.encode())
 
-    h = bcrypt.hashpw(password, bcrypt.gensalt())
-
-    new_user = User(user_name=username, email=email, password=h, img=create_img(username), favourites="")
+    new_user = User(user_name=username, email=email, password=h.hexdigest(), img=create_img(username), favourites="")
     
     try: 
         db.session.add(new_user)
         db.session.commit()
-        session["id"] = new_user.id
+        #session["id"] = new_user.id
     except Exception as e:
         return jsonify({"message": str(e)}), 400
     
@@ -198,10 +194,8 @@ def log_in():
     email = request.json.get("email")
     password = request.json.get("password")
 
-    #h = hashlib.new("SHA256")
-    #h.update(password.encode())
-
-    h = bcrypt.hashpw(password, bcrypt.gensalt())
+    h = hashlib.new("SHA256")
+    h.update(password.encode())
 
     if not email or not password:
         return jsonify({"message": "You must include email and password"}), 400
@@ -211,7 +205,7 @@ def log_in():
     
     try:
         for user in json_users:
-            if user["email"]==email and bcrypt.checkpw(user["password"], h):
+            if user["email"]==email and user["password"]==h.hexdigest():
                 session["id"] = user["id"]
                 break
     except Exception as e:
@@ -223,7 +217,7 @@ def log_in():
             return jsonify({"message": "Email or password is incorrect"}), 400
     except:
         return jsonify({"message": "Email or password is incorrect"}), 400
-    return jsonify({"message": "You are logged in as " + usr.user_name}), 200 
+    return jsonify({"message": "You are logged in as " + usr.user_name}), 200
 @app.route("/b/logout", methods=["GET"])
 def logout():
     if session["id"] != None:
@@ -249,30 +243,29 @@ def browse(prompt):
     if not tests or not users:
         return jsonify({"message":"Couldn't find tests or user info"}), 404
     
-    json_tests = list(map(lambda x: x.to_json(), tests))  
+    json_tests = list(map(lambda x: x.to_json(), tests))
     json_users = list(map(lambda x: x.to_json(), users))
         
     iterations = 30
-    test_list = json_tests
-    collect_list = [[]]
-    if prompt != "null":
+    collect_list = []
+    if prompt != "null" or prompt != "undefined":
         for test in test_list:
-            if prompt not in test.title:
+            if prompt not in test["title"]:
                 test_list.remove(test)
 
-    if iterations > len(test_list):
+    if iterations < len(json_tests):
         collect_index = 0
-        for i in range(start=len(test_list), step=iterations):
+        for i in range(0, len(json_tests), iterations):
             if (i+1) % iterations == 0:
                 collect_list.append([])
                 collect_index +=1
             else:
-                collect_list[collect_index].append(test_list[i])
+                collect_list[collect_index].append(json_tests)[i]
     else:
-        collect_list[0] = test_list
+        collect_list.append(json_tests)
     
-    for list in collect_list:
-        for element in list:
+    for my_list in collect_list:
+        for element in my_list:
             if element["user_id"] == json_users[element["user_id"]-1]["id"]:
                 authors.append(json_users[element["user_id"]-1]["user_name"])
             else:
@@ -283,7 +276,7 @@ def browse(prompt):
             logged_in = False
     except:
         logged_in = False
-
+    print(collect_list)
     return jsonify({"message": "Successfully found tests", "tests":collect_list, "loggedIn":logged_in, "authors":authors}),200
 @app.route("/b/add-favourite/<int:test_id>", methods=["POST"])
 def add_favourite(test_id):
@@ -344,6 +337,6 @@ def del_favourite(test_id):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
 

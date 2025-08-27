@@ -4,7 +4,7 @@ const profilePic = document.querySelector(".profile-pic")
 const subMenu = document.querySelector(".sub-menu")
 let data = 0
 let response = 0
-const curPage = window.location.split("/")[1]
+const curPage = window.location.pathname.split("/")[2]
 
 document.querySelector(".profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
@@ -23,7 +23,7 @@ const addTests = async (testlist, authors) => {
     let btnColor = "grey"
     let favourites = clientTests.favourites.split(",")
 
-    const tests = testlist[curPage]
+    const tests = testlist[curPage -1]
 
     for (let i = 0; i < tests.length; i++) {
         if (favourites.length > 0){

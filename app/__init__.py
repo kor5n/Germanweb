@@ -64,6 +64,9 @@ def multi_page(test_id):
 @app.route("/write/<int:test_id>")
 def write_page(test_id):
     return render_template("writeAns.html")
+@app.route("/browse")
+def browse_red():
+    return redirect("/browse/1")
 @app.route("/browse/<int:page>")
 def browse_page(page):
     return render_template("browse.html")
@@ -238,20 +241,19 @@ def browse(prompt):
     logged_in = True
     tests = Test.query.all()
     users = User.query.all()
-    test_list = []
 
     if not tests or not users:
         return jsonify({"message":"Couldn't find tests or user info"}), 404
     
     json_tests = list(map(lambda x: x.to_json(), tests))
     json_users = list(map(lambda x: x.to_json(), users))
-        
     iterations = 30
     collect_list = []
-    if prompt != "null" or prompt != "undefined":
-        for test in test_list:
+
+    if prompt != "null" and prompt != "undefined":
+        for test in json_tests:
             if prompt not in test["title"]:
-                test_list.remove(test)
+                json_tests.remove(test)
 
     if iterations < len(json_tests):
         collect_index = 0
@@ -276,7 +278,6 @@ def browse(prompt):
             logged_in = False
     except:
         logged_in = False
-    print(collect_list)
     return jsonify({"message": "Successfully found tests", "tests":collect_list, "loggedIn":logged_in, "authors":authors}),200
 @app.route("/b/add-favourite/<int:test_id>", methods=["POST"])
 def add_favourite(test_id):

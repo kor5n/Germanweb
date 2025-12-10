@@ -51,7 +51,7 @@ async function getTest() {
             </div>`
         }
         if (data.canModify === true) {
-            document.querySelector(".play-btn-div").innerHTML += `<button class="edit-btn">Edit</button><button class="delete-btn">Remove</button>`
+            document.querySelector("main").innerHTML += `<button class="edit-btn">Edit</button><button class="delete-btn">Remove</button>`
             document.querySelector(".edit-btn").addEventListener("click", function () {
                 window.location.assign("/edit/" + url_split[1])
             })
@@ -94,4 +94,3 @@ if (url_split[1] !== null) {
     window.alert("No test was loaded")
     window.location.assign("/")
 }
-

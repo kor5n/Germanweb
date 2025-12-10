@@ -646,13 +646,6 @@ textarea {
     border-radius: 6px;
     width: 15%;
 }
-.smartsorter-div{
-    display: none;
-}
-.dropdown-btn{
-    margin-top: 10%;
-    margin-bottom: 10%;
-}
 .heart-btn{
     margin-left: 5%;
     --c: grey;

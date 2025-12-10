@@ -163,4 +163,3 @@ if (url_split[1] !== null) {
     window.alert("No test was loaded")
     window.location.assign("/")
 }
-

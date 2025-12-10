@@ -17,45 +17,26 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
 const addTests = async (testlist, authors) => {
     document.querySelector("main").innerHTML = `<div class="search-div"><textarea rows="1" cols="40" placeholder="Search for tests"
     class="search-input"></textarea><button class="search-btn">Search</button></div>`
-    
-    let loggedIn = false
+
     let testsResp = await fetch("/b/tests")
     let clientTests = await testsResp.json()
-    if (testsResp.status == 200){
-        loggedIn = true
-	let favourites = clientTests.favourites.split(",")
-    }
-    let btnColor = "grey";
-    let displayType = "none";
-    
+    let btnColor = "grey"
+    let favourites = clientTests.favourites.split(",")
+
     const tests = testlist[curPage -1]
 
     for (let i = 0; i < tests.length; i++) {
-	if (loggedIn){
-	    if (typeof favourites !== 'undefined'){
-                if (favourites.length > 0){
-                    if (favourites.includes(tests[i]["id"].toString())){
-                        btnColor = "red"
-                    }
-                }
- 	    }
-	}
-	 
-	if (clientTests.message !== "You don't have any tests"){
-	    for (let j=0; j<clientTests.message.length; j++){
-	    	if(clientTests.message[j]["id"] == tests[i]["id"]){
-		    displayType = "none"
-		    break
-		}
-	    }
-	}
+        if (favourites.length > 0){
+            if (favourites.includes(tests[i]["id"].toString())){
+                btnColor = "red"
+            }
+        }
         document.querySelector("main").innerHTML += `<div class="test-profile">
                                                 <h3 class="test-name">${tests[i]["title"]}</h3>
                                                 <p class="quest-count">${tests[i]["terms"].split(";").length} questions</p>
-                                                <p class="author-name">${authors[i]} <button style="--c:${btnColor}; display: ${displayType}" class="heart-btn"></button></p>
+                                                <p class="author-name">${authors[i]} <button style="--c:${btnColor}" class="heart-btn"></button></p>
                                             </div>`
         btnColor = "grey"
-	displayType = "inline"
     }
 
     if (testlist.length > 1){
@@ -80,24 +61,24 @@ const addTests = async (testlist, authors) => {
         })
     }
 
+    
+
     for (let j = 0; j < tests.length; j++) {
         document.querySelectorAll(".test-profile")[j].addEventListener("click", () => {
             window.location.assign("/view/" + tests[j]["id"])
         })
         document.querySelectorAll(".heart-btn")[j].addEventListener("click", async function (e) {
-	    if (!loggedIn){window.alert("You have to have an account for this function")
-	    }else{
-                e.stopPropagation();
-                const computedStyle = getComputedStyle(this);
-                const currentColor = computedStyle.getPropertyValue("--c").trim();
-                if (currentColor === "grey"){
-                    this.style.setProperty('--c', 'red')
-                    await fetch("/b/add-favourite/"+tests[j]["id"], {method: "POST"})
-                }else if (currentColor === "red"){
-                    this.style.setProperty("--c", "grey")
-                    await fetch("/b/del-favourite/"+tests[j]["id"], {method: "POST"})
-                }
-	    }
+            e.stopPropagation();
+            const computedStyle = getComputedStyle(this);
+            const currentColor = computedStyle.getPropertyValue("--c").trim();
+            if (currentColor === "grey"){
+                this.style.setProperty('--c', 'red')
+                await fetch("/b/add-favourite/"+tests[j]["id"], {method: "POST"})
+            }else if (currentColor === "red"){
+                this.style.setProperty("--c", "grey")
+                await fetch("/b/del-favourite/"+tests[j]["id"], {method: "POST"})
+            }
+            
         })
     }
     

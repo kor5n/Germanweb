@@ -16,7 +16,7 @@
                 <a class="page-link" href="/browse/1">Browse</a>
                 <a class="page-link" href="/about">About</a>
             </div>
-            <button class="profile-pic"><img src="{{ url_for('static', filename='img/profile1.png') }}" class="profile-img"></button>
+            <button class="profile-pic"><img class="profile-img"></button>
             <div class="sub-menu">
                 <div class="user-name sub-in">
                     <span class="sub-text sub-name">Profile name</span>
@@ -32,7 +32,7 @@
         <main>
             <div class="input-div">
                 <div class="title-div">
-                    <textarea cols="20" rows="1" class="title-input" placeholder="Title"></textarea>
+                    <textarea tabindex="- cols="20" rows="1" class="title-input" placeholder="Title"></textarea>
                 </div>
                 <div class="desc-div">
                     <textarea class="desc-input" rows="10" cols="20" placeholder="Description"></textarea>
@@ -41,19 +41,12 @@
                 
             </div>
             <div class="term-div">
-                <!--<div class="inner-div" style="display: inline-flex;"><textarea class="term-input" placeholder="term" rows="1" cols="20"></textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="defenition"></textarea></div>-->   
+                <!--<div class="inner-div" style="display: inline-flex;"><textarea class="term-input" placeholder="term" rows="1" cols="20"></textarea><span style="margin-right: 2%; margin-left: 2%; scale: 2; margin-top: 4.5%;">|</span><textarea rows="1" cols="20" class="def-input" placeholder="defenition"></textarea><button class="rm-this-btn">X</button></div>-->   
             </div>
             <div style="margin-bottom: 2%;">
                 <button class="add-term-btn">+</button><button class="rm-term-btn">-</button><button class="submit-btn">Submit</button>
             </div>
-            
-            <!--<button class="dropdown-btn">Smart options(coming soon)</button>
-
-            <div class="smartsorter-div">
-                <textarea name="" id="" cols="30" rows="10" class="smartsorter-input" placeholder=""></textarea>
-                <button class="smartsorter-submit">Smartsort</button>
-            </div>-->
-            
+                    
         </main>
         <script src="{{ url_for('static', filename='create.js') }}"></script>
     </body>

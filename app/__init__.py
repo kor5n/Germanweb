@@ -82,21 +82,16 @@ def get_terms():
         return jsonify({"message": "You are not logged in or user does not exist"}), 401
     if user==None:
         return jsonify({"message": "You are not logged in or user does not exist"}), 401
-    
-    fav_tests = []
     tests = Test.query.all()
     json_tests = list(map(lambda x: x.to_json(), tests))
     user_tests = []
-
     for test in json_tests:
         if test["user_id"] == user.id:
             user_tests.append(test)
-        if str(test["id"]) in user.favourites:
-            fav_tests.append(test)
     if len(user_tests)==0:
-        return jsonify({"message": "You don't have any tests", "username": user.user_name, "favourites": fav_tests}), 200
+        return jsonify({"message": "You don't have any tests", "username": user.user_name, "favourites": user.favourites}), 200
 
-    return jsonify({"message":  user_tests, "username": user.user_name, "favourites": fav_tests}), 200
+    return jsonify({"message":  user_tests, "username": user.user_name, "favourites": user.favourites}), 200
 @app.route("/b/view/<int:test_id>", methods = ["GET"])
 def view_test(test_id):
     logged_in = True
@@ -286,9 +281,10 @@ def browse(prompt):
     return jsonify({"message": "Successfully found tests", "tests":collect_list, "loggedIn":logged_in, "authors":authors}),200
 @app.route("/b/add-favourite/<int:test_id>", methods=["POST"])
 def add_favourite(test_id):
+    print(test_id)
     try:
         if session["id"] == None:
-                logged_in = False
+            logged_in = False
         else:
             logged_in = True
     except:
@@ -299,6 +295,7 @@ def add_favourite(test_id):
 
     try:
         usr = User.query.get(session["id"])
+        print(usr.favourites)
     except:
         return jsonify({"message":"This id does not exist"})
 
@@ -314,7 +311,7 @@ def add_favourite(test_id):
 def del_favourite(test_id):
     try:
         if session["id"] == None:
-                logged_in = False
+            logged_in = False
         else:
             logged_in = True
     except:
@@ -328,36 +325,17 @@ def del_favourite(test_id):
     except:
         return jsonify({"message":"This id does not exist"})
     
-    if str(test_id) not in usr.favourites.split(",") or len(usr.favourites) <= 0:
+    if str(test_id) not in usr.favourites.split(","):
         return jsonify({"message":"You do not have this favourite"}),400
 
     fav_list = usr.favourites.split(",")
     fav_list.remove(str(test_id))
-    if len(fav_list) <=1:
-        usr.favourites = ""
-    else:
-        usr.favourites = fav_list.join(",")
+    usr.favourites = ",".join(fav_list)
     db.session.commit()
 
     return jsonify({"message":"Succesfully removed test from favourites"}),200         
-@app.route("/b/usernames", methods=["POST"])
-def usernames():
-    ids = request.json.get("ids")
-    users = User.query.all()
-    json_users = list(map(lambda x: x.to_json(), users))
-    authors = []
-
-    for element in ids:
-        if element == json_users[element-1]["id"]:
-            authors.append(json_users[element-1]["user_name"])
-        else:
-            return jsonify({"message":"Something went wrong"}),404
-
-    return jsonify({"usernames": authors}), 200
 
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(host="0.0.0.0", port=5000, debug=False)
-
-
+    app.run(host="0.0.0.0", port=5000, debug=True)

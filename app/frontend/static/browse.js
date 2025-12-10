@@ -21,10 +21,13 @@ const addTests = async (testlist, authors) => {
     let testsResp = await fetch("/b/tests")
     let clientTests = await testsResp.json()
     let btnColor = "grey"
-    let favourites = clientTests.favourites.split(",")
-
+   
     const tests = testlist[curPage -1]
-
+    try{
+    	let favourites = clientTests.favourites.split(",")
+    }catch{
+	favourites = [];
+    }
     for (let i = 0; i < tests.length; i++) {
         if (favourites.length > 0){
             if (favourites.includes(tests[i]["id"].toString())){

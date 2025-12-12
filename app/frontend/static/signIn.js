@@ -10,7 +10,6 @@ let nameSignUp = document.querySelector(".name-input")
 let passwordSignUp = document.querySelector(".signup-password")
 let logInSwitch = document.querySelector(".log-in")
 let signUpSwitch = document.querySelector(".sign-in")
-let profilePic = document.querySelector(".profile-pic")
 let emailLogIn = document.querySelector(".login-email")
 let passwordLogIn = document.querySelector(".login-password")
 
@@ -57,7 +56,6 @@ signUpBtn.addEventListener("click", async function () {
         } else {
             logInSwitch.style.display = "none"
             signUpSwitch.style.display = "none"
-            profilePic.style.display = "inline"
             signUpDiv.style.display = "none"
 
             window.location.assign("/")
@@ -89,7 +87,6 @@ logInBtn.addEventListener("click", async function () {
         } else {
             logInSwitch.style.display = "none"
             signUpSwitch.style.display = "none"
-            profilePic.style.display = "inline"
             logInDiv.style.display = "none"
 
             window.location.assign("/")

@@ -1,12 +1,11 @@
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
-const profilePic = document.querySelector(".profile-pic")
 const subMenu = document.querySelector(".sub-menu")
 let data = 0
 let response = 0
 const curPage = window.location.pathname.split("/")[2]
 
-document.querySelector(".profile-pic").addEventListener("click", () => {
+document.querySelector("#profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
@@ -21,14 +20,11 @@ const addTests = async (testlist, authors) => {
     let testsResp = await fetch("/b/tests")
     let clientTests = await testsResp.json()
     let btnColor = "grey"
-<<<<<<< HEAD
-=======
 	let favourites = [];
 	console.log(clientTests.favourites);
 	if (clientTests.favourites){
 		favourites = clientTests.favourites.split(",");
 	}
->>>>>>> 156e57f (Fixed wrong favourites fetch in browse)
    
     const tests = testlist[curPage -1]
     try{
@@ -100,9 +96,9 @@ const addTests = async (testlist, authors) => {
 }
 
 async function getImg() {
-    logInBtn.style.display = "none"
-    signInBtn.style.display = "none"
-    profilePic.style.display = "inline-block"
+    //logInBtn.style.display = "none"
+    //signInBtn.style.display = "none"
+    //profilePic.style.display = "inline-block"
     const respimg = await fetch("/b/img")
     const img = await respimg.json()
 

@@ -72,6 +72,7 @@ button:hover {
 }
 
 .log-in {
+    display: none;
     height: 60%;
     background-color: #B2EBF2;
     color: #757575;
@@ -84,6 +85,7 @@ button:hover {
 }
 
 .sign-in {
+    display: none;
     margin-top: .25%;
     margin-right: 0.5%;
     float: right;

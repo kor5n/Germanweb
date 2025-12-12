@@ -1,15 +1,15 @@
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
-const profilePic = document.querySelector(".profile-pic")
 const subMenu = document.querySelector(".sub-menu")
 
-document.querySelector(".profile-pic").addEventListener("click", () => {
+document.querySelector("#profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
         subMenu.style.display = "none"
     }
 })
+
 
 async function getImg() {
     const respimg = await fetch("/b/img")

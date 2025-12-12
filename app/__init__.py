@@ -76,6 +76,7 @@ def about_page():
 
 @app.route("/b/tests", methods = ["GET"])
 def get_terms():
+    print(session["id"])
     try:
         user = User.query.get(session["id"])
     except:
@@ -218,6 +219,7 @@ def log_in():
         usr = User.query.get(session["id"])
         if not usr:
             return jsonify({"message": "Email or password is incorrect"}), 400
+        session["id"] = usr.id
     except:
         return jsonify({"message": "Email or password is incorrect"}), 400
     return jsonify({"message": "You are logged in as " + usr.user_name}), 200

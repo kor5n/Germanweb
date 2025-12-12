@@ -1,10 +1,10 @@
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
-const profilePic = document.querySelector(".profile-pic")
 const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
+const profilePic = document.querySelector("#profile-pic");
 
-document.querySelector(".profile-pic").addEventListener("click", () => {
+document.querySelector("#profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
@@ -31,14 +31,14 @@ async function getTest() {
     } else {
 
         if (data.loggedIn === true) {
-            logInBtn.style.display = "none"
-            signInBtn.style.display = "none"
-            profilePic.style.display = "inline-block"
+            //logInBtn.style.display = "none"
+            //signInBtn.style.display = "none"
+            //profilePic.style.display = "inline-block"
             getImg()
         } else if (data.loggedIn === false) {
-            logInBtn.style.display = "inline-block"
-            signInBtn.style.display = "inline-block"
-            profilePic.style.display = "none"
+            //logInBtn.style.display = "inline-block"
+            //signInBtn.style.display = "inline-block"
+            //profilePic.style.display = "none"
 			const nav = document.querySelector("nav");
 			document.querySelector(".header-drop").addEventListener("click", () => {
 			if (nav.style.display === "none" || nav.style.display == ""){

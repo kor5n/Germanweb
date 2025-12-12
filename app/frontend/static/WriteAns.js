@@ -4,11 +4,10 @@ let attempts = 0
 let fetchedDefs
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
-const profilePic = document.querySelector(".profile-pic")
 const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu");
-document.querySelector(".profile-pic").addEventListener("click", () => {
+document.querySelector("#profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {

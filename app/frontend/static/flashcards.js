@@ -61,7 +61,7 @@ async function getImg() {
     }
 }
 
-document.querySelector(".profile-pic").addEventListener("click", () => {
+document.querySelector("#profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {

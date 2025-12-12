@@ -43,7 +43,7 @@ signInBtn.style.display = "none"
 profilePic.style.display = "inline-block"
 getImg()
 
-document.querySelector(".profile-pic").addEventListener("click", () => {
+document.querySelector("#profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {

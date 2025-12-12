@@ -6,10 +6,9 @@ const myDiv = document.querySelector(".self-div")
 const favDiv = document.querySelector(".fav-div")
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
-const profilePic = document.querySelector(".profile-pic")
 const subMenu = document.querySelector(".sub-menu")
 
-document.querySelector(".profile-pic").addEventListener("click", () => {
+document.querySelector("#profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
@@ -30,6 +29,7 @@ async function getImg() {
 async function getData() {
     const response = await fetch("/b/tests")
     const data = await response.json()
+    console.log(response.status);
     if (response.status !== 200 && response.status !== 201) {
         //window.alert(data.message)
     }
@@ -106,7 +106,7 @@ async function getData() {
 if (true) {
     getData()
 } else {
-    logInBtn.style.display = "inline-block"
-    signInBtn.style.display = "inline-block"
-    profilePic.style.display = "none"
+    //logInBtn.style.display = "inline-block"
+    //signInBtn.style.display = "inline-block"
+    //profilePic.style.display = "none"
 }

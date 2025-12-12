@@ -47,7 +47,7 @@ header {
     margin-right: 8%;
 }
 
-.profile-pic {
+#profile-pic {
     display: none;
     vertical-align: middle;
     float: right;
@@ -710,7 +710,7 @@ nav{
 }
 
 @media screen and (max-width:500px){
-	.profile-pic[style*='display:none'] ~ .header-drop{
+	.header-drop{
 		display: inline-flex;
 		flex-direction: column;
 	}

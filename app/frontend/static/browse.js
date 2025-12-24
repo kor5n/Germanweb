@@ -14,6 +14,15 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
     }
 })
 
+const nav = document.querySelector("nav");
+document.querySelector(".header-drop").addEventListener("click", () => {
+	if (nav.style.display === "none" || nav.style.display == ""){
+		nav.style.display = "flex";
+	}else if (nav.style.display === "flex"){
+		nav.style.display = "none";
+	}
+});
+
 const addTests = async (testlist, authors) => {
     document.querySelector("main").innerHTML = `<div class="search-div"><textarea rows="1" cols="40" placeholder="Search for tests"
     class="search-input"></textarea><button class="search-btn">Search</button></div>`

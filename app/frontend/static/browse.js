@@ -30,8 +30,12 @@ const addTests = async (testlist, authors) => {
     let testsResp = await fetch("/b/tests")
     let clientTests = await testsResp.json()
     let btnColor = "grey"
-    let favourites = clientTests.favourites.split(",")
-
+	let favourites = [];
+	console.log(clientTests.favourites);
+	if (clientTests.favourites){
+		favourites = clientTests.favourites.split(",");
+	}
+   
     const tests = testlist[curPage -1]
 
     for (let i = 0; i < tests.length; i++) {

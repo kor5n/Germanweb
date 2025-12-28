@@ -34,14 +34,17 @@ button:hover {
     height: 30px;
 }
 
+
 .link-div {
-    margin-left: 5%;
+    margin-right: auto;
     margin-bottom: 1.25%;
     display: inline-flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-direction: row;
-    width: 34%;
-    vertical-align: middle;
+    width: 35%;
+	height:50%;
+	margin-left:5%;
+	align-items: end;
 }
 
 .page-link {
@@ -95,14 +98,15 @@ button:hover {
 .main-div {
     padding-top: 5%;
     padding-left: 5%;
-    padding-right: 5%
+    padding-right: 5%;
+	height: 100vh;
 }
 
 .add-btn {
     background-color: #FFC107;
     border: 1px solid #0097A7;
     border-radius: 6px;
-    height: 120px;
+    height: 125px;
     color: white;
     width: 160px;
     font-size: 250%;
@@ -119,14 +123,14 @@ button:hover {
     position: relative;
     display: inline-flex;
     background: #B2EBF2;
-    height: fit-content;
+    height: 125px;
     width: 160px;
     border: 1px solid #0097A7;
     border-radius: 6px;
     margin-right: 5%;
     flex-direction: column;
     padding: 0.5%;
-    top: -52px;
+    top: -35px;
     box-sizing: border-box;
     margin-bottom: 3%;
     transition: transform .2s;
@@ -271,5 +275,11 @@ nav{
 		display: inline;
 		margin: 0;
 		margin-bottom: 2%;
+	}
+}
+
+@media screen and (max-width:600px){
+	.add-btn{
+		margin-bottom: 15%;
 	}
 }

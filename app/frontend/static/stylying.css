@@ -680,6 +680,9 @@ nav{
 	background: #0097A7;
 	margin-bottom: auto;
 }
+.drop{
+	display: none;
+}
 
 @media screen and (max-width:500px){
 	.header{
@@ -703,6 +706,7 @@ nav{
 		right:0;
 	}
 	.drop{
+		display: inline;
 		margin: 0;
 		margin-bottom: 2%;
 	}

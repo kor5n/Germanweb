@@ -12,6 +12,16 @@ const subMenu = document.querySelector(".sub-menu")
 let nodeArray = []
 let newNode;
 
+
+const nav = document.querySelector("nav");
+document.querySelector(".header-drop").addEventListener("click", () => {
+	if (nav.style.display === "none" || nav.style.display == ""){
+		nav.style.display = "flex";
+	}else if (nav.style.display === "flex"){
+		nav.style.display = "none";
+	}
+});
+
 class TermDefNode{
     constructor(){
         this.defIndex = 0

@@ -17,6 +17,16 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
     }
 })
 
+
+const nav = document.querySelector("nav");
+document.querySelector(".header-drop").addEventListener("click", () => {
+	if (nav.style.display === "none" || nav.style.display == ""){
+		nav.style.display = "flex";
+	}else if (nav.style.display === "flex"){
+		nav.style.display = "none";
+	}
+});
+
 async function getImg() {
     const respimg = await fetch("/b/img")
     const img = await respimg.json()

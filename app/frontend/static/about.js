@@ -3,6 +3,16 @@ const signInBtn = document.querySelector(".sign-in")
 const profilePic = document.querySelector(".profile-pic")
 const subMenu = document.querySelector(".sub-menu")
 
+
+const nav = document.querySelector("nav");
+document.querySelector(".header-drop").addEventListener("click", () => {
+	if (nav.style.display === "none" || nav.style.display == ""){
+		nav.style.display = "flex";
+	}else if (nav.style.display === "flex"){
+		nav.style.display = "none";
+	}
+});
+
 document.querySelector(".profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"

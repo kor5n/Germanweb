@@ -119,7 +119,7 @@ button:hover {
     position: relative;
     display: inline-flex;
     background: #B2EBF2;
-    height: 120px;
+    height: fit-content;
     width: 160px;
     border: 1px solid #0097A7;
     border-radius: 6px;

@@ -30,6 +30,14 @@ const addTests = async (testlist, authors) => {
     let testsResp = await fetch("/b/tests")
     let clientTests = await testsResp.json()
     let btnColor = "grey"
+<<<<<<< HEAD
+=======
+	let favourites = [];
+	console.log(clientTests.favourites);
+	if (clientTests.favourites){
+		favourites = clientTests.favourites.split(",");
+	}
+>>>>>>> 156e57f (Fixed wrong favourites fetch in browse)
    
     const tests = testlist[curPage -1]
     try{

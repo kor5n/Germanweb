@@ -17,16 +17,6 @@ const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
 const randomBtn = document.querySelector(".random-btn")
 
-
-const nav = document.querySelector("nav");
-document.querySelector(".header-drop").addEventListener("click", () => {
-	if (nav.style.display === "none" || nav.style.display == ""){
-		nav.style.display = "flex";
-	}else if (nav.style.display === "flex"){
-		nav.style.display = "none";
-	}
-});
-
 function random(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -60,6 +50,14 @@ async function getImg() {
     if (img.img) {
         profilePic.querySelector("img").src = `/static/img/${img.img}`
         profilePic.querySelector("img").alt = img.img
+    }else{
+		const nav = document.querySelector("nav");
+		document.querySelector(".header-drop").addEventListener("click", () => {
+		if (nav.style.display === "none" || nav.style.display == ""){
+			nav.style.display = "flex";
+		}else if (nav.style.display === "flex"){
+			nav.style.display = "none";
+		}});
     }
 }
 

@@ -377,7 +377,7 @@ input {
     background-color: white;
     border-radius: 6px;
     height: 40em;
-    width: 100%;
+    width: 90%;
     align-items: center;
     justify-content: center;
     perspective: 400px;
@@ -403,13 +403,14 @@ h3 {
 
 .arrow-div {
     display: flex;
-    justify-content: center;
+	align-items: center;
+	justify-content: center;
 }
 
 .trans {
     display: inline-block;
     height: 70px;
-    width: 70px;
+    width: 60px;
     margin-top: 2%;
     margin-left: 5%;
     margin-right: 5%;
@@ -424,9 +425,16 @@ h3 {
 }
 
 .flash-title {
-    font-size: 2em;
+	display: block;
+    font-size: xxx-large;
     text-decoration: none;
     color: black;
+	text-align:center;
+	margin-bottom: 5%;
+}
+
+.flash-title:hover{
+	color: grey;
 }
 
 .answer-container,
@@ -444,7 +452,6 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 4%;
 }
 
 .input-half {
@@ -464,21 +471,35 @@ h3 {
     padding-right: 10%;
 
 }
+.answer-section{
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
 
 .right-btn,
 .wrong-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
     border-radius: 30px;
     border: 1px solid black;
-    margin-left: 100px;
-    margin-right: 100px;
-    height: 35px;
-    width: 250px;
+    height: 50px;
+    width: 70%;
     margin-bottom: 50px;
+	padding: 5%;
+	text-align: center;
+	font-size: 1.3em;
 }
 
 h2 {
     font-size: 1.5em;
+}
+
+.question-text{
+	font-size: 2.3em;
 }
 
 .retry-btn {
@@ -639,13 +660,14 @@ textarea {
     background-color: #4255FF;
     font-weight: 700;
     color: white;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 15%;
+    margin-right: 15%;
     margin-top: 2%;
     margin-bottom: 1%;
     border: 1px solid #0097A7;
     border-radius: 6px;
-    width: 15%;
+	width: 20%;
+	height: 60px
 }
 .heart-btn{
     margin-left: 5%;
@@ -718,7 +740,10 @@ nav{
 		margin-bottom: 20%;
 	}
 	.test-profile{
-		width: 140px;
+		width: 145px;
 		height: 100px;
+	}
+	.flashcard{
+		font-size: small;
 	}
 }

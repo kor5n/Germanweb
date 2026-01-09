@@ -86,11 +86,11 @@ const genTest = () => {
                 <h1 class="question-text">${defList[indexList[e]]}</h1>
             </div>
             <div class="term-answers">
-                <div>
+                <div class="answer-section">
                     <button class=${buttonType(0, e)}>${ansTerms[0]}</button>
                     <button class=${buttonType(1, e)}>${ansTerms[1]}</button>
                 </div>
-                <div>
+                <div class="answer-section">
                     <button class=${buttonType(2, e)}>${ansTerms[2]}</button>
                     <button class=${buttonType(3, e)}>${ansTerms[3]}</button>
                 </div>

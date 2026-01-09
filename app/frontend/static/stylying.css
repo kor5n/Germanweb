@@ -573,18 +573,15 @@ textarea {
 }
 
 .test-profile {
-    margin-top: 5%;
-    position: relative;
     display: inline-flex;
     background: #B2EBF2;
-    height: fit-content;
+	height: 130px;
     width: 160px;
     border: 1px solid #0097A7;
     border-radius: 6px;
     margin-right: 5%;
     flex-direction: column;
     padding: 0.5%;
-    top: -52px;
     box-sizing: border-box;
     margin-bottom: 3%;
     transition: transform .2s;
@@ -618,15 +615,18 @@ textarea {
     display: flex;
     height: fit-content;
     justify-content: center;
-	margin-bottom: 10%;
+	margin-bottom: 6%;
 }
 
 .search-input {
+	display: flex;
     border-radius: 50px 0 0 50px;
     border: 1px solid grey;
     border-right: none;
     height: 1.8em;
     text-align: start;
+	padding-top: 0.5%;
+	padding-left:1%;
 }
 .search-btn {
     border-radius: 0 50px 50px 0;
@@ -688,12 +688,13 @@ nav{
 }
 
 @media screen and (max-width:500px){
-	.header{
-		display:none
-	}
-	.header-drop{
+	.profile-pic[style*='display:none'] ~ .header-drop{
 		display: inline-flex;
 		flex-direction: column;
+	}
+
+	.header{
+		display:none
 	}
 	nav{
 		position: fixed;
@@ -715,5 +716,9 @@ nav{
 	}
 	.search-div{
 		margin-bottom: 20%;
+	}
+	.test-profile{
+		width: 140px;
+		height: 100px;
 	}
 }

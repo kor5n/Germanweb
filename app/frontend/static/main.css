@@ -24,7 +24,6 @@ button:hover {
 .comp-name {
     margin-left: 2%;
     font-size: 250%;
-    height: 100%;
     width: fit-content;
     font-weight: 700;
 }
@@ -103,6 +102,7 @@ button:hover {
 }
 
 .add-btn {
+	display: inline;
     background-color: #FFC107;
     border: 1px solid #0097A7;
     border-radius: 6px;
@@ -110,9 +110,8 @@ button:hover {
     color: white;
     width: 160px;
     font-size: 250%;
-    padding: 0.5%;
-    margin-bottom: 7%;
-    margin-right: 5%;
+	margin-top: 3%;
+	margin-right: 5%;
 }
 
 .add-btn:hover {
@@ -120,7 +119,6 @@ button:hover {
 }
 
 .test-profile {
-    position: relative;
     display: inline-flex;
     background: #B2EBF2;
     height: 125px;
@@ -130,11 +128,9 @@ button:hover {
     margin-right: 5%;
     flex-direction: column;
     padding: 0.5%;
-    top: -35px;
     box-sizing: border-box;
-    margin-bottom: 3%;
     transition: transform .2s;
-
+	margin-top: 3%
 }
 
 .test-profile:hover {
@@ -159,6 +155,8 @@ button:hover {
 }
 
 .author-name {
+	display:flex;
+	align-items: center;
     margin-top: auto;
 }
 
@@ -217,13 +215,22 @@ button:hover {
     transform: scale(1.15)
 }
 .main-label{
+	display:flex;
+	align-items: center;
+	justify-content: center;
     color: white;
     font-weight: 800;
-    margin-right: 10%;
+    margin-right: 5%;
     font-size: x-large;
+	width: 160px;
+	text-align: center;
 }
 .test-container{
+	display:flex; 
+	flex-direction: row;
+	flex-wrap: wrap;
     margin-bottom: 10%;
+	align-items: center;
 }
 
 
@@ -255,7 +262,7 @@ nav{
 		display:none
 	}
 	.header-drop{
-		display: inline-flex;
+		display: none;
 		flex-direction: column;
 	}
 	nav{
@@ -278,8 +285,14 @@ nav{
 	}
 }
 
-@media screen and (max-width:600px){
-	.add-btn{
-		margin-bottom: 15%;
+@media screen and (max-width: 500px){
+	.add-btn, .test-profile, .main-label{
+		width: 140px;
+		height: 100px;
+
 	}
+	.add-btn{
+		margin-right: none;
+		}
+
 }

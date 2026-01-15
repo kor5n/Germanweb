@@ -554,9 +554,9 @@ textarea {
 .sub-menu {
     display: none;
     position: absolute;
-    bottom: 0%;
+    bottom: 150%;
     right: 0.1%;
-	top:60%;
+	top: 90%;
     width: 160px;
     height: 80px;
     background-color: #0097A7;
@@ -710,7 +710,7 @@ nav{
 }
 
 @media screen and (max-width:500px){
-	.profile-pic[style*='display:none'] ~ .header-drop{
+	.header-drop{
 		display: inline-flex;
 		flex-direction: column;
 	}

@@ -3,11 +3,13 @@ body {
 }
 
 header {
+	position: sticky;
     background-color: #0097A7;
-    padding-top: 1%;
     border-bottom: 1px solid #BDBDBD;
     height: 60px;
-    width: 100%;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
 button {
@@ -22,7 +24,6 @@ button:hover {
 .comp-name {
     margin-left: 2%;
     font-size: 250%;
-    height: 100%;
     width: fit-content;
     font-weight: 700;
 }
@@ -32,14 +33,17 @@ button:hover {
     height: 30px;
 }
 
+
 .link-div {
-    margin-left: 5%;
+    margin-right: auto;
     margin-bottom: 1.25%;
     display: inline-flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-direction: row;
-    width: 34%;
-    vertical-align: middle;
+    width: 35%;
+	height:50%;
+	margin-left:5%;
+	align-items: end;
 }
 
 .page-link {
@@ -68,6 +72,7 @@ button:hover {
 }
 
 .log-in {
+    display: none;
     height: 60%;
     background-color: #B2EBF2;
     color: #757575;
@@ -80,6 +85,7 @@ button:hover {
 }
 
 .sign-in {
+    display: none;
     margin-top: .25%;
     margin-right: 0.5%;
     float: right;
@@ -93,20 +99,21 @@ button:hover {
 .main-div {
     padding-top: 5%;
     padding-left: 5%;
-    padding-right: 5%
+    padding-right: 5%;
+	height: 100vh;
 }
 
 .add-btn {
+	display: inline;
     background-color: #FFC107;
     border: 1px solid #0097A7;
     border-radius: 6px;
-    height: 120px;
+    height: 125px;
     color: white;
     width: 160px;
     font-size: 250%;
-    padding: 0.5%;
-    margin-bottom: 7%;
-    margin-right: 5%;
+	margin-top: 3%;
+	margin-right: 5%;
 }
 
 .add-btn:hover {
@@ -114,21 +121,18 @@ button:hover {
 }
 
 .test-profile {
-    position: relative;
     display: inline-flex;
     background: #B2EBF2;
-    height: 120px;
+    height: 125px;
     width: 160px;
     border: 1px solid #0097A7;
     border-radius: 6px;
     margin-right: 5%;
     flex-direction: column;
     padding: 0.5%;
-    top: -52px;
     box-sizing: border-box;
-    margin-bottom: 3%;
     transition: transform .2s;
-
+	margin-top: 3%
 }
 
 .test-profile:hover {
@@ -153,6 +157,8 @@ button:hover {
 }
 
 .author-name {
+	display:flex;
+	align-items: center;
     margin-top: auto;
 }
 
@@ -211,11 +217,84 @@ button:hover {
     transform: scale(1.15)
 }
 .main-label{
+	display:flex;
+	align-items: center;
+	justify-content: center;
     color: white;
     font-weight: 800;
-    margin-right: 10%;
+    margin-right: 5%;
     font-size: x-large;
+	width: 160px;
+	text-align: center;
 }
 .test-container{
+	display:flex; 
+	flex-direction: row;
+	flex-wrap: wrap;
     margin-bottom: 10%;
+	align-items: center;
+}
+
+
+nav{
+	display: none;
+}
+
+.header-drop{
+	display:none;
+	float: right;
+	height: fit-content;
+	width: 15%;
+	color: white;
+	border: none;
+	margin-right: 1%;
+	justify-content: center;
+	float: right;
+	margin-left: auto;
+	background: #0097A7;
+	margin-bottom: auto;
+}
+.drop{
+	display: none;
+}
+
+
+@media screen and (max-width:500px){	
+.header{
+		display:none
+	}
+	.header-drop{
+		display: none;
+		flex-direction: column;
+	}
+	nav{
+		position: fixed;
+		height: 100px;
+		flex-direction: column;
+		align-items: end;
+		justify-content: center;
+		background: #0097A7;
+		width: fit-content;
+		float: right;
+		padding: 1%;
+		left: auto;
+		right:0;
+	}
+	.drop{
+		display: inline;
+		margin: 0;
+		margin-bottom: 2%;
+	}
+}
+
+@media screen and (max-width: 500px){
+	.add-btn, .test-profile, .main-label{
+		width: 140px;
+		height: 100px;
+
+	}
+	.add-btn{
+		margin-right: none;
+		}
+
 }

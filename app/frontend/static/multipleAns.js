@@ -9,7 +9,6 @@ let attempts = 0
 let rightAttempts = 0
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
-const profilePic = document.querySelector(".profile-pic")
 const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
 const subMenu = document.querySelector(".sub-menu")
@@ -24,7 +23,7 @@ async function getImg() {
     }
 }
 
-document.querySelector(".profile-pic").addEventListener("click", () => {
+document.querySelector("#profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
@@ -86,11 +85,11 @@ const genTest = () => {
                 <h1 class="question-text">${defList[indexList[e]]}</h1>
             </div>
             <div class="term-answers">
-                <div>
+                <div class="answer-section">
                     <button class=${buttonType(0, e)}>${ansTerms[0]}</button>
                     <button class=${buttonType(1, e)}>${ansTerms[1]}</button>
                 </div>
-                <div>
+                <div class="answer-section">
                     <button class=${buttonType(2, e)}>${ansTerms[2]}</button>
                     <button class=${buttonType(3, e)}>${ansTerms[3]}</button>
                 </div>
@@ -152,6 +151,15 @@ const getTest = async () => {
             logInBtn.style.display = "inline-block"
             signInBtn.style.display = "inline-block"
             profilePic.style.display = "none"
+			const nav = document.querySelector("nav");
+			document.querySelector(".header-drop").addEventListener("click", () => {
+			if (nav.style.display === "none" || nav.style.display == ""){
+				nav.style.display = "flex";
+			}else if (nav.style.display === "flex"){
+			nav.style.display = "none";
+		}
+});
+
         }
         genTest()
     }
@@ -163,4 +171,3 @@ if (url_split[1] !== null) {
     window.alert("No test was loaded")
     window.location.assign("/")
 }
-

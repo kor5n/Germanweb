@@ -1,12 +1,11 @@
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
-const profilePic = document.querySelector(".profile-pic")
 const subMenu = document.querySelector(".sub-menu")
 let data = 0
 let response = 0
 const curPage = window.location.pathname.split("/")[2]
 
-document.querySelector(".profile-pic").addEventListener("click", () => {
+document.querySelector("#profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
@@ -17,44 +16,34 @@ document.querySelector(".profile-pic").addEventListener("click", () => {
 const addTests = async (testlist, authors) => {
     document.querySelector("main").innerHTML = `<div class="search-div"><textarea rows="1" cols="40" placeholder="Search for tests"
     class="search-input"></textarea><button class="search-btn">Search</button></div>`
-    
-    let loggedIn = false
+
     let testsResp = await fetch("/b/tests")
     let clientTests = await testsResp.json()
-    if (testsResp.status == 200){
-        loggedIn = true	    
-    }
     let btnColor = "grey"
-    let favourites = clientTests.favourites.split(",")
-
+	let favourites = [];
+	console.log(clientTests.favourites);
+	if (clientTests.favourites){
+		favourites = clientTests.favourites.split(",");
+	}
+   
     const tests = testlist[curPage -1]
-
+    try{
+    	let favourites = clientTests.favourites.split(",")
+    }catch{
+	favourites = [];
+    }
     for (let i = 0; i < tests.length; i++) {
-	if (loggedIn){
-	    if (typeof favourites !== 'undefined'){
-                if (favourites.length > 0){
-                    if (favourites.includes(tests[i]["id"].toString())){
-                        btnColor = "red"
-                    }
-                }
- 	    }
-	}
-	 
-	if (clientTests.message !== "You don't have any tests"){
-	    for (let j=0; j<clientTests.message.length; j++){
-	    	if(clientTests.message[j]["id"] == tests[i]["id"]){
-		    displayType = "none"
-		    break
-		}
-	    }
-	}
+        if (favourites.length > 0){
+            if (favourites.includes(tests[i]["id"].toString())){
+                btnColor = "red"
+            }
+        }
         document.querySelector("main").innerHTML += `<div class="test-profile">
                                                 <h3 class="test-name">${tests[i]["title"]}</h3>
                                                 <p class="quest-count">${tests[i]["terms"].split(";").length} questions</p>
-                                                <p class="author-name">${authors[i]} <button style="--c:${btnColor}; display: ${displayType}" class="heart-btn"></button></p>
+                                                <p class="author-name">${authors[i]} <button style="--c:${btnColor}" class="heart-btn"></button></p>
                                             </div>`
         btnColor = "grey"
-	displayType = "inline"
     }
 
     if (testlist.length > 1){
@@ -79,24 +68,24 @@ const addTests = async (testlist, authors) => {
         })
     }
 
+    
+
     for (let j = 0; j < tests.length; j++) {
         document.querySelectorAll(".test-profile")[j].addEventListener("click", () => {
             window.location.assign("/view/" + tests[j]["id"])
         })
         document.querySelectorAll(".heart-btn")[j].addEventListener("click", async function (e) {
-	    if (!loggedIn){window.alert("You have to have an account for this function")
-	    }else{
-                e.stopPropagation();
-                const computedStyle = getComputedStyle(this);
-                const currentColor = computedStyle.getPropertyValue("--c").trim();
-                if (currentColor === "grey"){
-                    this.style.setProperty('--c', 'red')
-                    await fetch("/b/add-favourite/"+tests[j]["id"], {method: "POST"})
-                }else if (currentColor === "red"){
-                    this.style.setProperty("--c", "grey")
-                    await fetch("/b/del-favourite/"+tests[j]["id"], {method: "POST"})
-                }
-	    }
+            e.stopPropagation();
+            const computedStyle = getComputedStyle(this);
+            const currentColor = computedStyle.getPropertyValue("--c").trim();
+            if (currentColor === "grey"){
+                this.style.setProperty('--c', 'red')
+                await fetch("/b/add-favourite/"+tests[j]["id"], {method: "POST"})
+            }else if (currentColor === "red"){
+                this.style.setProperty("--c", "grey")
+                await fetch("/b/del-favourite/"+tests[j]["id"], {method: "POST"})
+            }
+            
         })
     }
     
@@ -107,9 +96,9 @@ const addTests = async (testlist, authors) => {
 }
 
 async function getImg() {
-    logInBtn.style.display = "none"
-    signInBtn.style.display = "none"
-    profilePic.style.display = "inline-block"
+    //logInBtn.style.display = "none"
+    //signInBtn.style.display = "none"
+    //profilePic.style.display = "inline-block"
     const respimg = await fetch("/b/img")
     const img = await respimg.json()
 
@@ -134,7 +123,15 @@ async function getBrowse(prompt) {
     } else {
         if (data.loggedIn === true) {
             getImg()
-        }
+        }else{
+			const nav = document.querySelector("nav");
+			document.querySelector(".header-drop").addEventListener("click", () => {
+			if (nav.style.display === "none" || nav.style.display == ""){
+				nav.style.display = "flex";
+			}else if (nav.style.display === "flex"){
+				nav.style.display = "none";
+			}});
+		}
         addTests(data.tests, data.authors)
     }
 }

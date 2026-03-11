@@ -4,12 +4,10 @@ let attempts = 0
 let fetchedDefs
 const logInBtn = document.querySelector(".log-in")
 const signInBtn = document.querySelector(".sign-in")
-const profilePic = document.querySelector(".profile-pic")
 const flashTitle = document.querySelector(".flash-title")
 const url_split = window.location.pathname.slice(1).split("/")
-const subMenu = document.querySelector(".sub-menu")
-
-document.querySelector(".profile-pic").addEventListener("click", () => {
+const subMenu = document.querySelector(".sub-menu");
+document.querySelector("#profile-pic").addEventListener("click", () => {
     if (subMenu.style.display === "none") {
         subMenu.style.display = "block"
     } else {
@@ -116,6 +114,13 @@ const getTest = async () => {
             logInBtn.style.display = "inline-block"
             signInBtn.style.display = "inline-block"
             profilePic.style.display = "none"
+			const nav = document.querySelector("nav");
+			document.querySelector(".header-drop").addEventListener("click", () => {
+			if (nav.style.display === "none" || nav.style.display == ""){
+				nav.style.display = "flex";
+			}else if (nav.style.display === "flex"){
+				nav.style.display = "none";}});
+
         }
         genTest()
     }

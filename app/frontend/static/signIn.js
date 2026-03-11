@@ -10,7 +10,6 @@ let nameSignUp = document.querySelector(".name-input")
 let passwordSignUp = document.querySelector(".signup-password")
 let logInSwitch = document.querySelector(".log-in")
 let signUpSwitch = document.querySelector(".sign-in")
-let profilePic = document.querySelector(".profile-pic")
 let emailLogIn = document.querySelector(".login-email")
 let passwordLogIn = document.querySelector(".login-password")
 
@@ -36,7 +35,7 @@ for(let i =0; i<eyeIcon.length; i++){
 }
 
 signUpBtn.addEventListener("click", async function () {
-    signUpBtn.innerHTML = "Wait..."
+    this.innerHTML = "Wait..."
     if (emailSignUp.value !== "" && nameSignUp.value !== "" && passwordSignUp.value !== "") {
         const data = {
             "username": nameSignUp.value,
@@ -57,7 +56,6 @@ signUpBtn.addEventListener("click", async function () {
         } else {
             logInSwitch.style.display = "none"
             signUpSwitch.style.display = "none"
-            profilePic.style.display = "inline"
             signUpDiv.style.display = "none"
 
             window.location.assign("/")
@@ -65,83 +63,10 @@ signUpBtn.addEventListener("click", async function () {
     } else {
         alert("You must include a valid name, email and password")
     }
-    signUpBtn.innerHTML = "Sign up"
+    this.innerHTML = "Sign up"
 })
-async function signUp(){
-    signUpBtn.innerHTML = "Wait..."
-    if (emailSignUp.value !== "" && nameSignUp.value !== "" && passwordSignUp.value !== "") {
-        const data = {
-            "username": nameSignUp.value,
-            "email": emailSignUp.value,
-            "password": passwordSignUp.value
-        }
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        }
-        const response = await fetch("/b/sign-up", options)
-        const resp = await response.json()
-        if (response.status !== 201 && response.status !== 200) {
-            alert(resp.message)
-        } else {
-            logInSwitch.style.display = "none"
-            signUpSwitch.style.display = "none"
-            profilePic.style.display = "inline"
-            signUpDiv.style.display = "none"
-
-            window.location.assign("/")
-        }
-    } else {
-        alert("You must include a valid name, email and password")
-    }
-    signUpBtn.innerHTML = "Sign up"
-}
-async function logIn(){
-    logInBtn.innerHTML = "Wait..."
-    if (emailLogIn.value !== "" && passwordLogIn.value !== "") {
-        const data = {
-            "email": emailLogIn.value,
-            "password": passwordLogIn.value
-        }
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        }
-        const response = await fetch("/b/sign-in", options)
-        const resp = await response.json()
-        if (response.status !== 201 && response.status !== 200) {
-
-            alert(resp.message)
-        } else {
-            logInSwitch.style.display = "none"
-            signUpSwitch.style.display = "none"
-            profilePic.style.display = "inline"
-            logInDiv.style.display = "none"
-
-            window.location.assign("/")
-        }
-    } else {
-        alert("You must include a valid email and password")
-    }
-    logInBtn.innerHTML = "Log in"
-}
-
-document.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" && window.location.href.includes("/login")){
-        logIn();
-    }else if (event.key === "Enter" && window.location.href.includes("/signup")){
-	    signUp();
-    }
-})
-
 logInBtn.addEventListener("click", async function () {
-    logInBtn.innerHTML = "Wait..."
+    this.innerHTML = "Wait..."
     if (emailLogIn.value !== "" && passwordLogIn.value !== "") {
         const data = {
             "email": emailLogIn.value,
@@ -162,7 +87,6 @@ logInBtn.addEventListener("click", async function () {
         } else {
             logInSwitch.style.display = "none"
             signUpSwitch.style.display = "none"
-            profilePic.style.display = "inline"
             logInDiv.style.display = "none"
 
             window.location.assign("/")
@@ -170,7 +94,7 @@ logInBtn.addEventListener("click", async function () {
     } else {
         alert("You must include a valid email and password")
     }
-    logInBtn.innerHTML = "Log in"
+    this.innerHTML = "Log in"
 })
 
 if(window.location.pathname === "/login"){

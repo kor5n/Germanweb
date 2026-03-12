@@ -76,7 +76,6 @@ def about_page():
 
 @app.route("/b/tests", methods = ["GET"])
 def get_terms():
-    print(session["id"])
     try:
         user = User.query.get(session["id"])
     except:
